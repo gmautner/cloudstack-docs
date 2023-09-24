@@ -1,0 +1,11 @@
+site_name: CloudStack Docs
+theme:
+  name: material
+  features:
+    - navigation.tabs
+markdown_extensions:
+  - footnotes
+nav:
+  - index.md
+  - Tutorial:
+    - tutorial/primeira-instancia.md
