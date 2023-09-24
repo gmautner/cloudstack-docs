@@ -37,6 +37,24 @@ Para criar a rede:
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__
 2. Clique no botão __Add network +__
 3. Em __name__ coloque um nome como _minha-rede_
-4. Em __Network offering__ escolha _TBD_
+4. Em __Network offering__ escolha _TBD_ (criar offer 1000 Mpbs)
 5. Os demais campos podem ficar em branco. Clique OK.
+
+## Criando a instância
+
+1. No menu de navegação à esquerda clique em __Compute__, __Instances__
+2. Clique no botão __Add instances__
+3. Em __Account__ coloque a sua conta.
+4. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-Locaweb-VPS__ 
+![Template](template.png)
+5. Em __Compute offering__ escolha __TBD__ (criar offers com CPU/memória fixas)
+6. Em __Data disk__ mantenha __No thanks__
+7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
+![SSH key pairs](choose-keypair.png)
+8. Coloque o nome _web_ e clique __Launch instance__
+![Instance details](details.png)
+
+
+
+
 
