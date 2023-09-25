@@ -108,6 +108,10 @@ apt install cpuinfo
 cpu-info
 df -h
 ```
+### Apache
 
-
-
+``` bash
+apt install apache2
+```
+Acesse o IP no browser para testar:
+![Apache](apache.png)

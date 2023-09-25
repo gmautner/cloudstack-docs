@@ -28,13 +28,13 @@ O CloudStack é um projeto __100% open source__ da _Apache Foundation_, eliminan
 
 Para as empresas do grupo, a estimativa de economia de custos é de:
 
-- Redução de __47%__ [^1] a __80%__ [^2] sobre equivalente AWS (Ice Lake) em Ohio, 1 Year Reserved No Upfront, sem impostos.
+- Redução de __61%__ [^1] a __47%__ [^2] sobre equivalente AWS (Ice Lake) em Ohio, 1 Year Reserved No Upfront, sem impostos.
 
-- Redução de __67%__ [^1] a __87%__ [^2] sobre equivalente AWS (Ice Lake) em South America, 1 Year Reserved No Upfront, sem impostos.
+- Redução de __74%__ [^1] a __67%__ [^2] sobre equivalente AWS (Ice Lake) em South America, 1 Year Reserved No Upfront, sem impostos.
 
 - Redução de __50%__ de storage sobre AWS (gp3) Ohio e __73%__ sobre South America
 
 - Redução de __84%__ de banda sobre Ohio e __93%__ sobre South America
 
-[^1]: Referência: 64 cores/512 GB RAM. Diferenças semelhantes para outros tamanhos.
-[^2]: Referência: 64 cores/128 GB RAM. Diferenças semelhantes para outros tamanhos.
+[^1]: Referência: AWS 64 cores/128 GB RAM, CloudStack 64 cores/256 GB RAM.
+[^2]: Referência: 64 cores/512 GB RAM.
