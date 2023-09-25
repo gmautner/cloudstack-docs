@@ -3,6 +3,7 @@ theme:
   name: material
   features:
     - navigation.tabs
+    - content.code.copy
 markdown_extensions:
   - footnotes
 nav:

@@ -36,5 +36,5 @@ Para as empresas do grupo, a estimativa de economia de custos é de:
 
 - Redução de __84%__ de banda sobre Ohio e __93%__ sobre South America
 
-[^1]: 64 cores/512 GB RAM
-[^2]: 64 cores/128 GB RAM
+[^1]: Referência: 64 cores/512 GB RAM. Diferenças semelhantes para outros tamanhos.
+[^2]: Referência: 64 cores/128 GB RAM. Diferenças semelhantes para outros tamanhos.
