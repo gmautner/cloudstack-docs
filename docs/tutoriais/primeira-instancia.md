@@ -13,11 +13,11 @@ Para poder logar-se nas instâncias, crie um chave SSH e cadastre-a no painel.
 1. No menu de navegação à esquerda clique em __Compute__, __SSH key pairs__
 2. Clique no botão __Create a SSH Key Pair +__
 3. Verifique se possui a chave criada na sua estação:
-``` bash
+```bash
 cat ~/.ssh/id_rsa.pub
 ```
 Caso ainda não possua, para criá-la:
-``` bash
+```bash
 ssh-keygen
 cat ~/.ssh/id_rsa.pub
 ```
@@ -43,25 +43,26 @@ Para criar a rede:
 ## Criando a instância
 
 1. No menu de navegação à esquerda clique em __Compute__, __Instances__
-2. Clique no botão __Add instances__
+2. Clique no botão __Add instance +__
 3. Em __Account__ coloque a sua conta.
 4. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-Locaweb-VPS__ 
 ![Template](template.png)
 5. Em __Compute offering__ escolha __TBD__ (criar offers com CPU/memória fixas)
 6. Em __Data disk__ mantenha __No thanks__
-7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
+7. Em __Networks__ escolha a rede que criou, _minha-rede_
+8. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
-8. Coloque o nome _web_ e clique __Launch instance__
+9. Coloque o nome _web_ e clique __Launch instance__
 ![Instance details](details.png)
 
-## Firewall
+## Conectando à internet
 
 Para que a instância criada possa se comunicar com o mundo externo, os próximos passos são:
 
 - Criar regras de _firewall_ restringindo a conexão a origens específicas
 - Associar um endereço IP público e porta via _port forwarding_ ou _load balancing_
 
-Para tal, siga os passos:
+### Firewall
 
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__ e clique na rede criada, ex. _minha-rede_
 2. Ao clicar na aba __Egress rules__ pode-se verificar que o tráfego de saída para a internet é, por padrão, liberado. É possível limitar com restrições mas, no nosso caso, vamos manter assim.
@@ -72,15 +73,17 @@ Para tal, siga os passos:
 5. Iremos para outra página com detalhes sobre o IP escolhido. Clique na aba __Firewall__ e crie 3 regras de firewall:
     1. __Source CIDR__: _0.0.0.0/0_; __Start port__: _80_; __End port__: _80_ (para aceitar conexões HTTP)
     2. __Source CIDR__: _0.0.0.0/0_; __Start port__: _443_; __End port__: _443_ (para aceitar conexões HTTPS)
-    3. __Source CIDR__: _0.0.0.0/0_; __Start port__: _22000_; __End port__: _22000_ (para aceitar conexões SSH)
-    Note que poderíamos restringir origens para cada uma dessas portas. Por exemplo, poderíamos permitir origens SSH somente para uma origem específica, como um _jump server_.
+    3. __Source CIDR__: _0.0.0.0/0_; __Start port__: _22000_; __End port__: _22099_ (para aceitar conexões SSH num range de portas).
+
+!!! info
+    Poderíamos restringir origens para cada uma dessas portas. Por exemplo, poderíamos permitir origens SSH somente para uma origem específica, como um _jump server_.
 ![Firewall](firewall.png)
 
-## Port forwarding
+### Port forwarding
 
 Uma vez configurado qual tráfego permitir, falta direcioná-lo ao destino desejado. Clique sobre a aba __Port forwarding__ e adicione as entradas:
 
-1. __Private port__: _22-22_; __Public port__: _22000-22000_; __Protocol__: _TCP_; botão __Add...__: _web_.
+1. __Private port__: _22-22_; __Public port__: _22000-22000_; __Protocol__: _TCP_; botão __Add...__: _web_
 Veja como a entrada acima direciona tráfego recebido na porta _pública_ 22000 para a porta _privada_ 22 na VM.
 1. __Private port__: _80-80_; __Public port__: _80-80_; __Protocol__: _TCP_; botão __Add...__: _web_
 1. __Private port__: _443-443_; __Public port__: _443-443_; __Protocol__: _TCP_; botão __Add...__: _web_
@@ -90,19 +93,21 @@ Veja como a entrada acima direciona tráfego recebido na porta _pública_ 22000 
 
 Na estação onde tiver a chave privada associada à chave pública que cadastramos:
 
-``` bash
+```bash
 ssh root@<IP público> -p 22000
 ```
-Note que temos que conectar à porta criada para receber conexões via internet, e que esta direciona o tráfego para a porta escolhida (22) na VM.
+
+!!! info
+    Temos que conectar à porta criada para receber conexões via internet, e esta direciona o tráfego para a porta escolhida (22) na VM.
 
 Caso tenha criado uma chave diferente do _default_ `~/.ssh/id_rsa` seguir o exemplo:
 
-``` bash
+```bash
 ssh root@<IP público> -i ~/.ssh/id_rsa2 -p 22000
 ```
 Alguns comandos interessantes:
 
-``` bash
+```bash
 apt update
 apt install cpuinfo
 cpu-info
@@ -110,7 +115,7 @@ df -h
 ```
 ### Apache
 
-``` bash
+```bash
 apt install apache2
 ```
 Acesse o IP no browser para testar:

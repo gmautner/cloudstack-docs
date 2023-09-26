@@ -6,7 +6,11 @@ theme:
     - content.code.copy
 markdown_extensions:
   - footnotes
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 nav:
   - index.md
-  - Tutorial:
-    - tutorial/primeira-instancia.md
+  - Tutoriais:
+    - tutoriais/primeira-instancia.md
+    - tutoriais/apl-autoscaling.md
