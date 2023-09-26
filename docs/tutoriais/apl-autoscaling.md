@@ -290,7 +290,14 @@ Agora criaremos uma nova instância a partir do template:
 ![Template running](template-running.png)
 13. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique __+ Acquire new IP__. Escolha qualquer IP livre.
 ![Acquire new IP](acquire-ip.png)
+14. Clique sobre o IP. Libere o tráfego de origem _0.0.0.0/0_ para _TCP_ e portas _80:80_
+![Firewall template](firewall-template.png)
+15. Em __Port forwarding__ encaminhe a porta 80 para a VM _teste-template_
+![Forwarding template](forwarding-template.png)
 
+Acesse o novo IP no browser em `http://<Endereço IP>`. Deve aparecer a página padrão do Apache.
+
+Acesse também `http://<Endereço IP>/info.php` e `http://<Endereço IP>/todo.php`...
 
 
 
