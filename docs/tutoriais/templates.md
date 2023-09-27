@@ -5,7 +5,7 @@ Neste tutorial demonstraremos:
 - Como criar __templates__, análogos às _imagens_ das nuvens públicas
 - Usando __userdata__ para customizar instâncias a partir de templates
 
-Utilizaremos os recursos criados no tutorial anterior, [Primeira instância](primeira-instancia.md). Execute-o se ainda não o fez.
+Utilizaremos os recursos criados no tutorial anterior, [Compute e Networking](compute.md). Execute-o se ainda não o fez.
 
 ## Banco de dados
 
@@ -324,6 +324,3 @@ Acesse também `http://<Endereço IP>/info.php` e `http://<Endereço IP>/todo.ph
 
 !!! tip "Lembrete"
     Lembre-se de usar o novo endereço IP designado para a nova instância, criada a partir do template. Certifique-se de que a instância anterior _web_ esteja desligada para ter certeza de que está acessando a nova instância criada a partir do template.
-
-Ao final, pode __apagar__ a instância _teste-template_. Acesse a instância em __Compute__, __Instances__ e clique no botão de lixo vermelho à direta. Habilite a opção __Expunge__ (VM é apagada irreversivelmente).
-
