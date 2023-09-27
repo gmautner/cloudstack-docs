@@ -13,4 +13,5 @@ nav:
   - index.md
   - Tutoriais:
     - tutoriais/primeira-instancia.md
-    - tutoriais/apl-autoscaling.md
+    - tutoriais/templates.md
+    - tutoriais/loadbalancing.md

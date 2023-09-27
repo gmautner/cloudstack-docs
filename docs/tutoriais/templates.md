@@ -1,11 +1,9 @@
-# Aplicação com autoscaling
+# Templates e Userdata
 
 Neste tutorial demonstraremos:
 
 - Como criar __templates__, análogos às _imagens_ das nuvens públicas
 - Usando __userdata__ para customizar instâncias a partir de templates
-- __Load balancers__ para dividir tráfeto entre múltiplas instâncias
-- __Autoscaling__ para adequar o número de instâncias a uma demanda variável
 
 Utilizaremos os recursos criados no tutorial anterior, [Primeira instância](primeira-instancia.md). Execute-o se ainda não o fez.
 
@@ -171,13 +169,13 @@ Então:
 1. Edite o arquivo `/var/www/html/todo.php` para:
 ```php
 <?php
-include '/var/www/config.php';
+include '/var/www/config.php'; // Linha acrescentada
 
 $user = "example_user";
-$password = DB_PASSWORD;
+$password = DB_PASSWORD; // Valor hardcoded substituído por uma variável
 $database = "example_database";
 $table = "todo_list";
-$host = DB_HOST;
+$host = DB_HOST; // Valor hardcoded substituído por uma variável
 
 try {
   $db = new PDO("mysql:host=$host;dbname=$database", $user, $password);
@@ -268,7 +266,32 @@ O segundo comando limpa vestígios de carregamentos anteriores do _cloud-init_.
 5. Preencha da seguinte forma e dê OK:
 ![To Do template](todo-template.png)
 
-### Teste do template
+## Userdata com variáveis
+
+No próximo passo, criaremos um __Userdata__ parametrizável, ou seja, onde o usuário pode escolher os valores `DB_HOST` e `DB_PASSWORD`
+
+1. No menu de navegação à esquerda clique em __Compute__, __User Data__, __Register a userdata +__
+2. No nome, colocar _tutorial_. Em __Userdata__ colar o código abaixo:
+```yaml
+## template: jinja
+#cloud-config
+
+write_files:
+  - path: /var/www/config.php
+    content: |
+      <?php
+      define('DB_HOST', '{{ ds.meta_data.db_host }}');
+      define('DB_PASSWORD', '{{ ds.meta_data.db_password }}');
+    owner: "www-data:www-data"
+    permissions: '0600'
+```
+![Register userdata](register-userdata.png)
+3. Antes de dar OK preencha o campo __Userdata parameters__ com `db_host, db_password`
+
+!!! info
+    Na primeira linha `## template: jinja` configuramos o _cloud-init_ para processar os valores que o CloudStack passa dentro das chaves `{{ }}`. Isto permite a parametrização do _Userdata_.
+
+## Recriação da instância
 
 Agora criaremos uma nova instância a partir do template:
 
@@ -297,25 +320,10 @@ Agora criaremos uma nova instância a partir do template:
 
 Acesse o novo IP no browser em `http://<Endereço IP>`. Deve aparecer a página padrão do Apache.
 
-Acesse também `http://<Endereço IP>/info.php` e `http://<Endereço IP>/todo.php`...
+Acesse também `http://<Endereço IP>/info.php` e `http://<Endereço IP>/todo.php`... Boa sorte! Se seguiu os passos até aqui, tudo deve funcionar.
 
+!!! tip "Lembrete"
+    Lembre-se de usar o novo endereço IP designado para a nova instância, criada a partir do template. Certifique-se de que a instância anterior _web_ esteja desligada para ter certeza de que está acessando a nova instância criada a partir do template.
 
-
-
-
-## Backup
-```
-## template: jinja
-#cloud-config
-
-write_files:
-  - path: /var/www/config.php
-    content: |
-      <?php
-      define('DB_HOST', '{{ ds.meta_data.db_host }}');
-      define('DB_PASSWORD', '{{ ds.meta_data.db_password }}');
-      ?>
-    owner: "www-data:www-data"
-    permissions: '0600'
-```
+Ao final, pode __apagar__ a instância _teste-template_. Acesse a instância em __Compute__, __Instances__ e clique no botão de lixo vermelho à direta. Habilite a opção __Expunge__ (VM é apagada irreversivelmente).
 
