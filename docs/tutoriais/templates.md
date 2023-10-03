@@ -160,6 +160,41 @@ try {
 
 E acesse `http://<Endereço IP>/todo.php`
 
+### Página com CPU alta
+
+Para testar o autoscaling mais adiante, criaremos uma página com alto consumo de CPU. Não se preocupe com o conteúdo.
+
+!!! tip "Curiosidade"
+    Eu pedi para o ChatGPT escrever uma página em PHP que consome muita CPU e gera resultados aleatórios. A página é um método estatístico para calcular o valor de Pi
+
+```bash
+cat << 'EOF' > /var/www/html/pi.php
+<?php
+// Define the number of random points to be generated
+$numPoints = mt_rand(1e6, 1e7);
+
+$insideCircle = 0;
+
+// Generate random points and check if they are inside the unit circle
+for ($i = 0; $i < $numPoints; $i++) {
+    $x = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
+    $y = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
+
+    if (sqrt($x * $x + $y * $y) <= 1) {
+        $insideCircle++;
+    }
+}
+
+// Estimate the value of Pi using the Monte Carlo method
+$piEstimation = (4 * $insideCircle) / $numPoints;
+
+echo "Estimated value of Pi: $piEstimation";
+?>
+EOF
+```
+
+Teste a página fazendo refresh no endereço `http://<Endereço IP>/pi.php` algumas vezes e vendo o resultado mudar.
+
 ## Userdata
 
 No código acima, o endereço do _host_ do banco de dados e a senha estão hardcoded, impedindo que o servidor sirva de _template_ para deployment em outros ambientes ou que seja replicado para _load balancing_.
@@ -195,7 +230,7 @@ try {
 ```bash
 nano /var/www/config.php
 ```
-Com o conteúdo (use o IP e senha do seu banco de dados):
+Insira o conteúdo (use o IP e senha do seu banco de dados):
 ```php
 <?php
 define('DB_HOST', '10.1.1.120');
@@ -320,7 +355,15 @@ Agora criaremos uma nova instância a partir do template:
 
 Acesse o novo IP no browser em `http://<Endereço IP>`. Deve aparecer a página padrão do Apache.
 
-Acesse também `http://<Endereço IP>/info.php` e `http://<Endereço IP>/todo.php`... Boa sorte! Se seguiu os passos até aqui, tudo deve funcionar.
+Acesse também as páginas:
+
+```
+http://<Endereço IP>/info.php
+http://<Endereço IP>/todo.php
+http://<Endereço IP>/pi.php
+```
+
+Se seguiu os passos até aqui, tudo deve funcionar, demonstrando que o servidor criado a partir do template possui toda a programação inserida previamente.
 
 !!! tip "Lembrete"
     Lembre-se de usar o novo endereço IP designado para a nova instância, criada a partir do template. Certifique-se de que a instância anterior _web_ esteja desligada para ter certeza de que está acessando a nova instância criada a partir do template.
