@@ -18,7 +18,7 @@ Ao final deste tutorial você terá total domínio de como fazer:
 - Load balancers
 - Grupos de autoscaling
 
-## Vantagens do CloudStack
+<!-- ## Vantagens do CloudStack
 
 ### Open Source
 
@@ -37,4 +37,4 @@ Para as empresas do grupo, a estimativa de economia de custos é de:
 - Redução de __84%__ de banda sobre Ohio e __93%__ sobre South America
 
 [^1]: Referência: AWS 64 cores/128 GB RAM, CloudStack 64 cores/256 GB RAM.
-[^2]: Referência: 64 cores/512 GB RAM.
+[^2]: Referência: 64 cores/512 GB RAM. -->

@@ -142,7 +142,7 @@ $user = "example_user";
 $password = "<senha_bd>";
 $database = "example_database";
 $table = "todo_list";
-$host = "10.1.1.120";
+$host = "<ip_bd>"; // IP privado do bd no CloudStack, ex. "10.1.10.120"
 
 try {
   $db = new PDO("mysql:host=$host;dbname=$database", $user, $password);
@@ -158,6 +158,9 @@ try {
 ?>
 ```
 
+!!! tip "Dica"
+    Note que usamos o IP privado do bd, pois o servidor web o acessa pela rede privada. Com isso, não precisamos expor o bd para a rede pública.
+
 E acesse `http://<Endereço IP>/todo.php`
 
 ### Página com CPU alta
@@ -165,10 +168,13 @@ E acesse `http://<Endereço IP>/todo.php`
 Para testar o autoscaling mais adiante, criaremos uma página com alto consumo de CPU. Não se preocupe com o conteúdo.
 
 !!! tip "Curiosidade"
-    Eu pedi para o ChatGPT escrever uma página em PHP que consome muita CPU e gera resultados aleatórios. A página é um método estatístico para calcular o valor de Pi
+    Eu pedi para o ChatGPT escrever uma página em PHP que consome muita CPU e gera resultados aleatórios. Ele respondeu com um método estatístico para calcular o valor de Pi. 
 
 ```bash
-cat << 'EOF' > /var/www/html/pi.php
+nano /var/www/html/pi.php
+```
+E adicione o conteúdo:
+```php
 <?php
 // Define the number of random points to be generated
 $numPoints = mt_rand(1e6, 1e7);
@@ -190,7 +196,6 @@ $piEstimation = (4 * $insideCircle) / $numPoints;
 
 echo "Estimated value of Pi: $piEstimation";
 ?>
-EOF
 ```
 
 Teste a página fazendo refresh no endereço `http://<Endereço IP>/pi.php` algumas vezes e vendo o resultado mudar.
@@ -233,7 +238,7 @@ nano /var/www/config.php
 Insira o conteúdo (use o IP e senha do seu banco de dados):
 ```php
 <?php
-define('DB_HOST', '10.1.1.120');
+define('DB_HOST', '<ip_bd>'); // use o IP interno da instância, ex. 10.1.1.120
 define('DB_PASSWORD', '<senha_bd>');
 ?>
 ```
@@ -256,7 +261,7 @@ Note que a aplicação quebrou. O segundo comando instrui o servidor a carregar 
 ![Stop instance](stop.png)
 6. Clique no botão __Edit instance__
 ![Edit instance](edit.png)
-7. No campo __Userdata__, cole:
+7. No campo __Userdata__, cole, substituindo o IP interno do servidor _bd_:
 ```yaml
 #cloud-config
 
@@ -265,7 +270,7 @@ write_files:
     content: |
       <?php
       // Escrito por Userdata
-      define('DB_HOST', '10.1.1.120');
+      define('DB_HOST', '<ip_bd>'); // exemplo '10.1.1.120'
       define('DB_PASSWORD', '<senha_bd>');
       ?>
     owner: "www-data:www-data"

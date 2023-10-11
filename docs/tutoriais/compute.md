@@ -4,7 +4,7 @@
 
 Para começar, acesse [o painel do CloudStack](https://acs.cloud.locaweb.com.br) e forneça as credenciais que recebeu.
 
-Use a aba "Single Sign-On" se estiver acessando via CAS.
+Use a aba "Single Sign-On" se estiver acessando via SAML.
 
 ## Chaves SSH
 
