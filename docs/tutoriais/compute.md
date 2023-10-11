@@ -37,7 +37,7 @@ Para criar a rede:
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__
 2. Clique no botão __Add network +__
 3. Em __name__ coloque um nome como _minha-rede_
-4. Em __Network offering__ escolha _TBD_ (criar offer 1000 Mpbs)
+4. Em __Network offering__ escolha `GIBA_NETWORK_OFFERING` (criar offer 1000 Mpbs)
 5. Os demais campos podem ficar em branco. Clique OK.
 
 ## Criando a instância
