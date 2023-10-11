@@ -1,6 +1,6 @@
 # Introdução
 
-A ideia deste guia é conhecer o CloudStack através de um exemplo de uma aplicação Laravel com banco de dados MySQL.
+A ideia deste guia é conhecer o CloudStack através de um exemplo de uma aplicação PHP com banco de dados MySQL.
 
 Os conceitos servem para qualquer outro framework (Ruby, Python etc.), qualquer outro banco (Postgres, Mongo) e qualquer tipo de arquitetura (monolito, microsserviços)
 
