@@ -2,7 +2,7 @@ site_name: CloudStack Docs
 theme:
   name: material
   features:
-    - navigation.tabs
+    # - navigation.tabs
     - content.code.copy
 markdown_extensions:
   - footnotes
