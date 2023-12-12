@@ -69,7 +69,7 @@ mysql -u root -h localhost
 
 No prompt to MySQL copie os comandos:
 
-```
+```SQL
 CREATE DATABASE `example_database`;
 CREATE USER 'example_user'@'%' IDENTIFIED BY '<senha_bd>';
 GRANT ALL PRIVILEGES ON `example_database`.* TO 'example_user'@'%';
@@ -79,28 +79,24 @@ CREATE TABLE example_database.todo_list (
 	content VARCHAR(255),
 	PRIMARY KEY(item_id)
 );
-EXIT;
 ```
 !!! info
     Embora estejamos permitindo conexões do _meu_usuario_ de qualquer host, lembre que a rede (_minha-rede_) é isolada. Não havendo portas criadas em _firewall_ nem _forwarding_, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.
 
     Note, também, que o usuário _root_, por default, só permite conexões do próprio servidor (_localhost_)
 
-Agora criaremos uma tabela e preencheremos com dados para uso pela aplicação.
+Agora criaremos uma tabela e preencheremos com dados para uso pela aplicação. Ainda no prompt do MySQL execute:
 
-```bash
-echo "INSERT INTO example_database.todo_list (content) VALUES" > insert_data.sql
-
-for i in {1..9999}
-do
-  echo "(CONCAT('Random Task ', ROUND(RAND() * 10000))),"
-done >> insert_data.sql
-
-echo "(CONCAT('Random Task ', ROUND(RAND() * 10000)));" >> insert_data.sql
-
-mysql -u root -h localhost < insert_data.sql
+```SQL
+USE example_database;
+INSERT INTO todo_list (content) VALUES ("Minha primeira tarefa");
+INSERT INTO todo_list (content) VALUES ("Minha segunda tarefa");
 ```
-
+Adicione mais linhas a gosto. Para testar a inclusão digite:
+```SQL
+SELECT * from todo_list;
+EXIT;
+```
 ## Instalação da aplicação
 
 !!! info
