@@ -42,7 +42,8 @@ __Private port__: _22-22_; __Public port__: _22001-22001_; __Protocol__: _TCP_; 
 Agora acesse o servidor de banco de dados, seguimos o mesmo padrão para a primeira instância, bastando mudar a porta para _22001_:
 
 ```bash
-ssh root@<IP público> -p 22001
+# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
+ssh root@200.234.208.5 -p 22001
 ```
 
 Para instalar o MySQL:
@@ -105,7 +106,8 @@ EXIT;
 Entre novamente no servidor _web_:
 
 ```bash
-ssh root@<IP público> -p 22000
+# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
+ssh root@200.234.208.5 -p 22000
 ```
 
 E instale o PHP para Apache:
@@ -122,7 +124,7 @@ phpinfo();
 EOF
 ```
 
-E acesse `http://<Endereço IP>/info.php`
+E acesse `http://200.234.208.5/info.php` (use o IP para o qual configurou port forwarding para o servidor _web_).
 
 Agora criaremos nossa aplicação, que lista a tabela `todo_list`:
 
@@ -138,7 +140,7 @@ $user = "example_user";
 $password = "<senha_bd>";
 $database = "example_database";
 $table = "todo_list";
-$host = "<ip_bd>"; // IP privado do bd no CloudStack, ex. "10.1.10.120"
+$host = "10.1.1.120"; // Coloque o IP privado do servidor bd no CloudStack
 
 try {
   $db = new PDO("mysql:host=$host;dbname=$database", $user, $password);
@@ -157,7 +159,7 @@ try {
 !!! tip "Dica"
     Note que usamos o IP privado do bd, pois o servidor web o acessa pela rede privada. Com isso, não precisamos expor o bd para a rede pública.
 
-E acesse `http://<Endereço IP>/todo.php`
+E acesse `http://200.234.208.5/todo.php` (use o IP para o qual configurou port forwarding para o servidor _web_).
 
 ### Página com CPU alta
 
@@ -194,7 +196,7 @@ echo "Estimated value of Pi: $piEstimation";
 ?>
 ```
 
-Teste a página fazendo refresh no endereço `http://<Endereço IP>/pi.php` algumas vezes e vendo o resultado mudar.
+Teste a página fazendo refresh no endereço `http://200.234.208.5/pi.php` algumas vezes e vendo o resultado mudar (use o IP para o qual configurou port forwarding para o servidor _web_)
 
 ## Userdata
 
@@ -234,7 +236,7 @@ nano /var/www/config.php
 Insira o conteúdo (use o IP e senha do seu banco de dados):
 ```php
 <?php
-define('DB_HOST', '<ip_bd>'); // use o IP interno da instância, ex. 10.1.1.120
+define('DB_HOST', '10.1.1.120'); // Coloque o IP privado do servidor bd no CloudStack
 define('DB_PASSWORD', '<senha_bd>');
 ?>
 ```
@@ -243,7 +245,7 @@ E proteja as permissões:
 chown www-data:www-data /var/www/config.php
 chmod 600 /var/www/config.php
 ```
-Acesse novamente `http://<Endereço IP>/todo.php` para testar.
+Acesse novamente `http://200.234.208.5/todo.php` para testar (use o IP para o qual configurou port forwarding para o servidor _web_).
 
 3. Finalmente, apague o arquivo criado:
 ```bash
@@ -265,8 +267,8 @@ write_files:
   - path: /var/www/config.php
     content: |
       <?php
-      // Escrito por Userdata
-      define('DB_HOST', '<ip_bd>'); // exemplo '10.1.1.120'
+      // Use o IP privado do servidor bd no CloudStack
+      define('DB_HOST', '10.1.1.120');
       define('DB_PASSWORD', '<senha_bd>');
       ?>
     owner: "www-data:www-data"
@@ -342,7 +344,7 @@ Agora criaremos uma nova instância a partir do template:
 8. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
 9. Em __Advanced mode__, habilite __Show advanced settings__
-10. Em __Stored Userdata__, selecione __tutorial__ e preencha __db_host__: `<IP do servidor de BD>`; __db_password__: `<senha_bd>`
+10. Em __Stored Userdata__, selecione __tutorial__ e preencha __db_host__: `10.1.1.120` (coloque o IP privado do servidor bd no CloudStack); __db_password__: `<senha_bd>`
 ![Stored Userdata](stored-userdata.png)
 11. Em __name__ coloque _teste-template_ e clique __Launch instance__
 12. Em __Compute__, __Instances__ verifique que a instância recém criada a partir do template está ligada e a anterior desligada
@@ -354,14 +356,14 @@ Agora criaremos uma nova instância a partir do template:
 15. Em __Port forwarding__ encaminhe a porta 80 para a VM _teste-template_
 ![Forwarding template](forwarding-template.png)
 
-Acesse o novo IP no browser em `http://<Endereço IP>`. Deve aparecer a página padrão do Apache.
+Usando o endereço IP recém adquirido, acesse-o no browser em `http://200.234.208.120`. Deve aparecer a página padrão do Apache.
 
-Acesse também as páginas:
+Acesse também as páginas, substituindo pelo endereço IP recém adquirido:
 
 ```
-http://<Endereço IP>/info.php
-http://<Endereço IP>/todo.php
-http://<Endereço IP>/pi.php
+http://200.234.208.120/info.php
+http://200.234.208.120/todo.php
+http://200.234.208.120/pi.php
 ```
 
 Se seguiu os passos até aqui, tudo deve funcionar, demonstrando que o servidor criado a partir do template possui toda a programação inserida previamente.

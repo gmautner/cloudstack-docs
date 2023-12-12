@@ -37,7 +37,7 @@ Para criar a rede:
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__
 2. Clique no botão __Add network +__
 3. Em __name__ coloque um nome como _minha-rede_
-4. Em __Network offering__ escolha `GIBA_NETWORK_OFFERING` (criar offer 1000 Mpbs)
+4. Em __Network offering__ escolha `(TBD: criar offer 1 Gbps) GIBA_NETWORK_OFFERING_V3`
 5. Os demais campos podem ficar em branco. Clique OK.
 
 ## Criando a instância
@@ -94,7 +94,8 @@ Veja como a entrada acima direciona tráfego recebido na porta _pública_ 22000 
 Na estação onde tiver a chave privada associada à chave pública que cadastramos:
 
 ```bash
-ssh root@<IP público> -p 22000
+# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
+ssh root@200.234.208.5 -p 22000
 ```
 
 !!! info
