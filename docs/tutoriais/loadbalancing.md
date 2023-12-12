@@ -71,9 +71,9 @@ Você pode verificar o grupo criado no menu __Compute__, __AutoScale VM Groups__
 Pode também testar as páginas, usando o endereço IP público associado ao load balancer criado.
 
 ```
-http://<Endereço IP>/info.php
-http://<Endereço IP>/todo.php
-http://<Endereço IP>/pi.php
+http://200.234.208.120/info.php
+http://200.234.208.120/todo.php
+http://200.234.208.120/pi.php
 ```
 
 ## Teste de carga
@@ -95,7 +95,7 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export default function () {
-  http.get('http://<Endereço IP>/pi.php'); // Ex. 'http://200.234.208.120/pi.php'
+  http.get('http://200.234.208.120/pi.php'); // Use o endereço IP público associado ao load balancer criado acima
   sleep(1);
 }
 ```
