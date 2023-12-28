@@ -22,7 +22,7 @@ ssh-keygen
 cat ~/.ssh/id_rsa.pub
 ```
 
-Copie todas as linhas de saída do comando _cat_ e cole no campo __Public key__. Escolhe um nome como _minha-chave_ e clique OK.
+Copie todas as linhas de saída do comando _cat_ e cole no campo __Public key__. Escolha um nome como _minha-chave_ e clique OK.
 
 ![Create SSH key pair](keypair.png)
 
@@ -69,42 +69,53 @@ Para que a instância criada possa se comunicar com o mundo externo, os próximo
 ![Egress rules](egress.png)
 3. Na aba __Public IP addresses__ vemos que já há um primeiro IP associado e marcado como _source-nat_. Isto indica que tráfego originado de dentro da rede para a internet terá este IP como origem.
 ![Public IP addresses](public-ip.png)
-4. Este mesmo IP pode ser usado também para filtrar e direcionar tráfego oruindo da internet. Clique sobre ele.
-5. Iremos para outra página com detalhes sobre o IP escolhido. Clique na aba __Firewall__ e crie 3 regras de firewall:
+4. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique __+ Acquire new IP__. Escolha qualquer IP livre.
+![Acquire new IP](acquire-ip.png)
+5. Clique sobre o novo IP escolhido (exemplo: `200.234.208.120`). Clique na aba __Firewall__ e crie as seguintes regras:
     1. __Source CIDR__: _0.0.0.0/0_; __Start port__: _80_; __End port__: _80_ (para aceitar conexões HTTP)
     2. __Source CIDR__: _0.0.0.0/0_; __Start port__: _443_; __End port__: _443_ (para aceitar conexões HTTPS)
-    3. __Source CIDR__: _0.0.0.0/0_; __Start port__: _22000_; __End port__: _22099_ (para aceitar conexões SSH num range de portas).
+    3. __Source CIDR__: _0.0.0.0/0_; __Start port__: _22_; __End port__: _22_ (para aceitar conexões SSH num range de portas).
+    4. __Source CIDR__: _0.0.0.0/0_; __Protocol__: _ICMP_ (para testarmos _ping_).
 
 !!! info
     Poderíamos restringir origens para cada uma dessas portas. Por exemplo, poderíamos permitir origens SSH somente para uma origem específica, como um _jump server_.
 ![Firewall](firewall.png)
 
-### Port forwarding
+### Static NAT
 
-Uma vez configurado qual tráfego permitir, falta direcioná-lo ao destino desejado. Clique sobre a aba __Port forwarding__ e adicione as entradas:
+Uma vez configurado qual tráfego permitir, falta direcioná-lo ao destino desejado. Existem 3 formas diferentes de configurar o tráfego para o endereço IP:
 
-1. __Private port__: _22-22_; __Public port__: _22000-22000_; __Protocol__: _TCP_; botão __Add...__: _web_
-Veja como a entrada acima direciona tráfego recebido na porta _pública_ 22000 para a porta _privada_ 22 na VM.
-1. __Private port__: _80-80_; __Public port__: _80-80_; __Protocol__: _TCP_; botão __Add...__: _web_
-1. __Private port__: _443-443_; __Public port__: _443-443_; __Protocol__: _TCP_; botão __Add...__: _web_
-![Forwarding](forwarding.png)
+- Static NAT
+- Port Forwarding
+- Load Balancing
+
+A forma mais simples e direta de associar um endereço IP a uma instância é via _Static NAT_, onde todo o tráfego recebido no IP é direcionado sempre à mesma instância. É o paradigma que mais se assemelha a um VPS, que tem uma associação 1:1 com um IP público.
+
+Clique sobre o botão `(+)` no canto superior direito da página do IP, onde se lê _Enable static NAT_.
+![Enable Static NAT](enable-static-nat.png)
+
+Em seguida escolha como destino a instância _web_ que criamos.
+![Static NAT](static-nat.png)
 
 ## Conexão
+
+Uma vez que habilitamos _ICMP_ para o IP, podemos testar o _ping_:
+
+```bash
+ping 200.234.208.120 # substitua pelo IP que escolheu acima
+```
 
 Na estação onde tiver a chave privada associada à chave pública que cadastramos:
 
 ```bash
-# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
-ssh root@200.234.208.5 -p 22000
+# Substitua pelo IP que escolheu acima
+ssh root@200.234.208.120
 ```
-
-!!! info
-    Temos que conectar à porta criada para receber conexões via internet, e esta direciona o tráfego para a porta escolhida (22) na VM.
 
 Caso tenha criado uma chave diferente do _default_ `~/.ssh/id_rsa` seguir o exemplo:
 
 ```bash
-ssh root@<IP público> -i ~/.ssh/id_rsa2 -p 22000
+ssh root@200.234.208.120 -i ~/.ssh/id_rsa2
 ```
 Alguns comandos interessantes:
 
