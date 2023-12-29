@@ -366,7 +366,7 @@ Agora criaremos uma nova instância a partir do template:
 ![Select IP](select-ip.png)
 14. Clique sobre o IP. Vamos desvincula-lo da instância _web_:
 ![Disable static NAT](disable-static-nat.png)
-15. E agora vincule o mesmo IP à nova instância _teste-template_ seguindo o mesmo procedimento clicando em _Enable Static NAT_ e escolhendo a nova instância como destino.
+15. E agora vincule o mesmo IP à nova instância _teste-template_ seguindo o mesmo procedimento clicando em _Enable Static NAT_ e escolhendo-a como destino.
 16. Note que é necessário recriar as regras de firewall para o IP após ter sido remapeado para nova instância:
 ![Firewall template](firewall-template.png)
 

@@ -14,11 +14,10 @@ No menu de navegação à esquerda clique em __Compute__, __Instances__ e clique
 ## Criação do Load Balancer
 
 1. No menu à esquerda selecione __Network__, __Guest networks__ e clique na rede _minha-rede_
-2. Clique na aba __Public IP addresses__ e no endereço criado no tutorial anterior para o acesso à web para instância criada a partir do template.
-3. Em __Port forwarding__, __remova__ o encaminhamento da porta 80 criado para a instância _teste-template_
-![Remove rule](remove-rule.png)
+2. Clique sobre o IP que alocamos via _Static NAT_ para _teste_template_, por exemplo `200.234.208.120`
+3. Clique em __Disable static NAT__ para liberar o IP.
 4. Clique na aba __Load balancing__ e preencha conforme:
-    * __Name__: _autoscaling_
+    * __Name__: _lb_
     * __Public port__: _80_
     * __Private port__: _80_
     * __CIDR list__: _0.0.0.0/0_
@@ -37,9 +36,9 @@ No menu de navegação à esquerda clique em __Compute__, __Instances__ e clique
 2. Em __Compute offering__ escolha __TBD__
 3. Escolha a rede _minha-rede_
 ![Autoscale network](autoscale-network.png)
-4. Em __Load balancing__ mantenha a seleção da regra _autoscaling_ 
+4. Em __Load balancing__ mantenha a seleção da regra _lb_ 
 ![Autoscale load balancing](autoscale-loadbalancing.png)
-5. Em __ScaleUp policies__, ajuste o __Duration__ e __Quite time__ para 30 segundos, para encurtar o tempo de resposta no nosso teste de carga. Em __Counter__ escolhe _VM CPU - average percentage_, __Operator__: _Greater than_, __Threshold__: _70_ e pressione __Add condition__
+5. Em __ScaleUp policies__, ajuste o __Duration__ e __Quite time__ para 30 segundos, para encurtar o tempo de resposta no nosso teste de carga. Em __Counter__ escolha _VM CPU - average percentage_, __Operator__: _Greater than_, __Threshold__: _70_ e pressione __Add condition__
 ![ScaleUp](scaleup.png)
 5. Em __ScaleDown policies__, ajuste o __Duration__ e __Quite time__ para 30 segundos, para encurtar o tempo de resposta no nosso teste de carga. Em __Counter__ escolhe _VM CPU - average percentage_, __Operator__: _Less than_, __Threshold__: _20_ e pressione __Add condition__
 ![ScaleUp](scaledown.png)
@@ -52,7 +51,7 @@ write_files:
     content: |
       <?php
       // Escrito por Userdata
-      define('DB_HOST', '<ip_bd>'); // exemplo '10.1.1.120'
+      define('DB_HOST', '10.1.1.120'); // coloque o IP interno do bd
       define('DB_PASSWORD', '<senha_bd>');
       ?>
     owner: "www-data:www-data"
