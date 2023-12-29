@@ -27,11 +27,22 @@ Para suportar a aplicação que criaremos a seguir, precisamos de um banco de da
 
 ### Port forwarding
 
-Assim como para a primeira instância, precisamos também criar um encaminhamento de porta para conexão via SSH.
+Ao contrário do _Static NAT_, o método de _Port Forwarding_ permite a reutilização de um mesmo Endereço IP público para diferentes instâncias, em função da porta acessada.
 
-Acesse a rede pré-criada (_minha-rede_), clique sobre o IP existente, acesse a aba __Port forwarding__ e adicione a entrada:
+Por exemplo, para acesso SSH podemos encaminhar a porta _22000_ de um IP para a instância _web_, a porta _22001_ do mesmo IP para _bd_ e assim por diante.
 
-__Private port__: _22-22_; __Public port__: _22001-22001_; __Protocol__: _TCP_; botão __Add...__: _bd_
+Isso proporciona mais um nível de segurança além do _firewall_, porque sem um encaminhamento explícito a instância fica inacessível pela internet pública. É um bom caso de uso para a instância _bd_, para a qual precisamos abrir apenas a porta de SSH para fora da _minha-rede_.
+
+Acesse a rede pré-criada (_minha-rede_) e clique sobre o primeiro IP da lista, que possui a nota `source-nat` ao lado dele.
+
+Clique na aba __Firewall__ e crie a regra:
+
+__Source CIDR__: _0.0.0.0/0_; __Start port__: _22000_; __End port__: _22099_ (para aceitar conexões SSH num range de portas).
+
+Acesse a aba __Port forwarding__ e adicione as entradas:
+
+  1. __Private port__: _22-22_; __Public port__: _22000-22000_; __Protocol__: _TCP_; botão __Add...__: _web_
+  1. __Private port__: _22-22_; __Public port__: _22001-22001_; __Protocol__: _TCP_; botão __Add...__: _bd_
 ![Add VM](forwarding-bd.png)
 
 !!! info
@@ -39,7 +50,7 @@ __Private port__: _22-22_; __Public port__: _22001-22001_; __Protocol__: _TCP_; 
 
 ### Instalação do MySQL e banco
 
-Agora acesse o servidor de banco de dados, seguimos o mesmo padrão para a primeira instância, bastando mudar a porta para _22001_:
+Agora acesse o servidor de banco de dados, lembrando de usar a porta _22001_:
 
 ```bash
 # Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
@@ -82,7 +93,7 @@ CREATE TABLE example_database.todo_list (
 );
 ```
 !!! info
-    Embora estejamos permitindo conexões do _meu_usuario_ de qualquer host, lembre que a rede (_minha-rede_) é isolada. Não havendo portas criadas em _firewall_ nem _forwarding_, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.
+    Embora estejamos permitindo conexões do _meu_usuario_ de qualquer host, lembre que a rede (_minha-rede_) é isolada. Não havendo portas criadas em _firewall_ nem _forwarding_ para o MySQL, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.
 
     Note, também, que o usuário _root_, por default, só permite conexões do próprio servidor (_localhost_)
 
@@ -103,7 +114,7 @@ EXIT;
 !!! info
     O exemplo que segue é ilustrativo e a aplicação é muito simples. Mas a lógica serve para aplicações de qualquer natureza e complexidade, sejam monolitos, microsserviços, _back-ends_ etc.
 
-Entre novamente no servidor _web_:
+Para ilustrar o funcinamento de _port forwarding_ entre via SSH no servidor _web_:
 
 ```bash
 # Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
@@ -124,7 +135,7 @@ phpinfo();
 EOF
 ```
 
-E acesse `http://200.234.208.5/info.php` (use o IP para o qual configurou port forwarding para o servidor _web_).
+E acesse `http://200.234.208.120/info.php` (aqui usamos o IP mapeado via _Static NAT_ para a instância _web_).
 
 Agora criaremos nossa aplicação, que lista a tabela `todo_list`:
 
@@ -159,7 +170,7 @@ try {
 !!! tip "Dica"
     Note que usamos o IP privado do bd, pois o servidor web o acessa pela rede privada. Com isso, não precisamos expor o bd para a rede pública.
 
-E acesse `http://200.234.208.5/todo.php` (use o IP para o qual configurou port forwarding para o servidor _web_).
+E acesse `http://200.234.208.120/todo.php` (use o IP mapeado via _Static NAT_ para a instância _web_).
 
 ### Página com CPU alta
 
@@ -167,6 +178,8 @@ Para testar o autoscaling mais adiante, criaremos uma página com alto consumo d
 
 !!! tip "Curiosidade"
     Eu pedi para o ChatGPT escrever uma página em PHP que consome muita CPU e gera resultados aleatórios. Ele respondeu com um método estatístico para calcular o valor de Pi. 
+
+Na sessão SSH da instância _web_ execute:
 
 ```bash
 nano /var/www/html/pi.php
@@ -196,7 +209,7 @@ echo "Estimated value of Pi: $piEstimation";
 ?>
 ```
 
-Teste a página fazendo refresh no endereço `http://200.234.208.5/pi.php` algumas vezes e vendo o resultado mudar (use o IP para o qual configurou port forwarding para o servidor _web_)
+Teste a página fazendo refresh no endereço `http://200.234.208.120/pi.php` algumas vezes e vendo o resultado mudar (use o IP mapeado via _Static NAT_ para a instância _web_).
 
 ## Userdata
 
@@ -245,7 +258,7 @@ E proteja as permissões:
 chown www-data:www-data /var/www/config.php
 chmod 600 /var/www/config.php
 ```
-Acesse novamente `http://200.234.208.5/todo.php` para testar (use o IP para o qual configurou port forwarding para o servidor _web_).
+Acesse novamente `http://200.234.208.120/todo.php` para testar (use o IP mapeado via _Static NAT_ para a instância _web_).
 
 3. Finalmente, apague o arquivo criado:
 ```bash
