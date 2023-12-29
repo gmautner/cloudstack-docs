@@ -1,0 +1,991 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../compute/">
+      
+      
+        <link rel="next" href="../loadbalancing/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>Templates e Userdata - CloudStack Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#templates-e-userdata" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CloudStack Docs" class="md-header__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CloudStack Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Templates e Userdata
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CloudStack Docs" class="md-nav__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    CloudStack Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introdução
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutoriais
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutoriais
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute e Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Templates e Userdata
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Templates e Userdata
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Banco de dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Banco de dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criacao-da-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criação da instância
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port forwarding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalacao-do-mysql-e-banco" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalação do MySQL e banco
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacao-da-aplicacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalação da aplicação
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalação da aplicação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pagina-com-cpu-alta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Página com CPU alta
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#userdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Userdata
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criacao-do-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criação do template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#userdata-com-variaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Userdata com variáveis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recriacao-da-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recriação da instância
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loadbalancing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancing e Autoscaling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Banco de dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Banco de dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criacao-da-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criação da instância
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port forwarding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalacao-do-mysql-e-banco" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalação do MySQL e banco
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacao-da-aplicacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalação da aplicação
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalação da aplicação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pagina-com-cpu-alta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Página com CPU alta
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#userdata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Userdata
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criacao-do-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criação do template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#userdata-com-variaveis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Userdata com variáveis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recriacao-da-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recriação da instância
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="templates-e-userdata">Templates e Userdata</h1>
+<p>Neste tutorial demonstraremos:</p>
+<ul>
+<li>Como criar <strong>templates</strong>, análogos às <em>imagens</em> das nuvens públicas</li>
+<li>Usando <strong>userdata</strong> para customizar instâncias a partir de templates</li>
+</ul>
+<p>Utilizaremos os recursos criados no tutorial anterior, <a href="../compute/">Compute e Networking</a>. Execute-o se ainda não o fez.</p>
+<h2 id="banco-de-dados">Banco de dados</h2>
+<p>Para suportar a aplicação que criaremos a seguir, precisamos de um banco de dados, que criaremos conforme segue:</p>
+<h3 id="criacao-da-instancia">Criação da instância</h3>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>Instances</strong></li>
+<li>Clique no botão <strong>Add instance +</strong></li>
+<li>Em <strong>Account</strong> coloque a sua conta.</li>
+<li>Em <strong>Templates</strong>, escolha <strong>Community</strong>, digite <em>ubuntu</em> na busca e escolha <strong>Ubuntu-Server-22-Locaweb-VPS</strong> 
+<img alt="Template" src="../template.png" /></li>
+<li>Em <strong>Compute offering</strong> escolha <strong>TBD</strong> (criar offers com CPU/memória fixas)</li>
+<li>Em <strong>Data disk</strong> mantenha <strong>No thanks</strong></li>
+<li>Em <strong>Networks</strong> escolha a rede que criou, <em>minha-rede</em></li>
+<li>Em <strong>SSH key pairs</strong> escolha a chave criada no passo anterior, por exemplo, <em>minha-chave</em>
+<img alt="SSH key pairs" src="../choose-keypair.png" /></li>
+<li>Coloque o nome <em>bd</em> e clique <strong>Launch instance</strong></li>
+</ol>
+<h3 id="port-forwarding">Port forwarding</h3>
+<p>Ao contrário do <em>Static NAT</em>, o método de <em>Port Forwarding</em> permite a reutilização de um mesmo Endereço IP público para diferentes instâncias, em função da porta acessada.</p>
+<p>Por exemplo, para acesso SSH podemos encaminhar a porta <em>22000</em> de um IP para a instância <em>web</em>, a porta <em>22001</em> do mesmo IP para <em>bd</em> e assim por diante.</p>
+<p>Isso proporciona mais um nível de segurança além do <em>firewall</em>, porque sem um encaminhamento explícito a instância fica inacessível pela internet pública. É um bom caso de uso para a instância <em>bd</em>, para a qual precisamos abrir apenas a porta de SSH para fora da <em>minha-rede</em>.</p>
+<p>Acesse a rede pré-criada (<em>minha-rede</em>) e clique sobre o primeiro IP da lista, que possui a nota <code>source-nat</code> ao lado dele.</p>
+<p>Clique na aba <strong>Firewall</strong> e crie a regra:</p>
+<p><strong>Source CIDR</strong>: <em>0.0.0.0/0</em>; <strong>Start port</strong>: <em>22000</em>; <strong>End port</strong>: <em>22099</em> (para aceitar conexões SSH num range de portas).</p>
+<p>Acesse a aba <strong>Port forwarding</strong> e adicione as entradas:</p>
+<ol>
+<li><strong>Private port</strong>: <em>22-22</em>; <strong>Public port</strong>: <em>22000-22000</em>; <strong>Protocol</strong>: <em>TCP</em>; botão <strong>Add...</strong>: <em>web</em></li>
+<li><strong>Private port</strong>: <em>22-22</em>; <strong>Public port</strong>: <em>22001-22001</em>; <strong>Protocol</strong>: <em>TCP</em>; botão <strong>Add...</strong>: <em>bd</em>
+<img alt="Add VM" src="../forwarding-bd.png" /></li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Note como podemos usar portas externas distintas (<em>22000</em> e <em>22001</em>) como mesmo IP público para acessar serviços distintos (<em>web</em> e <em>bd</em>) que possuem a mesma porta (22) no <em>back-end</em>.</p>
+</div>
+<h3 id="instalacao-do-mysql-e-banco">Instalação do MySQL e banco</h3>
+<p>Agora acesse o servidor de banco de dados, lembrando de usar a porta <em>22001</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima</span>
+ssh<span class="w"> </span>root@200.234.208.5<span class="w"> </span>-p<span class="w"> </span><span class="m">22001</span>
+</code></pre></div>
+<p>Para instalar o MySQL:</p>
+<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>update
+apt<span class="w"> </span>install<span class="w"> </span>mysql-server
+</code></pre></div>
+<p>Para permitir conexões da rede, edite o arquivo:
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
+</code></pre></div>
+E altere o <code>bind-address</code> de <code>127.0.0.1</code> para <code>0.0.0.0</code> reiniciando em seguida:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql.service
+</code></pre></div></p>
+<p>Finalmente, para criar o banco:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-h<span class="w"> </span>localhost
+</code></pre></div>
+<p>No prompt to MySQL copie os comandos:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="n">example_database</span><span class="o">`</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;example_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;senha_bd&gt;&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">`</span><span class="n">example_database</span><span class="o">`</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;example_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">item_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">item_id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Embora estejamos permitindo conexões do <em>meu_usuario</em> de qualquer host, lembre que a rede (<em>minha-rede</em>) é isolada. Não havendo portas criadas em <em>firewall</em> nem <em>forwarding</em> para o MySQL, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.</p>
+<p>Note, também, que o usuário <em>root</em>, por default, só permite conexões do próprio servidor (<em>localhost</em>)</p>
+</div>
+<p>Agora criaremos uma tabela e preencheremos com dados para uso pela aplicação. Ainda no prompt do MySQL execute:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">example_database</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Minha primeira tarefa&quot;</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Minha segunda tarefa&quot;</span><span class="p">);</span>
+</code></pre></div>
+Adicione mais linhas a gosto. Para testar a inclusão digite:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">todo_list</span><span class="p">;</span>
+<span class="n">EXIT</span><span class="p">;</span>
+</code></pre></div></p>
+<h2 id="instalacao-da-aplicacao">Instalação da aplicação</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>O exemplo que segue é ilustrativo e a aplicação é muito simples. Mas a lógica serve para aplicações de qualquer natureza e complexidade, sejam monolitos, microsserviços, <em>back-ends</em> etc.</p>
+</div>
+<p>Para ilustrar o funcinamento de <em>port forwarding</em> entre via SSH no servidor <em>web</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima</span>
+ssh<span class="w"> </span>root@200.234.208.5<span class="w"> </span>-p<span class="w"> </span><span class="m">22000</span>
+</code></pre></div>
+<p>E instale o PHP para Apache:
+<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>php<span class="w"> </span>libapache2-mod-php<span class="w"> </span>php-mysql
+</code></pre></div></p>
+<p>Para testar,
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39; &gt; /var/www/html/info.php</span>
+<span class="s">&lt;?php</span>
+<span class="s">phpinfo();</span>
+<span class="s">?&gt;</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+<p>E acesse <code>http://200.234.208.120/info.php</code> (aqui usamos o IP mapeado via <em>Static NAT</em> para a instância <em>web</em>).</p>
+<p>Agora criaremos nossa aplicação, que lista a tabela <code>todo_list</code>:</p>
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>/var/www/html/todo.php
+</code></pre></div>
+<p>Copie o conteúdo, substituindo o endereço IP pelo do servidor <em>bd</em>, que pode ser lido no painel do CloudStack, e pela senha que utilizou para o banco:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$user</span> <span class="o">=</span> <span class="s2">&quot;example_user&quot;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s2">&quot;&lt;senha_bd&gt;&quot;</span><span class="p">;</span>
+<span class="nv">$database</span> <span class="o">=</span> <span class="s2">&quot;example_database&quot;</span><span class="p">;</span>
+<span class="nv">$table</span> <span class="o">=</span> <span class="s2">&quot;todo_list&quot;</span><span class="p">;</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="s2">&quot;10.1.1.120&quot;</span><span class="p">;</span> <span class="c1">// Coloque o IP privado do servidor bd no CloudStack</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s2">&quot;mysql:host=</span><span class="si">$host</span><span class="s2">;dbname=</span><span class="si">$database</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="nv">$password</span><span class="p">);</span>
+  <span class="k">echo</span> <span class="s2">&quot;&lt;h2&gt;TODO&lt;/h2&gt;&lt;ol&gt;&quot;</span><span class="p">;</span> 
+  <span class="k">foreach</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT content FROM </span><span class="si">$table</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&quot;&lt;li&gt;&quot;</span> <span class="o">.</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">&quot;&lt;/ol&gt;&quot;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PDOException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s2">&quot;Error!: &quot;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="s2">&quot;&lt;br/&gt;&quot;</span><span class="p">;</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Dica</p>
+<p>Note que usamos o IP privado do bd, pois o servidor web o acessa pela rede privada. Com isso, não precisamos expor o bd para a rede pública.</p>
+</div>
+<p>E acesse <code>http://200.234.208.120/todo.php</code> (use o IP mapeado via <em>Static NAT</em> para a instância <em>web</em>).</p>
+<h3 id="pagina-com-cpu-alta">Página com CPU alta</h3>
+<p>Para testar o autoscaling mais adiante, criaremos uma página com alto consumo de CPU. Não se preocupe com o conteúdo.</p>
+<div class="admonition tip">
+<p class="admonition-title">Curiosidade</p>
+<p>Eu pedi para o ChatGPT escrever uma página em PHP que consome muita CPU e gera resultados aleatórios. Ele respondeu com um método estatístico para calcular o valor de Pi. </p>
+</div>
+<p>Na sessão SSH da instância <em>web</em> execute:</p>
+<p><div class="highlight"><pre><span></span><code>nano<span class="w"> </span>/var/www/html/pi.php
+</code></pre></div>
+E adicione o conteúdo:
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="c1">// Define the number of random points to be generated</span>
+<span class="nv">$numPoints</span> <span class="o">=</span> <span class="nb">mt_rand</span><span class="p">(</span><span class="mf">1e6</span><span class="p">,</span> <span class="mf">1e7</span><span class="p">);</span>
+
+<span class="nv">$insideCircle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Generate random points and check if they are inside the unit circle</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$numPoints</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$x</span> <span class="o">=</span> <span class="nb">mt_rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">mt_getrandmax</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">mt_getrandmax</span><span class="p">();</span>
+    <span class="nv">$y</span> <span class="o">=</span> <span class="nb">mt_rand</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">mt_getrandmax</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">mt_getrandmax</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">sqrt</span><span class="p">(</span><span class="nv">$x</span> <span class="o">*</span> <span class="nv">$x</span> <span class="o">+</span> <span class="nv">$y</span> <span class="o">*</span> <span class="nv">$y</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$insideCircle</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Estimate the value of Pi using the Monte Carlo method</span>
+<span class="nv">$piEstimation</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="nv">$insideCircle</span><span class="p">)</span> <span class="o">/</span> <span class="nv">$numPoints</span><span class="p">;</span>
+
+<span class="k">echo</span> <span class="s2">&quot;Estimated value of Pi: </span><span class="si">$piEstimation</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></p>
+<p>Teste a página fazendo refresh no endereço <code>http://200.234.208.120/pi.php</code> algumas vezes e vendo o resultado mudar (use o IP mapeado via <em>Static NAT</em> para a instância <em>web</em>).</p>
+<h2 id="userdata">Userdata</h2>
+<p>No código acima, o endereço do <em>host</em> do banco de dados e a senha estão hardcoded, impedindo que o servidor sirva de <em>template</em> para deployment em outros ambientes ou que seja replicado para <em>load balancing</em>.</p>
+<p>Então:</p>
+<ol>
+<li>
+<p>Edite o arquivo <code>/var/www/html/todo.php</code> para:
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">include</span> <span class="s1">&#39;/var/www/config.php&#39;</span><span class="p">;</span> <span class="c1">// Linha acrescentada</span>
+
+<span class="nv">$user</span> <span class="o">=</span> <span class="s2">&quot;example_user&quot;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="nx">DB_PASSWORD</span><span class="p">;</span> <span class="c1">// Valor hardcoded substituído por uma variável</span>
+<span class="nv">$database</span> <span class="o">=</span> <span class="s2">&quot;example_database&quot;</span><span class="p">;</span>
+<span class="nv">$table</span> <span class="o">=</span> <span class="s2">&quot;todo_list&quot;</span><span class="p">;</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="nx">DB_HOST</span><span class="p">;</span> <span class="c1">// Valor hardcoded substituído por uma variável</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s2">&quot;mysql:host=</span><span class="si">$host</span><span class="s2">;dbname=</span><span class="si">$database</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="nv">$password</span><span class="p">);</span>
+  <span class="k">echo</span> <span class="s2">&quot;&lt;h2&gt;TODO&lt;/h2&gt;&lt;ol&gt;&quot;</span><span class="p">;</span> 
+  <span class="k">foreach</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT content FROM </span><span class="si">$table</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&quot;&lt;li&gt;&quot;</span> <span class="o">.</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">&quot;&lt;/ol&gt;&quot;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PDOException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s2">&quot;Error!: &quot;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="s2">&quot;&lt;br/&gt;&quot;</span><span class="p">;</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Crie um novo arquivo fora da raiz do site:
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>/var/www/config.php
+</code></pre></div>
+Insira o conteúdo (use o IP e senha do seu banco de dados):
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_HOST&#39;</span><span class="p">,</span> <span class="s1">&#39;10.1.1.120&#39;</span><span class="p">);</span> <span class="c1">// Coloque o IP privado do servidor bd no CloudStack</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_PASSWORD&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;senha_bd&gt;&#39;</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div>
+E proteja as permissões:
+<div class="highlight"><pre><span></span><code>chown<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/config.php
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/var/www/config.php
+</code></pre></div>
+Acesse novamente <code>http://200.234.208.120/todo.php</code> para testar (use o IP mapeado via <em>Static NAT</em> para a instância <em>web</em>).</p>
+</li>
+<li>
+<p>Finalmente, apague o arquivo criado:
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>/var/www/config.php
+cloud-init<span class="w"> </span>clean
+</code></pre></div>
+Note que a aplicação quebrou. O segundo comando instrui o servidor a carregar o <em>Userdata</em> no próximo boot.</p>
+</li>
+<li>
+<p>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>Instances</strong> e clique na instância <em>web</em></p>
+</li>
+<li>Clique no botão <strong>Stop instance</strong> e confirme.
+<img alt="Stop instance" src="../stop.png" /></li>
+<li>Clique no botão <strong>Edit instance</strong>
+<img alt="Edit instance" src="../edit.png" /></li>
+<li>No campo <strong>Userdata</strong>, cole, substituindo o IP interno do servidor <em>bd</em>:
+<div class="highlight"><pre><span></span><code><span class="c1">#cloud-config</span>
+
+<span class="nt">write_files</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/www/config.php</span>
+<span class="w">    </span><span class="nt">content</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">&lt;?php</span>
+<span class="w">      </span><span class="no">// Use o IP privado do servidor bd no CloudStack</span>
+<span class="w">      </span><span class="no">define(&#39;DB_HOST&#39;, &#39;10.1.1.120&#39;);</span>
+<span class="w">      </span><span class="no">define(&#39;DB_PASSWORD&#39;, &#39;&lt;senha_bd&gt;&#39;);</span>
+<span class="w">      </span><span class="no">?&gt;</span>
+<span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;www-data:www-data&quot;</span>
+<span class="w">    </span><span class="nt">permissions</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0600&#39;</span>
+</code></pre></div>
+<img alt="Userdata" src="../userdata.png" /></li>
+<li>Reinicie o servidor. Após aguardar alguns instantes:<ul>
+<li>Reinicie a sessão SSH e verifique que o arquivo <code>var/www/config.php</code> tem o conteúdo conforme acima</li>
+<li><strong>Verifique que a página funciona normalmente</strong></li>
+</ul>
+</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">O que fizemos até agora?</p>
+<p>Recapitulando:</p>
+<ul>
+<li>Separamos as configurações num arquivo <code>config.php</code> à parte, fora da raiz do site</li>
+<li>Usamos o mecanismo de <em>cloud-init</em> para carregar as configurações a partir de uma definição na instância.</li>
+<li><strong>O que falta</strong>: agora transformaremos a instância num <strong>template</strong> sem configurações. Este template poderá ser carregado com diferentes campos de <em>Userdata</em> refletindo diferentes configurações, exemplo, <em>dev</em>, <em>staging</em>, <em>production</em>  </li>
+</ul>
+</div>
+<h2 id="criacao-do-template">Criação do template</h2>
+<ol>
+<li>
+<p>Não queremos configurações no template, portanto execute via SSH na instância <em>web</em>:
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>/var/www/config.php
+cloud-init<span class="w"> </span>clean<span class="w"> </span>--logs
+</code></pre></div>
+O segundo comando limpa vestígios de carregamentos anteriores do <em>cloud-init</em>.</p>
+</li>
+<li>
+<p>Pare a instância.</p>
+</li>
+<li>
+<p>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>Instances</strong>, clique na instância <em>web</em> e em <strong>Volumes</strong>. Clique no link do volume (<em>ROOT-XXXX</em>)
+<img alt="Volumes" src="../volumes.png" /></p>
+</li>
+<li>No canto superior direito, selecione <strong>Create template from volume</strong>
+<img alt="Create template from volume" src="../template-from-volume.png" /></li>
+<li>Preencha da seguinte forma e dê OK:
+<img alt="To Do template" src="../todo-template.png" /></li>
+</ol>
+<h2 id="userdata-com-variaveis">Userdata com variáveis</h2>
+<p>No próximo passo, criaremos um <strong>Userdata</strong> parametrizável, ou seja, onde o usuário pode escolher os valores <code>DB_HOST</code> e <code>DB_PASSWORD</code></p>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>User Data</strong>, <strong>Register a userdata +</strong></li>
+<li>No nome, colocar <em>tutorial</em>. Em <strong>Userdata</strong> colar o código abaixo:
+<div class="highlight"><pre><span></span><code><span class="c1">## template: jinja</span>
+<span class="c1">#cloud-config</span>
+
+<span class="nt">write_files</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/www/config.php</span>
+<span class="w">    </span><span class="nt">content</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">&lt;?php</span>
+<span class="w">      </span><span class="no">define(&#39;DB_HOST&#39;, &#39;{{ ds.meta_data.db_host }}&#39;);</span>
+<span class="w">      </span><span class="no">define(&#39;DB_PASSWORD&#39;, &#39;{{ ds.meta_data.db_password }}&#39;);</span>
+<span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;www-data:www-data&quot;</span>
+<span class="w">    </span><span class="nt">permissions</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0600&#39;</span>
+</code></pre></div>
+<img alt="Register userdata" src="../register-userdata.png" /></li>
+<li>Antes de dar OK preencha o campo <strong>Userdata parameters</strong> com <code>db_host, db_password</code></li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Na primeira linha <code>## template: jinja</code> configuramos o <em>cloud-init</em> para processar os valores que o CloudStack passa dentro das chaves <code>{{ }}</code>. Isto permite a parametrização do <em>Userdata</em>.</p>
+</div>
+<h2 id="recriacao-da-instancia">Recriação da instância</h2>
+<p>Agora criaremos uma nova instância a partir do template:</p>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>Instances</strong></li>
+<li>Clique no botão <strong>Add instance +</strong></li>
+<li>Em <strong>Account</strong> coloque a sua conta.</li>
+<li>Em <strong>Templates</strong>, escolha <strong>My templates</strong> e escolha <strong>To Do app</strong> 
+<img alt="My templates" src="../my-templates.png" /></li>
+<li>Em <strong>Compute offering</strong> escolha <strong>TBD</strong> (criar offers com CPU/memória fixas)</li>
+<li>Em <strong>Data disk</strong> mantenha <strong>No thanks</strong></li>
+<li>Em <strong>Networks</strong> escolha a rede que criou, <em>minha-rede</em></li>
+<li>Em <strong>SSH key pairs</strong> escolha a chave criada no passo anterior, por exemplo, <em>minha-chave</em>
+<img alt="SSH key pairs" src="../choose-keypair.png" /></li>
+<li>Em <strong>Advanced mode</strong>, habilite <strong>Show advanced settings</strong></li>
+<li>Em <strong>Stored Userdata</strong>, selecione <strong>tutorial</strong> e preencha <strong>db_host</strong>: <code>10.1.1.120</code> (coloque o IP privado do servidor bd no CloudStack); <strong>db_password</strong>: <code>&lt;senha_bd&gt;</code>
+<img alt="Stored Userdata" src="../stored-userdata.png" /></li>
+<li>Em <strong>name</strong> coloque <em>teste-template</em> e clique <strong>Launch instance</strong></li>
+<li>Em <strong>Compute</strong>, <strong>Instances</strong> verifique que a instância recém criada a partir do template está ligada e a anterior desligada
+<img alt="Template running" src="../template-running.png" /></li>
+<li>No menu à esquerda acesse <strong>Networks</strong>, <strong>Guest networks</strong>, <em>minha-rede</em>, <strong>Public IP addresses</strong> e clique no endereço IP que fora mapeado via <em>Static NAT</em> para o servidor <em>web</em>
+<img alt="Select IP" src="../select-ip.png" /></li>
+<li>Clique sobre o IP. Vamos desvincula-lo da instância <em>web</em>:
+<img alt="Disable static NAT" src="../disable-static-nat.png" /></li>
+<li>E agora vincule o mesmo IP à nova instância <em>teste-template</em> seguindo o mesmo procedimento clicando em <em>Enable Static NAT</em> e escolhendo-a como destino.</li>
+<li>Note que é necessário recriar as regras de firewall para o IP após ter sido remapeado para nova instância:
+<img alt="Firewall template" src="../firewall-template.png" /></li>
+</ol>
+<p>Usando o endereço IP recém remapeado, acesse-o no browser em <code>http://200.234.208.120</code>. Deve aparecer a página padrão do Apache.</p>
+<p>Acesse também as páginas, substituindo pelo endereço IP recém adquirido:</p>
+<div class="highlight"><pre><span></span><code>http://200.234.208.120/info.php
+http://200.234.208.120/todo.php
+http://200.234.208.120/pi.php
+</code></pre></div>
+<p>Se seguiu os passos até aqui, tudo deve funcionar, demonstrando que o servidor criado a partir do template possui toda a programação inserida previamente.</p>
+<div class="admonition tip">
+<p class="admonition-title">Lembrete</p>
+<p>Certifique-se de ter remapeado via <em>Static NAT</em> o endereço IP designado para a nova instância <em>teste-template</em>, criada a partir do template. Certifique-se de que a instância anterior <em>web</em> esteja desligada para ter certeza de que está acessando a nova instância criada a partir do template.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
