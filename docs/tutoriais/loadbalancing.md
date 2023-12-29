@@ -77,40 +77,15 @@ http://200.234.208.120/pi.php
 
 ## Teste de carga
 
-### Setup k6
-
-Para o teste de carga usaremos a ferramenta de código aberto [k6](https://k6.io/). Para instalar siga a [documentação](https://k6.io/docs/get-started/installation/).
-
-No seu terminal crie o arquivo:
+Instale o gerador de carga "hey" com `sudo apt install hey` ou `brew install hey` e digite, substituindo pelo IP alocado:
 
 ```bash
-nano script.js
+hey -z 3m http://200.234.208.120/pi.php
 ```
-
-Com o conteúdo (substituindo pelo IP público do seu load balancer):
-
-```js
-import http from 'k6/http';
-import { sleep } from 'k6';
-
-export default function () {
-  http.get('http://200.234.208.120/pi.php'); // Use o endereço IP público associado ao load balancer criado acima
-  sleep(1);
-}
-```
-
-### Disparo do teste
-
-Por exemplo, para simular 30 usuários chamando a página, aguardando 1 segundo e repetindo, durante 3 minutos:
-
-```bash
-k6 run --vus 30 --duration 3m script.js
-```
-![k6](k6.png)
 
 ### Acompanhamento do AutoScale
 
-Execute o teste acima mudando o parâmetro `--vus` para 5, 10, 20, 30... e acompanhe o comportamento do AutoScale em __Compute__, __AutoScaleVM Groups__ e clicando em __Refresh__ à medida em que o teste ocorre. 
+Durante o andamento do teste acompanhe o comportamento do AutoScale em __Compute__, __AutoScaleVM Groups__ e clicando em __Refresh__ à medida em que o teste ocorre. 
 ![Scaling](scaling.png)
 
 Também é interessante acompanhar em __Compute__, __Instances__ como as VMs vão sendo paradas e apagadas depois que o teste termina.
@@ -119,4 +94,5 @@ Também é interessante acompanhar em __Compute__, __Instances__ como as VMs vã
 E, também, ao clicar sobre a instância, é possível ver o comportamento em __Metrics__:
 ![Metrics](metrics.png)
 
+Além disso, após o final do teste verifique como a quantidade de VMs disponíveis vai baixando automaticamente.
 
