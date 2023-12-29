@@ -301,14 +301,14 @@ write_files:
 
 ## Criação do template
 
-1. Não queremos configurações no template, portanto execute:
+1. Não queremos configurações no template, portanto execute via SSH na instância _web_:
 ```bash
 rm /var/www/config.php
 cloud-init clean --logs
 ```
 O segundo comando limpa vestígios de carregamentos anteriores do _cloud-init_.
 
-2. Desligue a instância.
+2. Pare a instância.
 
 3. No menu de navegação à esquerda clique em __Compute__, __Instances__, clique na instância _web_ e em __Volumes__. Clique no link do volume (_ROOT-XXXX_)
 ![Volumes](volumes.png)
@@ -362,14 +362,15 @@ Agora criaremos uma nova instância a partir do template:
 11. Em __name__ coloque _teste-template_ e clique __Launch instance__
 12. Em __Compute__, __Instances__ verifique que a instância recém criada a partir do template está ligada e a anterior desligada
 ![Template running](template-running.png)
-13. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique __+ Acquire new IP__. Escolha qualquer IP livre.
-![Acquire new IP](acquire-ip.png)
-14. Clique sobre o IP. Libere o tráfego de origem _0.0.0.0/0_ para _TCP_ e portas _80:80_
+13. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique no endereço IP que fora mapeado via _Static NAT_ para o servidor _web_
+![Select IP](select-ip.png)
+14. Clique sobre o IP. Vamos desvincula-lo da instância _web_:
+![Disable static NAT](disable-static-nat.png)
+15. E agora vincule o mesmo IP à nova instância _teste-template_ seguindo o mesmo procedimento clicando em _Enable Static NAT_ e escolhendo a nova instância como destino.
+16. Note que é necessário recriar as regras de firewall para o IP após ter sido remapeado para nova instância:
 ![Firewall template](firewall-template.png)
-15. Em __Port forwarding__ encaminhe a porta 80 para a VM _teste-template_
-![Forwarding template](forwarding-template.png)
 
-Usando o endereço IP recém adquirido, acesse-o no browser em `http://200.234.208.120`. Deve aparecer a página padrão do Apache.
+Usando o endereço IP recém remapeado, acesse-o no browser em `http://200.234.208.120`. Deve aparecer a página padrão do Apache.
 
 Acesse também as páginas, substituindo pelo endereço IP recém adquirido:
 
@@ -382,4 +383,4 @@ http://200.234.208.120/pi.php
 Se seguiu os passos até aqui, tudo deve funcionar, demonstrando que o servidor criado a partir do template possui toda a programação inserida previamente.
 
 !!! tip "Lembrete"
-    Lembre-se de usar o novo endereço IP designado para a nova instância, criada a partir do template. Certifique-se de que a instância anterior _web_ esteja desligada para ter certeza de que está acessando a nova instância criada a partir do template.
+    Certifique-se de ter remapeado via _Static NAT_ o endereço IP designado para a nova instância _teste-template_, criada a partir do template. Certifique-se de que a instância anterior _web_ esteja desligada para ter certeza de que está acessando a nova instância criada a partir do template.
