@@ -97,6 +97,69 @@ CREATE TABLE example_database.todo_list (
 
     Note, também, que o usuário _root_, por default, só permite conexões do próprio servidor (_localhost_)
 
+Para preparar a VM para o snapshot, saia do prompt to MySQL com `exit;` e encerre o serviço para que escritas pendentes sejam gravadas em disco:
+
+```bash
+systemctl stop mysql
+```
+
+## Snapshot do Volume Raiz
+
+A seguir ilustrarmos o uso de _snapshots_ do volume _raiz_ para recuperação da VM.
+
+!!! Warning
+    Estamos fazendo _snapshot_ apenas do volume da VM e não do estado da memória. Por isso encerramos o serviço para que dados não sejam perdidos.
+
+1. No menu de navegação à esquerda clique em __Compute__, __Instances__ e selecione _bd_
+2. Na seção à direita clique em __Volumes__ e selecione o volume raiz (_ROOT-XXXX_)
+![Volumes bd](volumes-bd.png)
+3. Ao abrir os detalhes do volume _ROOT-XXXX_ clique em __Take snapshot__ e escolha o nome _snapshot-bd_
+![Snapshot](snapshot.png)
+![Snapshot name](snapshot-name.png)
+4. Confira que o _snapshot_ com o nome escolhido, _snapshot-bd_ foi criado clicando em __Storage__, __Snapshots__ no menu de navegação à esquerda.
+5. Agora simularemos um desastre, apagando a VM. Clique em __Compute__, __Instances__, selecione _bd_, clique em __Destroy instance__ e habilite a opção __Expunge__
+![Destroy](destroy.png)
+![Expunge](expunge.png)
+6. A maneira de recuperar uma VM a partir de um disco raiz é, primeiro, criar um _template_ a partir dele. Clique em __Storage__, __Snapshots__ e selecione o _snapshot-bd_. Clique no botão __Create template__.
+![Template from snapshot](template-from-snapshot.png)
+7. Coloque nome e descrição _template-bd_, e __OS type__ _Other Ubuntu (64 bit)_ aceitando os demais parâmetros.
+8. Verifique que o _template_ foi criado em __Images__, __Templates__
+![Template bd](template-bd.png)
+9. Finalmente crie a instância a partir do _template_. Clique em __Compute__, __Instances__, __Add instance +__.
+    - Em __Template/ISO__ escolha __My templates__, _template-bd_.
+    - Em __Compute offering__ escolha _TBD_
+    - Em __Networks__ escolha _minha-rede_ para colocar a instância na mesma rede que a _web_
+    - Em __SSH key pairs__ escolha _minha-chave_ cadastrada previamente.
+    - Em __Name (Optional)__ coloque _bd_.
+10. Em __Network__, __Public IP addresses__, repita os passos descritos acima em [Port forwarding](#port-forwarding) para refazer o redirecionamento. 
+
+Acesse o servidor novamente:
+
+```bash
+# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
+ssh root@200.234.208.5 -p 22001
+```
+A conexão pode ser recusada pelo cliente SSH devido à mudança de chave no servidor, o que é esperado já que ele foi recriado. Para apagar a chave antiga do cliente:
+```bash
+ssh-keygen -R "[200.234.208.5]:22001" # substitua pelo IP acima
+```
+Após logar-se confira se o banco foi recuperado:
+```bash
+mysql -u root -h localhost
+```
+
+```SQL
+SHOW DATABASES; 
+USE example_database;
+SHOW TABLES;
+SELECT * FROM todo_list;
+```
+
+!!! Info
+    Em resumo: Criamos um snapshot do volume raiz de uma instância, a partir do _snapshot_ um _template_ e, do _template_, uma nova instância:
+
+    Instância :arrow_forward: _snapshot_ :arrow_forward: _template_ :arrow_forward: nova instância
+
 Agora criaremos uma tabela e preencheremos com dados para uso pela aplicação. Ainda no prompt do MySQL execute:
 
 ```SQL
