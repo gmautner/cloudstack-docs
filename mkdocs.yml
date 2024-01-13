@@ -17,5 +17,6 @@ nav:
   - index.md
   - Tutoriais:
     - tutoriais/compute.md
+    - tutoriais/snapshots.md
     - tutoriais/templates.md
     - tutoriais/loadbalancing.md

@@ -10,6 +10,7 @@ Ao final deste tutorial você terá total domínio de como fazer:
 
 - Instâncias
 - Volumes
+- Snapshots
 - Chaves SSH
 - Templates
 - Redes

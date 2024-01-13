@@ -5,7 +5,7 @@ Neste tutorial demonstraremos:
 - __Load balancers__ para dividir tráfeto entre múltiplas instâncias
 - __Autoscaling__ para adequar o número de instâncias a uma demanda variável
 
-Utilizaremos os recursos criados nos tutoriais anteriores, [Compute e Networking](compute.md) e [Templates e Userdata](templates.md). Execute-os se ainda não o fez.
+Utilizaremos os recursos criados nos tutoriais anteriores. Execute-os se ainda não o fez.
 
 Para começar, desligaremos a instância _teste-template_ criada no tutorial anterior.
 
