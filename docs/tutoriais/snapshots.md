@@ -102,7 +102,7 @@ Para preparar a VM para o snapshot, saia do prompt to MySQL com `exit;` e encerr
 systemctl stop mysql
 ```
 
-## Snapshot do Volume Raiz
+## Snapshot de volume raiz
 
 A seguir ilustrarmos o uso de _snapshots_ do volume _raiz_ para recuperação da VM.
 
@@ -200,3 +200,110 @@ Para verificar que não somente os dados mas, também, o estado da instância fo
 
     Instância :arrow_forward: _VM snapshot_ :arrow_forward: instância é alterada :arrow_forward: _Revert to VM snapshot_ :arrow_forward: instância no estado inicial
 
+## Snapshot de volume anexado
+
+Agora demonstraremos um outro cenário de DR onde usamos um volume específico de dados, separado da raiz da instância. No exemplo a seguir, tal volume é usado para armazenar _dumps_ do MySQL que podem ser recuperados anexando um _snapshot_ previamente salvo.
+
+Obs. Antes de iniciar, apague o _VM Snapshot_ criado em __Storage__, __VM snapshots__ pois sua existência é incompatível com as operações a seguir.
+
+1. Acesse __Storage__, __Volumes__ e __Create volume +__, preencha com nome _dados_ e tamanho _50_
+![Create volume](create-volume.png)
+2. Clique no volume criado e em __Attach disk__
+![Attach disk](attach-disk.png)
+3. Escolha a instância _bd_ para anexar o volume
+![Attach disk to VM](attach-disk-vm.png)
+4. No shell da instância _bd_ execute:
+```bash
+lsblk
+```
+E note que há uma nova partição `vdb`. Formate-a com o comando:
+```bash
+mkfs.ext4 /dev/vdb
+```
+Para mapear uma pasta _dados_ para a nova partição:
+```bash
+mkdir -p /dados
+```
+Edite o arquivo `/etc/fstab`:
+```bash
+nano /etc/fstab
+```
+Adicionando, ao final, a linha:
+```
+/dev/vdb    /dados    ext4    defaults    0    2
+```
+Ao final, carregue a nova configuração com:
+```bash
+mount -a
+```
+Verifique que a pasta _dados_ está configurada com o comando:
+```bash
+df -h
+```
+Cuja saída deverá conter a linha:
+```
+/dev/vdb         49G   24K   47G   1% /dados
+```
+5. Verifique que a tabela _example_database.todo_list_ continua populada:
+```
+mysql -u root
+```
+```SQL
+SELECT * FROM example_database.todo_list;
+```
+![TODO list](todo-list.png)
+6. Volte ao shell (digitando `EXIT;` no prompt to MySQL) e execute um backup para a pasta _dados_:
+```bash
+mysqldump -u root example_database todo_list > /dados/dump-todo-list.sql
+```
+Você pode verificar o conteúdo do _dump_ com:
+```bash
+cat /dados/dump-todo-list.sql
+```
+7. De volta ao painel do CloudStack, na página do volume _dados_ clique em __Take snapshot__, e dê o nome _snapshot-dados_:
+![Take snapshot dados](take-snapshot-dados.png)
+8. Simularemos agora que houve uma reinstalação do zero, antes de que os dados tivessem sido populados.
+```bash
+umount /dados
+mysql -u root
+```
+```SQL
+DELETE FROM example_database.todo_list;
+```
+9. Clique em __Storage__, __Volumes__ e selecione o volume _dados_. Desconecte-o clicando em __Detach disk__.
+![Detach disk](detach-disk.png)
+Em seguida, delete o volume _dados_ clicando em __Destroy volume__ (habilite __Expunge__). 
+10. Estamos num ponto onde a tabela está vazia, e não há _dumps_ para recuperar, uma situação equivalente a uma reinstalação do zero onde a estrutura da tabela é recriada sem dados. Felizmente, temos o _snapshot_ do volume _dados_ salvo. Clique em __Storage__, __Snapshots__, _snapshot-dados_ e selecione __Create volume__. Para diferenciar do anterior, dê ao novo volume o nome _dados-restore_ e tamanho _50_.
+![Volume from snapshot](volume-from-snapshot.png)
+![Create volume dados restore](create-volume-dados-restore.png)
+11. Finalmente, acesse __Storage__, __Volumes__, _dados-restore_, clique em __Attach disk__ escolhendo a VM _bd_.
+12. Para remapear a partição à pasta _dados_:
+```bash
+mount -a
+```
+A esta altura você pode verificar que o _dump_ já está acessível:
+```bash
+ls /dados
+```
+Para recuperar o _dump_:
+```bash
+mysql -u root example_database < /dados/dump-todo-list.sql
+mysql -u root
+```
+```SQL
+SELECT * FROM example_database.todo_list;
+```
+Com isso recuperamos o conteúdo da tabela.
+
+!!! Info
+    Em resumo: O _snapshot_ de uma partição de dados permite a recuperação destes reconstruindo a partição e reanexando-a à instância para carregamento.
+
+    Instância :arrow_forward: _dump_ :arrow_forward: volume _dados_ :arrow_forward: _snapshot_ do volume _dados_ :arrow_forward: gera volume _dados-restore_ :arrow_forward: _attach disk_ :arrow_forward: instância sem dados :arrow_forward: recuperação via importação
+
+## Resumo
+
+Vimos 3 formas diferentes de DR:
+
+- Reconstrução de uma VM a partir de _snapshot_ de volume raiz
+- Reversão a um estado anterior através de _VM snapshot_
+- Importação de dados de backup anexando _snapshot_ de volume anexado.
