@@ -175,7 +175,7 @@ Adicione mais linhas a gosto. Para testar a inclusão digite:
 SELECT * FROM todo_list;
 ```
 
-O estado da instância, incluindo armazenamento e memória, pode ser salvo num _VM Snapshot_, que funciona como uma fotografia. Este difere do _snapshot_ anterior, que grava somente uma foto de um volume de armazenamento. 
+O estado da instância, incluindo armazenamento e memória, pode ser salvo num _VM Snapshot_, que funciona como uma fotografia. Este difere do _snapshot_ anterior, que grava somente o conteúdo do volume de armazenamento. 
 
 1. Em __Compute__, __Instances__, selecione _bd_ e clique em __Take VM snapshot__ (atenção, não confundir com _Take VM volume snapshot_ ao lado):
 ![Take VM snapshot](vm-snapshot.png)
@@ -262,7 +262,7 @@ cat /dados/dump-todo-list.sql
 ```
 7. De volta ao painel do CloudStack, na página do volume _dados_ clique em __Take snapshot__, e dê o nome _snapshot-dados_:
 ![Take snapshot dados](take-snapshot-dados.png)
-8. Simularemos agora que houve uma reinstalação do zero, antes de que os dados tivessem sido populados.
+8. Simularemos agora que houve uma reinstalação do zero, com a tabela vazia e sem a presença da partição contendo o _dump_.
 ```bash
 umount /dados
 mysql -u root
