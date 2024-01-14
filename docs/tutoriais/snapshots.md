@@ -272,8 +272,8 @@ DELETE FROM example_database.todo_list;
 ```
 9. Clique em __Storage__, __Volumes__ e selecione o volume _dados_. Desconecte-o clicando em __Detach disk__.
 ![Detach disk](detach-disk.png)
-Em seguida, delete o volume _dados_ clicando em __Destroy volume__ (habilite __Expunge__). 
-10. Estamos num ponto onde a tabela está vazia, e não há _dumps_ para recuperar, uma situação equivalente a uma reinstalação do zero onde a estrutura da tabela é recriada sem dados. Felizmente, temos o _snapshot_ do volume _dados_ salvo. Clique em __Storage__, __Snapshots__, _snapshot-dados_ e selecione __Create volume__. Para diferenciar do anterior, dê ao novo volume o nome _dados-restore_ e tamanho _50_.
+Em seguida, delete o volume _dados_ clicando em __Destroy volume__ (habilite __Expunge__).
+10. Agora damos início à recuperação. Usaremos o _snapshot_ do volume _dados_ salvo. Clique em __Storage__, __Snapshots__, _snapshot-dados_ e selecione __Create volume__. Para diferenciar do anterior, dê ao novo volume o nome _dados-restore_ e tamanho _50_.
 ![Volume from snapshot](volume-from-snapshot.png)
 ![Create volume dados restore](create-volume-dados-restore.png)
 11. Finalmente, acesse __Storage__, __Volumes__, _dados-restore_, clique em __Attach disk__ escolhendo a VM _bd_.
