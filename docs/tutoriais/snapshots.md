@@ -300,10 +300,13 @@ Com isso recuperamos o conteúdo da tabela.
 
     Instância :arrow_forward: _dump_ :arrow_forward: volume _dados_ :arrow_forward: _snapshot_ do volume _dados_ :arrow_forward: gera volume _dados-restore_ :arrow_forward: _attach disk_ :arrow_forward: instância sem dados :arrow_forward: recuperação via importação
 
-## Resumo
+!!! Tip
+    A opção de _snapshot_ de volumes pode ser automatizada via agendamentos, como você pode constatar explorando o menu.
+
+## Observações
 
 Vimos 3 formas diferentes de DR:
 
 - Reconstrução de uma VM a partir de _snapshot_ de volume raiz
-- Reversão a um estado anterior através de _VM snapshot_
-- Importação de dados de backup anexando _snapshot_ de volume anexado.
+- Reversão a um estado anterior através de _VM snapshot_. Pode ser útil, por exemplo, como plano de _rollback_ de uma _change_.
+- Importação de dados de backup anexando _snapshot_ de volume anexado, rotina que pode ser automatizada via agendamento.
