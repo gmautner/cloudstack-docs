@@ -93,6 +93,3 @@ Também é interessante acompanhar em __Compute__, __Instances__ como as VMs vã
 
 E, também, ao clicar sobre a instância, é possível ver o comportamento em __Metrics__:
 ![Metrics](metrics.png)
-
-Além disso, após o final do teste verifique como a quantidade de VMs disponíveis vai baixando automaticamente.
-
