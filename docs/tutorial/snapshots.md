@@ -1,10 +1,10 @@
 # DR e Snapshots
 
-Neste tutorial demonstraremos como usar __Snapshots__ e __VM Snapshots__ para diversos cenários de DR.
+Neste passo demonstraremos como usar __Snapshots__ e __VM Snapshots__ para diversos cenários de DR.
 
 Usaremos como exemplo um servidor de banco de dados MySQL.
 
-Utilizaremos alguns recursos criados no tutorial anterior, [Compute e Networking](compute.md). Execute-o se ainda não o fez.
+Utilizaremos alguns recursos criados no passo anterior, [Compute e Networking](compute.md). Execute-o se ainda não o fez.
 
 ## Banco de dados
 

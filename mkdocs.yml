@@ -15,8 +15,8 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 nav:
   - index.md
-  - Tutoriais:
-    - tutoriais/compute.md
-    - tutoriais/snapshots.md
-    - tutoriais/templates.md
-    - tutoriais/loadbalancing.md
+  - Tutorial:
+    - tutorial/compute.md
+    - tutorial/snapshots.md
+    - tutorial/templates.md
+    - tutorial/loadbalancing.md

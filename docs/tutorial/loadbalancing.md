@@ -1,13 +1,13 @@
 # Load Balancing e Autoscaling
 
-Neste tutorial demonstraremos:
+Neste passo demonstraremos:
 
 - __Load balancers__ para dividir tráfeto entre múltiplas instâncias
 - __Autoscaling__ para adequar o número de instâncias a uma demanda variável
 
 Utilizaremos os recursos criados nos tutoriais anteriores. Execute-os se ainda não o fez.
 
-Para começar, desligaremos a instância _teste-template_ criada no tutorial anterior.
+Para começar, desligaremos a instância _teste-template_ criada no passo anterior.
 
 No menu de navegação à esquerda clique em __Compute__, __Instances__ e clique na instância _teste-template_, e clique no botão __Stop instance__.
 
