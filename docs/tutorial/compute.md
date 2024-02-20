@@ -37,22 +37,21 @@ Para criar a rede:
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__
 2. Clique no botão __Add network +__
 3. Em __name__ coloque um nome como _minha-rede_
-4. Em __Network offering__ escolha `(TBD: criar offer 1 Gbps) GIBA_NETWORK_OFFERING_V3`
+4. Em __Network offering__ escolha `ISOLATED Network VXLAN with Single VR`
 5. Os demais campos podem ficar em branco. Clique OK.
 
 ## Criando a instância
 
 1. No menu de navegação à esquerda clique em __Compute__, __Instances__
 2. Clique no botão __Add instance +__
-3. Em __Account__ coloque a sua conta.
-4. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-Locaweb-VPS__ 
+3. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-LWSA__ 
 ![Template](template.png)
-5. Em __Compute offering__ escolha __TBD__ (criar offers com CPU/memória fixas)
-6. Em __Data disk__ mantenha __No thanks__
-7. Em __Networks__ escolha a rede que criou, _minha-rede_
-8. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
+4. Em __Compute offering__ escolha __LWSA.micro__
+5. Em __Data disk__ mantenha __No thanks__
+6. Em __Networks__ escolha a rede que criou, _minha-rede_
+7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
-9. Coloque o nome _web_ e clique __Launch instance__
+8. Coloque o nome _web_ e clique __Launch instance__
 ![Instance details](details.png)
 
 ## Conectando à internet
@@ -60,13 +59,13 @@ Para criar a rede:
 Para que a instância criada possa se comunicar com o mundo externo, os próximos passos são:
 
 - Criar regras de _firewall_ restringindo a conexão a origens específicas
-- Associar um endereço IP público e porta via _port forwarding_ ou _load balancing_
+- Associar um endereço IP público e porta via _Static NAT_
 
 ### Firewall
 
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__ e clique na rede criada, ex. _minha-rede_
-2. Ao clicar na aba __Egress rules__ pode-se verificar que o tráfego de saída para a internet é, por padrão, liberado. É possível limitar com restrições mas, no nosso caso, vamos manter assim.
-![Egress rules](egress.png)
+2. Ao clicar na aba __Egress rules__ pode-se verificar se o tráfego de saída para a internet é, ou não, liberado por padrão. Caso a política (_default egress policy_) seja _Deny_ devemos liberar o tráfego de saída:
+![Egress rules](egress_allow.png)
 3. Na aba __Public IP addresses__ vemos que já há um primeiro IP associado e marcado como _source-nat_. Isto indica que tráfego originado de dentro da rede para a internet terá este IP como origem.
 ![Public IP addresses](public-ip.png)
 4. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique __+ Acquire new IP__. Escolha qualquer IP livre.
