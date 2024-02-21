@@ -14,15 +14,14 @@ Para suportar a aplicação que criaremos a seguir, precisamos de um banco de da
 
 1. No menu de navegação à esquerda clique em __Compute__, __Instances__
 2. Clique no botão __Add instance +__
-3. Em __Account__ coloque a sua conta.
-4. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-Locaweb-VPS__ 
+3. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-LWSA__ 
 ![Template](template.png)
-5. Em __Compute offering__ escolha __TBD__ (criar offers com CPU/memória fixas)
-6. Em __Data disk__ mantenha __No thanks__
-7. Em __Networks__ escolha a rede que criou, _minha-rede_
-8. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
+4. Em __Compute offering__ escolha __LWSA.micro__
+5. Em __Data disk__ mantenha __No thanks__
+6. Em __Networks__ escolha a rede que criou, _minha-rede_
+7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
-9. Coloque o nome _bd_ e clique __Launch instance__
+8. Coloque o nome _bd_ e clique __Launch instance__
 
 ### Port forwarding
 
@@ -121,12 +120,12 @@ A seguir ilustrarmos o uso de _snapshots_ do volume _raiz_ para recuperação da
 ![Expunge](expunge.png)
 6. A maneira de recuperar uma VM a partir de um disco raiz é, primeiro, criar um _template_ a partir dele. Clique em __Storage__, __Snapshots__ e selecione o _snapshot-bd_. Clique no botão __Create template__.
 ![Template from snapshot](template-from-snapshot.png)
-7. Coloque nome e descrição _template-bd_, e __OS type__ _Other Ubuntu (64 bit)_ aceitando os demais parâmetros.
+7. Coloque nome e descrição _template-bd_, e __OS type__ _Ubuntu 22.04 LTS_ aceitando os demais parâmetros.
 8. Verifique que o _template_ foi criado em __Images__, __Templates__
 ![Template bd](template-bd.png)
 9. Finalmente crie a instância a partir do _template_. Clique em __Compute__, __Instances__, __Add instance +__.
     - Em __Template/ISO__ escolha __My templates__, _template-bd_.
-    - Em __Compute offering__ escolha _TBD_
+    - Em __Compute offering__ escolha _LWSA.micro_
     - Em __Networks__ escolha _minha-rede_ para colocar a instância na mesma rede que a _web_
     - Em __SSH key pairs__ escolha _minha-chave_ cadastrada previamente.
     - Em __Name (Optional)__ coloque _bd_.
@@ -299,6 +298,9 @@ Com isso recuperamos o conteúdo da tabela.
     Em resumo: O _snapshot_ de uma partição de dados permite a recuperação destes reconstruindo a partição e reanexando-a à instância para carregamento.
 
     Instância :arrow_forward: _dump_ :arrow_forward: volume _dados_ :arrow_forward: _snapshot_ do volume _dados_ :arrow_forward: gera volume _dados-restore_ :arrow_forward: _attach disk_ :arrow_forward: instância sem dados :arrow_forward: recuperação via importação
+
+!!! Tip
+    Note que, diferentemente do caso de _snapshot_ de um volume raiz, não é necessário criar um _template_ e depois uma nova instância. Basta criar o novo volume diretamente a partir do _snapshot_ e anexá-lo a uma instância pre-existente.
 
 !!! Tip
     A opção de _snapshot_ de volumes pode ser automatizada via agendamentos, como você pode constatar explorando o menu.
