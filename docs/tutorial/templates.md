@@ -84,7 +84,7 @@ E adicione o conteúdo:
 <?php
 $startTime = microtime(true);
 
-for ($i = 0; $i < 10000000; $i++) {
+for ($i = 0; $i < 1000000; $i++) {
     $hash = sha1(mt_rand());
 }
 
