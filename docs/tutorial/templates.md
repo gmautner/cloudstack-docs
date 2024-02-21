@@ -12,10 +12,10 @@ Utilizaremos os recursos criados no passo anterior, [DR e Snapshots](snapshots.m
 !!! info
     O exemplo que segue é ilustrativo e a aplicação é muito simples. Mas a lógica serve para aplicações de qualquer natureza e complexidade, sejam monolitos, microsserviços, _back-ends_ etc.
 
-Para ilustrar o funcinamento de _port forwarding_ entre via SSH no servidor _web_:
+Usando o _port forwarding_ configurado anteriormente entre via SSH no servidor _web_:
 
 ```bash
-# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
+# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding anteriormente
 ssh root@200.234.208.5 -p 22000
 ```
 
@@ -72,42 +72,32 @@ E acesse `http://200.234.208.120/todo.php` (use o IP mapeado via _Static NAT_ pa
 
 ### Página com CPU alta
 
-Para testar o autoscaling mais adiante, criaremos uma página com alto consumo de CPU. Não se preocupe com o conteúdo.
-
-!!! tip "Curiosidade"
-    Eu pedi para o ChatGPT escrever uma página em PHP que consome muita CPU e gera resultados aleatórios. Ele respondeu com um método estatístico para calcular o valor de Pi. 
+Como preparação para testar o autoscaling mais adiante, criaremos uma página com a única finalidade de provocar alto consumo de CPU.
 
 Na sessão SSH da instância _web_ execute:
 
 ```bash
-nano /var/www/html/pi.php
+nano /var/www/html/cpu.php
 ```
 E adicione o conteúdo:
 ```php
 <?php
-// Define the number of random points to be generated
-$numPoints = mt_rand(1e6, 1e7);
+$startTime = microtime(true);
 
-$insideCircle = 0;
-
-// Generate random points and check if they are inside the unit circle
-for ($i = 0; $i < $numPoints; $i++) {
-    $x = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
-    $y = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
-
-    if (sqrt($x * $x + $y * $y) <= 1) {
-        $insideCircle++;
-    }
+for ($i = 0; $i < 10000000; $i++) {
+    $hash = sha1(mt_rand());
 }
 
-// Estimate the value of Pi using the Monte Carlo method
-$piEstimation = (4 * $insideCircle) / $numPoints;
+$endTime = microtime(true);
 
-echo "Estimated value of Pi: $piEstimation";
+$duration = $endTime - $startTime;
+echo "Duration: " . number_format($duration, 4) . " seconds<br>";
+
+echo "Current Time: " . date('H:i:s');
 ?>
 ```
 
-Teste a página fazendo refresh no endereço `http://200.234.208.120/pi.php` algumas vezes e vendo o resultado mudar (use o IP mapeado via _Static NAT_ para a instância _web_).
+Teste a página fazendo refresh no endereço `http://200.234.208.120/cpu.php` algumas vezes e vendo o resultado mudar (use o IP mapeado via _Static NAT_ para a instância _web_).
 
 ## Userdata
 
@@ -246,26 +236,25 @@ Agora criaremos uma nova instância a partir do template:
 
 1. No menu de navegação à esquerda clique em __Compute__, __Instances__
 2. Clique no botão __Add instance +__
-3. Em __Account__ coloque a sua conta.
-4. Em __Templates__, escolha __My templates__ e escolha __To Do app__ 
+3. Em __Templates__, escolha __My templates__ e escolha __To Do app__ 
 ![My templates](my-templates.png)
-5. Em __Compute offering__ escolha __TBD__ (criar offers com CPU/memória fixas)
-6. Em __Data disk__ mantenha __No thanks__
-7. Em __Networks__ escolha a rede que criou, _minha-rede_
-8. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
+4. Em __Compute offering__ escolha __LWSA.micro__ (criar offers com CPU/memória fixas)
+5. Em __Data disk__ mantenha __No thanks__
+6. Em __Networks__ escolha a rede que criou, _minha-rede_
+7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
-9. Em __Advanced mode__, habilite __Show advanced settings__
-10. Em __Stored Userdata__, selecione __tutorial__ e preencha __db_host__: `10.1.1.120` (coloque o IP privado do servidor bd no CloudStack); __db_password__: `<senha_bd>`
+8. Em __Advanced mode__, habilite __Show advanced settings__
+9. Em __Stored Userdata__, selecione __tutorial__ e preencha __db_host__: `10.1.1.120` (coloque o IP privado do servidor bd no CloudStack); __db_password__: `<senha_bd>`
 ![Stored Userdata](stored-userdata.png)
-11. Em __name__ coloque _teste-template_ e clique __Launch instance__
-12. Em __Compute__, __Instances__ verifique que a instância recém criada a partir do template está ligada e a anterior desligada
+10. Em __name__ coloque _teste-template_ e clique __Launch instance__
+11. Em __Compute__, __Instances__ verifique que a instância recém criada a partir do template está ligada e a anterior desligada
 ![Template running](template-running.png)
-13. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique no endereço IP que fora mapeado via _Static NAT_ para o servidor _web_
+12. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique no endereço IP que fora mapeado via _Static NAT_ para o servidor _web_
 ![Select IP](select-ip.png)
-14. Clique sobre o IP. Vamos desvincula-lo da instância _web_:
+13. Clique sobre o IP. Vamos desvincula-lo da instância _web_:
 ![Disable static NAT](disable-static-nat.png)
-15. E agora vincule o mesmo IP à nova instância _teste-template_ seguindo o mesmo procedimento clicando em _Enable Static NAT_ e escolhendo-a como destino.
-16. Note que é necessário recriar as regras de firewall para o IP após ter sido remapeado para nova instância:
+14. E agora vincule o mesmo IP à nova instância _teste-template_ seguindo o mesmo procedimento clicando em _Enable Static NAT_ e escolhendo-a como destino.
+15. Note que é necessário recriar as regras de firewall para o IP após ter sido remapeado para nova instância:
 ![Firewall template](firewall-template.png)
 
 Usando o endereço IP recém remapeado, acesse-o no browser em `http://200.234.208.120`. Deve aparecer a página padrão do Apache.
@@ -275,7 +264,7 @@ Acesse também as páginas, substituindo pelo endereço IP recém adquirido:
 ```
 http://200.234.208.120/info.php
 http://200.234.208.120/todo.php
-http://200.234.208.120/pi.php
+http://200.234.208.120/cpu.php
 ```
 
 Se seguiu os passos até aqui, tudo deve funcionar, demonstrando que o servidor criado a partir do template possui toda a programação inserida previamente.
