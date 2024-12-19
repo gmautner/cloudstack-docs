@@ -2,7 +2,7 @@
 
 ## Login
 
-Para começar, acesse [o painel do CloudStack](https://acs.cloud.locaweb.com.br) e forneça as credenciais que recebeu.
+Para começar, acesse [o painel do CloudStack](https:/lwsa.cloud) e forneça as credenciais que recebeu.
 
 Use a aba "Single Sign-On" se estiver acessando via SAML.
 
@@ -70,7 +70,7 @@ Para que a instância criada possa se comunicar com o mundo externo, os próximo
 ![Public IP addresses](public-ip.png)
 4. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique __+ Acquire new IP__. Escolha qualquer IP livre.
 ![Acquire new IP](acquire-ip.png)
-5. Clique sobre o novo IP escolhido (exemplo: `200.234.208.120`). Clique na aba __Firewall__ e crie as seguintes regras:
+5. Clique sobre o novo IP escolhido (exemplo: `xIP_WEBx`). Clique na aba __Firewall__ e crie as seguintes regras:
     1. __Source CIDR__: _0.0.0.0/0_; __Start port__: _80_; __End port__: _80_ (para aceitar conexões HTTP)
     2. __Source CIDR__: _0.0.0.0/0_; __Start port__: _443_; __End port__: _443_ (para aceitar conexões HTTPS)
     3. __Source CIDR__: _0.0.0.0/0_; __Start port__: _22_; __End port__: _22_ (para aceitar conexões SSH num range de portas).
@@ -101,20 +101,20 @@ Em seguida escolha como destino a instância _web_ que criamos.
 Uma vez que habilitamos _ICMP_ para o IP, podemos testar o _ping_:
 
 ```bash
-ping 200.234.208.120 # substitua pelo IP que escolheu acima
+ping xIP_WEBx # substitua pelo IP que escolheu acima
 ```
 
 Na estação onde tiver a chave privada associada à chave pública que cadastramos:
 
 ```bash
 # Substitua pelo IP que escolheu acima
-ssh root@200.234.208.120
+ssh root@xIP_WEBx
 ```
 
 Caso tenha criado uma chave diferente do _default_ `~/.ssh/id_rsa` seguir o exemplo:
 
 ```bash
-ssh root@200.234.208.120 -i ~/.ssh/id_rsa2
+ssh root@xIP_WEBx -i ~/.ssh/id_rsa2
 ```
 Alguns comandos interessantes:
 
@@ -129,5 +129,5 @@ df -h
 ```bash
 apt install apache2
 ```
-Acesse o IP no browser para testar:
+Acesse o http://xIP_WEBx no browser para testar:
 ![Apache](apache.png)

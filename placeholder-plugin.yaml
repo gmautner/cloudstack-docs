@@ -1,0 +1,5 @@
+settings:
+  inline_editor_style: icons
+  auto_placeholder_tables: false
+placeholders:
+  IP_WEB: "200.234.208.120"
