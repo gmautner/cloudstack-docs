@@ -4,15 +4,13 @@
 
 Para começar, acesse [o painel do CloudStack](https:/lwsa.cloud) e forneça as credenciais que recebeu.
 
-Use a aba "Single Sign-On" se estiver acessando via SAML.
-
 ## Chaves SSH
 
 Para poder logar-se nas instâncias, crie um chave SSH e cadastre-a no painel.
 
 1. No menu de navegação à esquerda clique em __Compute__, __SSH key pairs__
 2. Clique no botão __Create a SSH Key Pair +__
-3. Verifique se possui a chave criada na sua estação:
+3. Verifique se possui a chave criada no seu computador:
 ```bash
 cat ~/.ssh/id_rsa.pub
 ```
@@ -44,14 +42,14 @@ Para criar a rede:
 
 1. No menu de navegação à esquerda clique em __Compute__, __Instances__
 2. Clique no botão __Add instance +__
-3. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-LWSA__ 
+3. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu Server 22.04__ 
 ![Template](template.png)
-4. Em __Compute offering__ escolha __LWSA.micro__
-5. Em __Data disk__ mantenha __No thanks__
-6. Em __Networks__ escolha a rede que criou, _minha-rede_
-7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
+1. Em __Compute offering__ escolha __micro__
+2. Em __Data disk__ mantenha __No thanks__
+3. Em __Networks__ escolha a rede que criou, _minha-rede_
+4. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
-8. Coloque o nome _web_ e clique __Launch instance__
+1. Coloque o nome _web_ e clique __Launch instance__
 ![Instance details](details.png)
 
 ## Conectando à internet
@@ -64,16 +62,16 @@ Para que a instância criada possa se comunicar com o mundo externo, os próximo
 ### Firewall
 
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__ e clique na rede criada, ex. _minha-rede_
-2. Ao clicar na aba __Egress rules__ pode-se verificar se o tráfego de saída para a internet é, ou não, liberado por padrão. Caso a política (_default egress policy_) seja _Deny_ devemos liberar o tráfego de saída:
+1. Ao clicar na aba __Egress rules__ pode-se verificar se o tráfego de saída para a internet é, ou não, liberado por padrão. Caso a política (_default egress policy_) seja _Allow_ já está liberado. Se estiver como _Deny_ devemos liberar o tráfego de saída:
 ![Egress rules](egress_allow.png)
-3. Na aba __Public IP addresses__ vemos que já há um primeiro IP associado e marcado como _source-nat_. Isto indica que tráfego originado de dentro da rede para a internet terá este IP como origem.
+1. Na aba __Public IP addresses__ vemos que já há um primeiro IP associado e marcado como _source-nat_. Isto indica que tráfego originado de dentro da rede para a internet terá este IP como origem.
 ![Public IP addresses](public-ip.png)
-4. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique __+ Acquire new IP__. Escolha qualquer IP livre.
+1. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique __+ Acquire new IP__. Escolha qualquer IP livre.
 ![Acquire new IP](acquire-ip.png)
-5. Clique sobre o novo IP escolhido (exemplo: `xIP_WEBx`). Clique na aba __Firewall__ e crie as seguintes regras:
+1. Clique sobre o novo IP escolhido (exemplo: `xIP_WEBx`). Clique na aba __Firewall__ e crie as seguintes regras:
     1. __Source CIDR__: _0.0.0.0/0_; __Start port__: _80_; __End port__: _80_ (para aceitar conexões HTTP)
     2. __Source CIDR__: _0.0.0.0/0_; __Start port__: _443_; __End port__: _443_ (para aceitar conexões HTTPS)
-    3. __Source CIDR__: _0.0.0.0/0_; __Start port__: _22_; __End port__: _22_ (para aceitar conexões SSH num range de portas).
+    3. __Source CIDR__: _0.0.0.0/0_; __Start port__: _22_; __End port__: _22_ (para aceitar conexões SSH).
     4. __Source CIDR__: _0.0.0.0/0_; __Protocol__: _ICMP_ (para testarmos _ping_).
 
 !!! info
@@ -101,21 +99,15 @@ Em seguida escolha como destino a instância _web_ que criamos.
 Uma vez que habilitamos _ICMP_ para o IP, podemos testar o _ping_:
 
 ```bash
-ping xIP_WEBx # substitua pelo IP que escolheu acima
+ping xIP_WEBx
 ```
 
 Na estação onde tiver a chave privada associada à chave pública que cadastramos:
 
 ```bash
-# Substitua pelo IP que escolheu acima
 ssh root@xIP_WEBx
 ```
 
-Caso tenha criado uma chave diferente do _default_ `~/.ssh/id_rsa` seguir o exemplo:
-
-```bash
-ssh root@xIP_WEBx -i ~/.ssh/id_rsa2
-```
 Alguns comandos interessantes:
 
 ```bash
@@ -129,5 +121,8 @@ df -h
 ```bash
 apt install apache2
 ```
-Acesse o http://xIP_WEBx no browser para testar:
+Acesse no browser para testar:
+```
+http://xIP_WEBx
+```
 ![Apache](apache.png)

@@ -14,9 +14,9 @@ Para suportar a aplicação que criaremos a seguir, precisamos de um banco de da
 
 1. No menu de navegação à esquerda clique em __Compute__, __Instances__
 2. Clique no botão __Add instance +__
-3. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu-Server-22-LWSA__ 
+3. Em __Templates__, escolha __Community__, digite _ubuntu_ na busca e escolha __Ubuntu Server 22.04__ 
 ![Template](template.png)
-4. Em __Compute offering__ escolha __LWSA.micro__
+4. Em __Compute offering__ escolha __micro__
 5. Em __Data disk__ mantenha __No thanks__
 6. Em __Networks__ escolha a rede que criou, _minha-rede_
 7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
@@ -52,7 +52,7 @@ Agora acesse o servidor de banco de dados, lembrando de usar a porta _22001_:
 
 ```bash
 # Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
-ssh root@200.234.208.5 -p 22001
+ssh root@xIP_FWDx -p 22001
 ```
 
 Para instalar o MySQL:
@@ -68,7 +68,7 @@ nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
 E altere o `bind-address` de `127.0.0.1` para `0.0.0.0` reiniciando em seguida:
 ```bash
-sudo systemctl restart mysql.service
+systemctl restart mysql.service
 ```
 
 Finalmente, para criar o banco:
@@ -77,11 +77,11 @@ Finalmente, para criar o banco:
 mysql -u root -h localhost
 ```
 
-No prompt to MySQL copie os comandos:
+Edite a senha abaixo e copie o comando no prompt do MySQL:
 
 ```SQL
 CREATE DATABASE `example_database`;
-CREATE USER 'example_user'@'%' IDENTIFIED BY '<senha_bd>';
+CREATE USER 'example_user'@'%' IDENTIFIED BY 'xSENHA_BDx';
 GRANT ALL PRIVILEGES ON `example_database`.* TO 'example_user'@'%';
 FLUSH PRIVILEGES;
 CREATE TABLE example_database.todo_list (
@@ -91,7 +91,7 @@ CREATE TABLE example_database.todo_list (
 );
 ```
 !!! info
-    Embora estejamos permitindo conexões do _meu_usuario_ de qualquer host, lembre que a rede (_minha-rede_) é isolada. Não havendo portas criadas em _firewall_ nem _forwarding_ para o MySQL, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.
+    Embora estejamos permitindo conexões de `example_user` a partir de qualquer host, lembre que a rede (_minha-rede_) é isolada. Não havendo portas criadas em _firewall_ nem _forwarding_ para o MySQL, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.
 
     Note, também, que o usuário _root_, por default, só permite conexões do próprio servidor (_localhost_)
 
@@ -114,7 +114,7 @@ A seguir ilustrarmos o uso de _snapshots_ do volume _raiz_ para recuperação da
 3. Ao abrir os detalhes do volume _ROOT-XXXX_ clique em __Take snapshot__ e escolha o nome _snapshot-bd_
 ![Snapshot](snapshot.png)
 ![Snapshot name](snapshot-name.png)
-4. Confira que o _snapshot_ com o nome escolhido, _snapshot-bd_ foi criado clicando em __Storage__, __Snapshots__ no menu de navegação à esquerda.
+4. Confira que o _snapshot_ com o nome escolhido, _snapshot-bd_ foi criado clicando em __Storage__, __Snapshots__ no menu de navegação à esquerda e aguarde até que esteja com _status_ __BackedUp__.
 5. Agora simularemos um desastre, apagando a VM. Clique em __Compute__, __Instances__, selecione _bd_, clique em __Destroy instance__ e habilite a opção __Expunge__
 ![Destroy](destroy.png)
 ![Expunge](expunge.png)
