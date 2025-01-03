@@ -18,8 +18,7 @@ plugins:
   - placeholder
 nav:
   - index.md
-  - Tutorial:
-    - tutorial/compute.md
-    - tutorial/snapshots.md
-    - tutorial/templates.md
-    - tutorial/loadbalancing.md
+  - compute.md
+  - snapshots.md
+  - templates.md
+  - loadbalancing.md
