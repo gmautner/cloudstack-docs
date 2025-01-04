@@ -31,7 +31,7 @@ Por exemplo, para acesso SSH podemos encaminhar a porta _22000_ de um IP para a 
 
 Isso proporciona mais um nível de segurança além do _firewall_, porque sem um encaminhamento explícito a instância fica inacessível pela internet pública. É um bom caso de uso para a instância _bd_, para a qual precisamos abrir apenas a porta de SSH para fora da _minha-rede_.
 
-Acesse a rede pré-criada (_minha-rede_) e clique sobre o primeiro IP da lista, que possui a nota `source-nat` ao lado dele.
+Acesse a rede pré-criada (_minha-rede_) e clique sobre o primeiro IP da lista, que possui a nota `source-nat` ao lado dele. Anote o IP escolhido: `xIP_FWDx`
 
 Clique na aba __Firewall__ e crie a regra:
 
@@ -125,7 +125,7 @@ A seguir ilustrarmos o uso de _snapshots_ do volume _raiz_ para recuperação da
 ![Template bd](template-bd.png)
 9. Finalmente crie a instância a partir do _template_. Clique em __Compute__, __Instances__, __Add instance +__.
     - Em __Template/ISO__ escolha __My templates__, _template-bd_.
-    - Em __Compute offering__ escolha _LWSA.micro_
+    - Em __Compute offering__ escolha _micro_
     - Em __Networks__ escolha _minha-rede_ para colocar a instância na mesma rede que a _web_
     - Em __SSH key pairs__ escolha _minha-chave_ cadastrada previamente.
     - Em __Name (Optional)__ coloque _bd_.
@@ -134,12 +134,11 @@ A seguir ilustrarmos o uso de _snapshots_ do volume _raiz_ para recuperação da
 Acesse o servidor novamente:
 
 ```bash
-# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima
-ssh root@200.234.208.5 -p 22001
+ssh root@xIP_FWDx -p 22001
 ```
 A conexão pode ser recusada pelo cliente SSH devido à mudança de chave no servidor, o que é esperado já que ele foi recriado. Para apagar a chave antiga do cliente:
 ```bash
-ssh-keygen -R "[200.234.208.5]:22001" # substitua pelo IP acima
+ssh-keygen -R "[xIP_FWDx]:22001"
 ```
 Após logar-se confira se o banco foi recuperado:
 ```bash
@@ -205,7 +204,7 @@ Agora demonstraremos um outro cenário de DR onde usamos um volume específico d
 
 Obs. Antes de iniciar, apague o _VM Snapshot_ criado em __Storage__, __VM snapshots__ pois sua existência é incompatível com as operações a seguir.
 
-1. Acesse __Storage__, __Volumes__ e __Create volume +__, preencha com nome _dados_ e tamanho _50_
+1. Acesse __Storage__, __Volumes__ e __Create volume +__, preencha com nome _dados_, escolha _Disk offering: data.disk.general_  e tamanho _50_
 ![Create volume](create-volume.png)
 2. Clique no volume criado e em __Attach disk__
 ![Attach disk](attach-disk.png)
