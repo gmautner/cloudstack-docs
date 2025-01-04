@@ -310,4 +310,4 @@ Vimos 3 formas diferentes de DR:
 
 - Reconstrução de uma VM a partir de _snapshot_ de volume raiz
 - Reversão a um estado anterior através de _VM snapshot_. Pode ser útil, por exemplo, como plano de _rollback_ de uma _change_.
-- Importação de dados de backup anexando _snapshot_ de volume anexado, rotina que pode ser automatizada via agendamento.
+- Importação de dados de backup via _snapshot_ de volume anexado, rotina que pode ser automatizada via agendamento.
