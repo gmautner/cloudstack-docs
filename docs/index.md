@@ -13,6 +13,7 @@ Ao final deste tutorial você terá total domínio de como fazer:
 - Snapshots
 - Chaves SSH
 - Templates
+- User Data
 - Redes
 - IPs
 - Firewalls
