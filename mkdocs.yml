@@ -19,6 +19,7 @@ plugins:
 nav:
   - index.md
   - compute.md
+  - userdata.md
   - snapshots.md
   - templates.md
   - loadbalancing.md

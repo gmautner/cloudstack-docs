@@ -1,4 +1,4 @@
-# Templates e Userdata
+# Templates
 
 Neste passo demonstraremos:
 
@@ -15,8 +15,7 @@ Utilizaremos os recursos criados no passo anterior, [DR e Snapshots](snapshots.m
 Usando o _port forwarding_ configurado anteriormente entre via SSH no servidor _web_:
 
 ```bash
-# Substitua o endereço IP abaixo pelo que foi configurado com port forwarding anteriormente
-ssh root@200.234.208.5 -p 22000
+ssh root@xIP_FWDx -p 22000
 ```
 
 E instale o PHP para Apache:
@@ -33,7 +32,11 @@ phpinfo();
 EOF
 ```
 
-E acesse `http://200.234.208.120/info.php` (aqui usamos o IP mapeado via _Static NAT_ para a instância _web_).
+E acesse:
+```
+http://xIP_WEBx/info.php
+```
+(aqui usamos o IP mapeado via _Static NAT_ para a instância _web_).
 
 Agora criaremos nossa aplicação, que lista a tabela `todo_list`:
 
@@ -46,10 +49,10 @@ Copie o conteúdo, substituindo o endereço IP pelo do servidor _bd_, que pode s
 ```php
 <?php
 $user = "example_user";
-$password = "<senha_bd>";
+$password = "xSENHA_BDx";
 $database = "example_database";
 $table = "todo_list";
-$host = "10.1.1.120"; // Coloque o IP privado do servidor bd no CloudStack
+$host = "xIP_BDx"; // Coloque o IP privado do servidor bd no CloudStack
 
 try {
   $db = new PDO("mysql:host=$host;dbname=$database", $user, $password);
@@ -68,7 +71,11 @@ try {
 !!! tip "Dica"
     Note que usamos o IP privado do bd, pois o servidor web o acessa pela rede privada. Com isso, não precisamos expor o bd para a rede pública.
 
-E acesse `http://200.234.208.120/todo.php` (use o IP mapeado via _Static NAT_ para a instância _web_).
+E acesse:
+```
+http://xIP_WEBx/todo.php
+```
+(use o IP mapeado via _Static NAT_ para a instância _web_).
 
 ### Página com CPU alta
 
@@ -97,112 +104,27 @@ echo "Current Time: " . date('H:i:s');
 ?>
 ```
 
-Teste a página fazendo refresh no endereço `http://200.234.208.120/cpu.php` algumas vezes e vendo o resultado mudar (use o IP mapeado via _Static NAT_ para a instância _web_).
-
-## Userdata
-
-No código acima, o endereço do _host_ do banco de dados e a senha estão hardcoded, impedindo que o servidor sirva de _template_ para deployment em outros ambientes ou que seja replicado para _load balancing_.
-
-Então:
-
-1. Edite o arquivo `/var/www/html/todo.php` para:
-```php
-<?php
-include '/var/www/config.php'; // Linha acrescentada
-
-$user = "example_user";
-$password = DB_PASSWORD; // Valor hardcoded substituído por uma variável
-$database = "example_database";
-$table = "todo_list";
-$host = DB_HOST; // Valor hardcoded substituído por uma variável
-
-try {
-  $db = new PDO("mysql:host=$host;dbname=$database", $user, $password);
-  echo "<h2>TODO</h2><ol>"; 
-  foreach($db->query("SELECT content FROM $table") as $row) {
-    echo "<li>" . $row['content'] . "</li>";
-  }
-  echo "</ol>";
-} catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
-    die();
-}
-?>
+Teste a página fazendo refresh no endereço abaixo algumas vezes e vendo o resultado mudar:
 ```
-
-2. Crie um novo arquivo fora da raiz do site:
-```bash
-nano /var/www/config.php
+http://xIP_WEBx/cpu.php
 ```
-Insira o conteúdo (use o IP e senha do seu banco de dados):
-```php
-<?php
-define('DB_HOST', '10.1.1.120'); // Coloque o IP privado do servidor bd no CloudStack
-define('DB_PASSWORD', '<senha_bd>');
-?>
-```
-E proteja as permissões:
-```bash
-chown www-data:www-data /var/www/config.php
-chmod 600 /var/www/config.php
-```
-Acesse novamente `http://200.234.208.120/todo.php` para testar (use o IP mapeado via _Static NAT_ para a instância _web_).
-
-3. Finalmente, apague o arquivo criado:
-```bash
-rm /var/www/config.php
-cloud-init clean
-```
-Note que a aplicação quebrou. O segundo comando instrui o servidor a carregar o _Userdata_ no próximo boot.
-
-4. No menu de navegação à esquerda clique em __Compute__, __Instances__ e clique na instância _web_
-5. Clique no botão __Stop instance__ e confirme.
-![Stop instance](stop.png)
-6. Clique no botão __Edit instance__
-![Edit instance](edit.png)
-7. No campo __Userdata__, cole, substituindo o IP interno do servidor _bd_:
-```yaml
-#cloud-config
-
-write_files:
-  - path: /var/www/config.php
-    content: |
-      <?php
-      // Use o IP privado do servidor bd no CloudStack
-      define('DB_HOST', '10.1.1.120');
-      define('DB_PASSWORD', '<senha_bd>');
-      ?>
-    owner: "www-data:www-data"
-    permissions: '0600'
-```
-![Userdata](userdata.png)
-8. Reinicie o servidor. Após aguardar alguns instantes:
-    - Reinicie a sessão SSH e verifique que o arquivo `var/www/config.php` tem o conteúdo conforme acima
-    - __Verifique que a página funciona normalmente__
-
-!!! question "O que fizemos até agora?"
-    Recapitulando:
-
-    - Separamos as configurações num arquivo `config.php` à parte, fora da raiz do site
-    - Usamos o mecanismo de _cloud-init_ para carregar as configurações a partir de uma definição na instância.
-    - __O que falta__: agora transformaremos a instância num __template__ sem configurações. Este template poderá ser carregado com diferentes campos de _Userdata_ refletindo diferentes configurações, exemplo, _dev_, _staging_, _production_  
 
 ## Criação do template
 
-1. Não queremos configurações no template, portanto execute via SSH na instância _web_:
+Agora criaremos um _template_ a partir do qual novas instâncias podem ser criadas dinamicamente.
+
+1. Para limpar vestígios de carregamento do _cloud-init_:
 ```bash
-rm /var/www/config.php
 cloud-init clean --logs
 ```
-O segundo comando limpa vestígios de carregamentos anteriores do _cloud-init_.
 
-2. Pare a instância.
+1. Pare a instância _web_ (__Stop instance__).
 
-3. No menu de navegação à esquerda clique em __Compute__, __Instances__, clique na instância _web_ e em __Volumes__. Clique no link do volume (_ROOT-XXXX_)
+2. No menu de navegação à esquerda clique em __Compute__, __Instances__, clique na instância _web_ e em __Volumes__. Clique no link do volume (_ROOT-XXXX_)
 ![Volumes](volumes.png)
-4. No canto superior direito, selecione __Create template from volume__
+1. No canto superior direito, selecione __Create template from volume__
 ![Create template from volume](template-from-volume.png)
-5. Preencha da seguinte forma e dê OK:
+1. Preencha da seguinte forma e dê OK:
 ![To Do template](todo-template.png)
 
 ## Userdata com variáveis

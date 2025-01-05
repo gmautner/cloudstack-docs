@@ -5,3 +5,4 @@ placeholders:
   IP_WEB: "200.234.208.120"
   IP_FWD: "200.234.208.5"
   SENHA_BD: "<senha_bd>"
+  IP_BD: "10.1.1.120"

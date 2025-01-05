@@ -4,7 +4,7 @@ Neste passo demonstraremos como usar __Snapshots__ e __VM Snapshots__ para diver
 
 Usaremos como exemplo um servidor de banco de dados MySQL.
 
-Utilizaremos alguns recursos criados no passo anterior, [Compute e Networking](compute.md). Execute-o se ainda não o fez.
+Utilizaremos alguns recursos criados nos passo anteriores, [Compute e Networking](compute.md) e [User-data](userdata.md). Execute-os se ainda não o fez.
 
 ## Banco de dados
 
@@ -21,7 +21,9 @@ Para suportar a aplicação que criaremos a seguir, precisamos de um banco de da
 6. Em __Networks__ escolha a rede que criou, _minha-rede_
 7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
-8. Coloque o nome _bd_ e clique __Launch instance__
+8. Habilite __Show advanced settings__ e, em __Stored Userdata__, selecione o _user data_ criado na seção anterior, _mysql_
+![Stored Userdata](stored-userdata.png)
+9.  Coloque o nome _bd_ e clique __Launch instance__
 
 ### Port forwarding
 
@@ -46,7 +48,7 @@ Acesse a aba __Port forwarding__ e adicione as entradas:
 !!! info
     Note como podemos usar portas externas distintas (_22000_ e _22001_) como mesmo IP público para acessar serviços distintos (_web_ e _bd_) que possuem a mesma porta (22) no _back-end_.
 
-### Instalação do MySQL e banco
+### Acompanhamento da instalação
 
 Agora acesse o servidor de banco de dados, lembrando de usar a porta _22001_:
 
@@ -55,20 +57,11 @@ Agora acesse o servidor de banco de dados, lembrando de usar a porta _22001_:
 ssh root@xIP_FWDx -p 22001
 ```
 
-Para instalar o MySQL:
+O servidor deverá executar as instruções do _user data_ associado a ele, para instalação do _MySQL_ e demais configurações. Acompanhe com os comandos:
 
 ```bash
-apt update
-apt install mysql-server
-```
-
-Para permitir conexões da rede, edite o arquivo:
-```bash
-nano /etc/mysql/mysql.conf.d/mysqld.cnf
-```
-E altere o `bind-address` de `127.0.0.1` para `0.0.0.0` reiniciando em seguida:
-```bash
-systemctl restart mysql.service
+cloud-init status # aguarde até obter 'status: done'
+systemctl status mysql # aguarde até obter status do serviço 'running'
 ```
 
 Finalmente, para criar o banco:
@@ -156,6 +149,8 @@ SELECT * FROM todo_list;
     Em resumo: Criamos um snapshot do volume raiz de uma instância, a partir do _snapshot_ um _template_ e, do _template_, uma nova instância:
 
     Instância :arrow_forward: _snapshot_ :arrow_forward: _template_ :arrow_forward: nova instância
+
+    Note, também, que não foi necessário configurar _user data_ na nova instância pois as configurações já estavam no _template_.
 
 ## VM Snapshot
 
