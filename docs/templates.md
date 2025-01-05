@@ -127,31 +127,6 @@ cloud-init clean --logs
 1. Preencha da seguinte forma e dê OK:
 ![To Do template](todo-template.png)
 
-## Userdata com variáveis
-
-No próximo passo, criaremos um __Userdata__ parametrizável, ou seja, onde o usuário pode escolher os valores `DB_HOST` e `DB_PASSWORD`
-
-1. No menu de navegação à esquerda clique em __Compute__, __User Data__, __Register a userdata +__
-2. No nome, colocar _tutorial_. Em __Userdata__ colar o código abaixo:
-```yaml
-## template: jinja
-#cloud-config
-
-write_files:
-  - path: /var/www/config.php
-    content: |
-      <?php
-      define('DB_HOST', '{{ ds.meta_data.db_host }}');
-      define('DB_PASSWORD', '{{ ds.meta_data.db_password }}');
-    owner: "www-data:www-data"
-    permissions: '0600'
-```
-![Register userdata](register-userdata.png)
-3. Antes de dar OK preencha o campo __Userdata parameters__ com `db_host, db_password`
-
-!!! info
-    Na primeira linha `## template: jinja` configuramos o _cloud-init_ para processar os valores que o CloudStack passa dentro das chaves `{{ }}`. Isto permite a parametrização do _Userdata_.
-
 ## Recriação da instância
 
 Agora criaremos uma nova instância a partir do template:
@@ -160,33 +135,38 @@ Agora criaremos uma nova instância a partir do template:
 2. Clique no botão __Add instance +__
 3. Em __Templates__, escolha __My templates__ e escolha __To Do app__ 
 ![My templates](my-templates.png)
-4. Em __Compute offering__ escolha __LWSA.micro__ (criar offers com CPU/memória fixas)
+4. Em __Compute offering__ escolha __micro__ (criar offers com CPU/memória fixas)
 5. Em __Data disk__ mantenha __No thanks__
 6. Em __Networks__ escolha a rede que criou, _minha-rede_
 7. Em __SSH key pairs__ escolha a chave criada no passo anterior, por exemplo, _minha-chave_
 ![SSH key pairs](choose-keypair.png)
-8. Em __Advanced mode__, habilite __Show advanced settings__
-9. Em __Stored Userdata__, selecione __tutorial__ e preencha __db_host__: `10.1.1.120` (coloque o IP privado do servidor bd no CloudStack); __db_password__: `<senha_bd>`
-![Stored Userdata](stored-userdata.png)
-10. Em __name__ coloque _teste-template_ e clique __Launch instance__
-11. Em __Compute__, __Instances__ verifique que a instância recém criada a partir do template está ligada e a anterior desligada
+8.  Em __name__ coloque _teste-template_ e clique __Launch instance__
+9.  Em __Compute__, __Instances__ verifique que a instância recém criada a partir do template está ligada e a anterior desligada
 ![Template running](template-running.png)
-12. No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique no endereço IP que fora mapeado via _Static NAT_ para o servidor _web_
+10.  No menu à esquerda acesse __Networks__, __Guest networks__, _minha-rede_, __Public IP addresses__ e clique no endereço IP que fora mapeado via _Static NAT_ para o servidor _web_
 ![Select IP](select-ip.png)
-13. Clique sobre o IP. Vamos desvincula-lo da instância _web_:
+11.  Clique sobre o IP. Vamos desvincula-lo da instância _web_:
 ![Disable static NAT](disable-static-nat.png)
-14. E agora vincule o mesmo IP à nova instância _teste-template_ seguindo o mesmo procedimento clicando em _Enable Static NAT_ e escolhendo-a como destino.
-15. Note que é necessário recriar as regras de firewall para o IP após ter sido remapeado para nova instância:
+12.  E agora vincule o mesmo IP à nova instância _teste-template_ seguindo o mesmo procedimento clicando em _Enable Static NAT_ e escolhendo-a como destino.
+13.  Note que é necessário recriar as regras de firewall para o IP após ter sido remapeado para nova instância:
 ![Firewall template](firewall-template.png)
 
-Usando o endereço IP recém remapeado, acesse-o no browser em `http://200.234.208.120`. Deve aparecer a página padrão do Apache.
+Usando o endereço IP recém remapeado, acesse-o no browser em:
+```
+http://xIP_WEBx
+```
+Deve aparecer a página padrão do Apache.
 
 Acesse também as páginas, substituindo pelo endereço IP recém adquirido:
 
 ```
-http://200.234.208.120/info.php
-http://200.234.208.120/todo.php
-http://200.234.208.120/cpu.php
+http://xIP_WEBx/info.php
+```
+```
+http://xIP_WEBx/todo.php
+```
+```
+http://xIP_WEBx/cpu.php
 ```
 
 Se seguiu os passos até aqui, tudo deve funcionar, demonstrando que o servidor criado a partir do template possui toda a programação inserida previamente.
