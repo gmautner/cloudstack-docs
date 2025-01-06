@@ -1,9 +1,6 @@
 # Templates
 
-Neste passo demonstraremos:
-
-- Como criar __templates__, análogos às _imagens_ das nuvens públicas
-- Usando __userdata__ para customizar instâncias a partir de templates
+Neste passo demonstraremos como criar __templates__, análogos às _imagens_ das nuvens públicas.
 
 Utilizaremos os recursos criados no passo anterior, [DR e Snapshots](snapshots.md). Execute-o se ainda não o fez.
 

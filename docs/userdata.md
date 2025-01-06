@@ -42,4 +42,4 @@ O efeito do _user data_ acima é, na instalação do servidor:
 
 Ou seja, para instâncias que utilizem este _user data_ será provisionado um servidor de banco de dados MySQL com atualizações automáticas.
 
-Leia a [documentação](https://cloudinit.readthedocs.io/en/latest/reference/examples.html) para entender todas as opções disponíveis para o _user data_.
+Leia a [documentação](https://cloudinit.readthedocs.io/en/latest/reference/examples.html) para entender todas as opções disponíveis.
