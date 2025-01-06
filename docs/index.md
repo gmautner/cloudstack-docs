@@ -12,8 +12,8 @@ Ao final deste tutorial você terá total domínio de como fazer:
 - Volumes
 - Snapshots
 - Chaves SSH
-- Templates
 - User Data
+- Templates
 - Redes
 - IPs
 - Firewalls
