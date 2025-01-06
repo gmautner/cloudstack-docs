@@ -19,13 +19,4 @@ Ao final deste tutorial você terá total domínio de como fazer:
 - Firewalls
 - Load balancers
 - Grupos de autoscaling
-
-## Teste
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
+- VPC

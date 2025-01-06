@@ -13,6 +13,11 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 # https://mkdocs-placeholder-plugin.six-two.dev/
 plugins:
   - placeholder
@@ -23,3 +28,4 @@ nav:
   - snapshots.md
   - templates.md
   - loadbalancing.md
+  - vpc.md
