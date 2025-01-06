@@ -71,12 +71,36 @@ Em resumo:
 Neste tutorial criaremos um ambiente com duas _tiers_, _web_ e _bd_. Resumo dos passos:
 
 - Criar _VPC_
-- Criar _tiers_
 - Criar _ACLs_
-- Alocar _ACLs_ nas respectivas _tiers_
+- Criar _tiers_ alocando as respectivas _ACLs_
 - Criar instâncias em cada _tier_
 - Mapear IPs públicos às instâncias
 - Criar _load balancer_ e _autoscaling group_
 
 ## Criar VPC
+
+Acesse __Network__, __VPC__, __Add VPC +__ preenchendo:
+
+- __Name__: _minha-vpc_
+- __Description__: _Minha VPC_
+- __CIDR__: _10.0.0.0/8_
+
+![VPC](vpc.png)
+
+## Criar ACLs
+
+Em __Network__, __VPC__ clique sobre _minha-vpc_, __Network ACL lists__ e __Add network ACL list__.
+
+Crie duas _ACL lists_ com nomes _web_ e _bd_. Descrições podem ser iguais aos nomes.
+
+### ACL para Web
+
+Clique sobre a _ACL_ _web_:
+![ACL](acl.png)
+
+## Criar Tiers
+
+Em __Network__, __VPC__ clique sobre _minha-vpc_, __Networks__ e __+ Add new tier__.
+
+Preencha com:
 
