@@ -83,6 +83,7 @@ CREATE TABLE example_database.todo_list (
 	PRIMARY KEY(item_id)
 );
 ```
+
 !!! info
     Embora estejamos permitindo conexões de `example_user` a partir de qualquer host, lembre que a rede (_minha-rede_) é isolada. Não havendo portas criadas em _firewall_ nem _forwarding_ para o MySQL, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.
 
