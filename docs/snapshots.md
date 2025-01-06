@@ -154,7 +154,7 @@ SELECT * FROM todo_list;
 
 ## VM Snapshot
 
-Outro possível cenário de DR é uma operação que precisa ser revertida, sem que a instância tenha sido necessariamente perdida. 
+Outro possível cenário de DR ocorre quando é preciso voltar a VM a um estado anterior, por exemplo, para reverter uma _Change_. 
 
 Continue logado no prompt do MySQL e execute:
 
