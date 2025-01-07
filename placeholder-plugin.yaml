@@ -6,3 +6,5 @@ placeholders:
   IP_FWD: "200.234.208.5"
   SENHA_BD: "<senha_bd>"
   IP_BD: "10.1.1.120"
+  IP_WEB_VPC: "191.252.224.117"
+  IP_BD_VPC: "191.252.224.118"

@@ -152,3 +152,45 @@ Ao final, a página mostrará:
 Ao final, os _tiers_ criados aparecerão como:
 ![Tiers](tiers.png)
 
+## Criar instâncias
+
+### Instância web
+
+1. Clique __Compute__, __Instances__, __Add Instance +__
+2. Selecione __My templates__, _To Do app_
+3. Em __Compute offering__ escolha __micro__
+4. Em __Networks__ selecione _web_, na VPC _Minha VPC_
+5. Em __SSH key pairs__ selecione _minha-chave_
+6. No nome coloque _web-vpc_
+
+### Instância BD
+
+1. Clique __Compute__, __Instances__, __Add Instance +__
+2. Selecione __Community__, _Ubuntu Server 22.04_
+3. Em __Compute offering__ escolha __micro__
+4. Em __Networks__ selecione _bd_, na VPC _Minha VPC_
+5. Em __SSH key pairs__ selecione _minha-chave_
+6. Em __Advanced mode__, habilite __Show advanced settings__ e selecione _mysql_ no __Stored Userdata__
+7. No nome coloque _bd-vpc_
+
+## Mapear IPs
+
+### Instância web
+
+Mapearemos um IP público para possibilitar o acesso à instância _web-vpc_. De acrodo com a _ACL_ criada, serão aceitas conexões nas portas 22 (_SSH_) e 80/443 (_HTTP/HTTPS_).
+
+1. Selecione __Network__, __VPC__, _minha-vpc_, __Public IP addresses__ e __+ Acquire new IP__. Anote o IP a ser usado para a instância _web-vpc_: `xIP_WEB_VPCx`
+2. Clique sobre o IP _xIP_WEB_VPCx_ 
+3. Clique sobre o botão __Enable static NAT__
+4. Escolha o _tier_ _web_ e selecione a instância _web-vpc_
+![Static NAT web-vpc](staticnatwebvpc.png)
+
+### Instância BD
+
+Também mapearemos um IP público para possibilitar o acesso à instância _bd-vpc_. De acordo com a _ACL_ criada, serão aceitas conexões apenas na porta 22 (_SSH_). Note que a _ACL_ para acesso à porta 3306 (_MySQL_) só permite acesso a partir do _range_ _10.0.2.0/24_ pertentente ao _tier_ _web_, de forma que o banco permanece fechado para a internet pública.
+
+1. Selecione __Network__, __VPC__, _minha-vpc_, __Public IP addresses__ e __+ Acquire new IP__. Anote o IP a ser usado para a instância _web-bd_: `xIP_BD_VPCx`
+2. Clique sobre o IP _xIP_BD_VPCx_ 
+3. Clique sobre o botão __Enable static NAT__
+4. Escolha o _tier_ _bd_ e selecione a instância _bd-vpc_
+![Static NAT bd-vpc](staticnatbdvpc.png)
