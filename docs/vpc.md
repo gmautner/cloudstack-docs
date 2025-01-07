@@ -189,8 +189,77 @@ Mapearemos um IP público para possibilitar o acesso à instância _web-vpc_. De
 
 Também mapearemos um IP público para possibilitar o acesso à instância _bd-vpc_. De acordo com a _ACL_ criada, serão aceitas conexões apenas na porta 22 (_SSH_). Note que a _ACL_ para acesso à porta 3306 (_MySQL_) só permite acesso a partir do _range_ _10.0.2.0/24_ pertentente ao _tier_ _web_, de forma que o banco permanece fechado para a internet pública.
 
-1. Selecione __Network__, __VPC__, _minha-vpc_, __Public IP addresses__ e __+ Acquire new IP__. Anote o IP a ser usado para a instância _web-bd_: `xIP_BD_VPCx`
-2. Clique sobre o IP _xIP_BD_VPCx_ 
+1. Selecione __Network__, __VPC__, _minha-vpc_, __Public IP addresses__ e __+ Acquire new IP__. Anote o IP a ser usado para a instância _web-bd_: `xIP_BD_VPC_PUBLICx`
+2. Clique sobre o IP _xIP_BD_VPC_PUBLICx_ 
 3. Clique sobre o botão __Enable static NAT__
 4. Escolha o _tier_ _bd_ e selecione a instância _bd-vpc_
 ![Static NAT bd-vpc](staticnatbdvpc.png)
+
+## Configurações
+
+### Instância web
+
+Editaremos o _script_ `todo.php` para acessar o banco de dados no novo endereço.
+
+1. Em __Compute__, __Instances__, selecione _bd-vpc_ e anote o IP privado: `xIP_DB_VPCx`
+2. Acesse a instância _web-vpc_ via _SSH_:
+```bash
+ssh root@xIP_WEB_VPCx
+```
+3. Uma vez logado edite o arquivo:
+```bash
+nano /var/www/html/todo.php
+```
+4. Altere o endereço do banco de dados par o IP privado do banco:
+```php
+<?php
+$user = "example_user";
+$password = "xSENHA_BDx";
+$database = "example_database";
+$table = "todo_list";
+$host = "xIP_DB_VPCx"; // Coloque o IP privado do servidor bd no CloudStack
+
+try {
+  $db = new PDO("mysql:host=$host;dbname=$database", $user, $password);
+  echo "<h2>TODO</h2><ol>";
+  foreach($db->query("SELECT content FROM $table") as $row) {
+    echo "<li>" . $row['content'] . "</li>";
+  }
+  echo "</ol>";
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
+?>
+```
+
+### Instância BD
+
+1. Acesse a instância _bd-vpc_ via _SSH_:
+```bash
+ssh root@xIP_BD_VPC_PUBLICx
+```
+2. Verifique o término da instalação:
+```bash
+cloud-init status # aguarde até obter 'status: done'
+systemctl status mysql # aguarde até obter status do serviço 'running'
+```
+3. Para configurar o banco:
+```bash
+mysql -u root -h localhost
+```
+4. Execute o _script_:
+```SQL
+CREATE DATABASE `example_database`;
+CREATE USER 'example_user'@'%' IDENTIFIED BY 'xSENHA_BDx';
+GRANT ALL PRIVILEGES ON `example_database`.* TO 'example_user'@'%';
+FLUSH PRIVILEGES;
+CREATE TABLE example_database.todo_list (
+	item_id INT AUTO_INCREMENT,
+	content VARCHAR(255),
+	PRIMARY KEY(item_id)
+);
+USE example_database;
+INSERT INTO todo_list (content) VALUES ("Minha primeira tarefa");
+INSERT INTO todo_list (content) VALUES ("Minha segunda tarefa");
+```
