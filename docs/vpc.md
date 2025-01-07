@@ -122,14 +122,33 @@ Ao final, a página mostrará:
     4. __CIDR list__: _0.0.0.0/0_,  __Action__: _Deny_, __Traffic type__: _Ingress_
 
 Ao final, a página mostrará:
-![ACL Web](aclweb.png)
+![ACL Web](aclbd.png)
 
 !!! Info
     Na primeira regra, o bloco _10.0.1.0/24_, a partir do qual permitimos conexão para a porta 3306 (_MySQL_), será atribuído ao _tier_ _web_. Ou seja, esta é a regra que permitirá aos servidores do _tier_ _web_ conectarem-se ao _tier_ _bd_.
 
 ## Criar Tiers
 
-Em __Network__, __VPC__ clique sobre _minha-vpc_, __Networks__ e __+ Add new tier__.
+### Tier Web
 
-Preencha com:
+1. Em __Network__, __VPC__ clique sobre _minha-vpc_, __Networks__ e __+ Add new tier__.
+2. Preencha com:
+    1. __Name__: _web_
+    2. __Gateway__: _10.0.1.1_
+    3. __Netmask__: _255.255.255.0_
+    4. __ACL__: _web_
+
+![Tier Web](tierweb.png)
+
+### Tier BD
+
+1. Da mesma forma, __Network__, __VPC__ clique sobre _minha-vpc_, __Networks__ e __+ Add new tier__.
+2. Preencha com:
+    1. __Name__: _bd_
+    2. __Gateway__: _10.0.2.1_
+    3. __Netmask__: _255.255.255.0_
+    4. __ACL__: _bd_
+
+Ao final, os _tiers_ criados aparecerão como:
+![Tiers](tiers.png)
 
