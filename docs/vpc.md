@@ -263,3 +263,19 @@ USE example_database;
 INSERT INTO todo_list (content) VALUES ("Minha primeira tarefa");
 INSERT INTO todo_list (content) VALUES ("Minha segunda tarefa");
 ```
+
+## Teste
+
+Acesse as _URLs_ para testar:
+
+```
+http://xIP_WEB_VPCx
+```
+
+```
+http://xIP_WEB_VPCx/info.php
+```
+
+```
+http://xIP_WEB_VPCx/todo.php
+```
