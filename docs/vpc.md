@@ -189,7 +189,7 @@ Mapearemos um IP público para possibilitar o acesso à instância _web-vpc_. De
 
 Também mapearemos um IP público para possibilitar o acesso à instância _bd-vpc_. De acordo com a _ACL_ criada, serão aceitas conexões apenas na porta 22 (_SSH_). Note que a _ACL_ para acesso à porta 3306 (_MySQL_) só permite acesso a partir do _range_ _10.0.2.0/24_ pertentente ao _tier_ _web_, de forma que o banco permanece fechado para a internet pública.
 
-1. Selecione __Network__, __VPC__, _minha-vpc_, __Public IP addresses__ e __+ Acquire new IP__. Anote o IP a ser usado para a instância _web-bd_: `xIP_BD_VPC_PUBLICx`
+1. Selecione __Network__, __VPC__, _minha-vpc_, __Public IP addresses__ e __+ Acquire new IP__. Anote o IP a ser usado para a instância _bd-vpc_: `xIP_BD_VPC_PUBLICx`
 2. Clique sobre o IP _xIP_BD_VPC_PUBLICx_ 
 3. Clique sobre o botão __Enable static NAT__
 4. Escolha o _tier_ _bd_ e selecione a instância _bd-vpc_
