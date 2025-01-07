@@ -67,6 +67,9 @@ Em resumo:
 
 - Enquanto numa _Guest Network_ há apenas um segmento de rede, com visibilidade irrestrita entre as _VMs_, numa _VPC_ é possível segmentar a rede entre diferentes _tiers_.
 - Na _Guest Network_ utilizamos _Firewalls_ para cada IP. Na _VPC_ as regras de acesso são definidas via _ACLs_ (_Access Control Lists_) entre as _tiers_ e entre estas e a internet pública.
+
+!!! Tip
+    Todos os demais recursos descritos anteriormente como _User Data_, _Templates_, _Shapshots_, _Load Balancing_ e _Autoscaling_ funcionam normalmente em _VPCs_.
   
 Neste tutorial criaremos um ambiente com duas _tiers_, _web_ e _bd_. Resumo dos passos:
 
@@ -75,7 +78,6 @@ Neste tutorial criaremos um ambiente com duas _tiers_, _web_ e _bd_. Resumo dos 
 - Criar _tiers_ alocando as respectivas _ACLs_
 - Criar instâncias em cada _tier_
 - Mapear IPs públicos às instâncias
-- Criar _load balancer_ e _autoscaling group_
 
 ## Criar VPC
 
@@ -95,8 +97,35 @@ Crie duas _ACL lists_ com nomes _web_ e _bd_. Descrições podem ser iguais aos 
 
 ### ACL para Web
 
-Clique sobre a _ACL_ _web_:
+1. Clique sobre a _ACL_ _web_:
 ![ACL](acl.png)
+2. Selecione __ACL list rules__, __+ Add ACL__ algumas vezes para criar as regras, nesta ordem:
+    1. __CIDR list__: _0.0.0.0/0_,  __Action__: _Allow_, __Start port__: _80_, __End port__: _80_, __Traffic type__: _Ingress_
+    2. __CIDR list__: _0.0.0.0/0_,  __Action__: _Allow_, __Start port__: _443_, __End port__: _443_, __Traffic type__: _Ingress_
+    3. __CIDR list__: _0.0.0.0/0_,  __Action__: _Allow_, __Start port__: _22_, __End port__: _22_, __Traffic type__: _Ingress_
+    4. __CIDR list__: _0.0.0.0/0_,  __Action__: _Allow_, __Traffic type__: _Egress_
+    5. __CIDR list__: _0.0.0.0/0_,  __Action__: _Deny_, __Traffic type__: _Ingress_
+
+Ao final, a página mostrará:
+![ACL Web](aclweb.png)
+
+!!! Info
+    As _ACLs_ são avaliadas na ordem em que são criadas, até o primeiro _match_. Por isso, a regra de _Deny_ é a última, proibindo tráfego não coberto pelas regras anteriores.
+
+### ACL para BD
+
+1. Clique sobre a _ACL_ _bd_
+2. Selecione __ACL list rules__, __+ Add ACL__ algumas vezes para criar as regras, nesta ordem:
+    1. __CIDR list__: _10.0.1.0/24_,  __Action__: _Allow_, __Start port__: _3306_, __End port__: _3306_, __Traffic type__: _Ingress_
+    2. __CIDR list__: _0.0.0.0/0_,  __Action__: _Allow_, __Start port__: _22_, __End port__: _22_, __Traffic type__: _Ingress_
+    3. __CIDR list__: _0.0.0.0/0_,  __Action__: _Allow_, __Traffic type__: _Egress_
+    4. __CIDR list__: _0.0.0.0/0_,  __Action__: _Deny_, __Traffic type__: _Ingress_
+
+Ao final, a página mostrará:
+![ACL Web](aclweb.png)
+
+!!! Info
+    Na primeira regra, o bloco _10.0.1.0/24_, a partir do qual permitimos conexão para a porta 3306 (_MySQL_), será atribuído ao _tier_ _web_. Ou seja, esta é a regra que permitirá aos servidores do _tier_ _web_ conectarem-se ao _tier_ _bd_.
 
 ## Criar Tiers
 
