@@ -1,0 +1,1109 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../loadbalancing/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>VPC - CloudStack Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/javascripts/placeholder-plugin.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vpc" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CloudStack Docs" class="md-header__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CloudStack Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VPC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CloudStack Docs" class="md-nav__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CloudStack Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introdução
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute e Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../userdata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DR e Snapshots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loadbalancing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancing e Autoscaling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    VPC
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    VPC
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introdução
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introdução">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guest-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vpc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      VPC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-vpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar VPC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-acls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar ACLs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Criar ACLs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acl-para-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACL para Web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acl-para-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACL para BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-tiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar Tiers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Criar Tiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tier Web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tier BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-instancias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar instâncias
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Criar instâncias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancia-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instancia-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapear-ips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapear IPs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapear IPs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancia-web_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instancia-bd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancia-web_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instancia-bd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Teste
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introducao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introdução
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introdução">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#guest-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guest Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vpc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      VPC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-vpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar VPC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-acls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar ACLs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Criar ACLs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acl-para-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACL para Web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acl-para-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACL para BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-tiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar Tiers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Criar Tiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tier Web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tier BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criar-instancias" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criar instâncias
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Criar instâncias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancia-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instancia-bd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapear-ips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mapear IPs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mapear IPs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancia-web_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instancia-bd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurações
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurações">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instancia-web_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instancia-bd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instância BD
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Teste
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="vpc">VPC</h1>
+<h2 id="introducao">Introdução</h2>
+<p>Os diagramas abaixo resumem as principais diferenças entre <em>Guest Networks</em>, conceito que viemos utilizando até aqui, e <em>VPC</em>, que introduziremos nesta seção.</p>
+<h3 id="guest-network">Guest Network</h3>
+<pre class="mermaid"><code>graph LR
+    subgraph "Internet Pública"
+        Internet(Internet)
+    end
+
+    subgraph "Guest Network 10.0.0.0/8"
+        A1(Web 1&lt;br&gt;10.1.1.2)
+        A2(Web 2&lt;br&gt;10.1.1.3)
+        A3(App&lt;br&gt;10.1.1.4)
+        A4(DB&lt;br&gt;10.1.1.5)
+    end
+
+    Internet --&gt; RD(VR:&lt;br&gt;NAT&lt;br&gt;Load Balancing&lt;br&gt;Firewall&lt;br&gt;Gateway: 10.1.1.1)
+
+    RD --&gt; A1
+    RD --&gt; A2
+    RD --&gt; A3
+    RD --&gt; A4
+
+    style RD fill:#cc9999</code></pre>
+<h3 id="vpc_1">VPC</h3>
+<pre class="mermaid"><code>graph LR
+    subgraph "Internet Pública"
+        Internet(Internet)
+    end
+
+    subgraph "VPC 10.0.0.0/8"
+        subgraph "BD tier 10.0.3.0/24"
+            DB(DB&lt;br&gt;10.1.3.10)
+        end
+
+        subgraph "App tier 10.0.2.0/24"
+            App(App&lt;br&gt;10.1.2.50)
+        end
+
+        subgraph "Web tier 10.0.1.0/24"
+            Web1(Web 1&lt;br&gt;10.1.1.101)
+            Web2(Web 2&lt;br&gt;10.1.1.102)
+        end
+
+    end
+
+    Internet --&gt; CS_VR(VR:&lt;br&gt;NAT&lt;br&gt;Load Balancing&lt;br&gt;ACL&lt;br&gt;Gateway: 10.1.1.1&lt;br&gt;Gateway: 10.1.2.1&lt;br&gt;Gateway: 10.1.3.1)
+
+    CS_VR --&gt; Web1
+    CS_VR --&gt; Web2
+    CS_VR --&gt; App
+    CS_VR --&gt; DB
+
+    style CS_VR fill:#cc9999</code></pre>
+<p>Em resumo:</p>
+<ul>
+<li>Enquanto numa <em>Guest Network</em> há apenas um segmento de rede, com visibilidade irrestrita entre as <em>VMs</em>, numa <em>VPC</em> é possível segmentar a rede entre diferentes <em>tiers</em>.</li>
+<li>Na <em>Guest Network</em> utilizamos <em>Firewalls</em> para cada IP. Na <em>VPC</em> as regras de acesso são definidas via <em>ACLs</em> (<em>Access Control Lists</em>) entre as <em>tiers</em> e entre estas e a internet pública.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Todos os demais recursos descritos anteriormente como <em>User Data</em>, <em>Templates</em>, <em>Shapshots</em>, <em>Load Balancing</em> e <em>Autoscaling</em> funcionam normalmente em <em>VPCs</em>.</p>
+</div>
+<p>Neste tutorial criaremos um ambiente com duas <em>tiers</em>, <em>web</em> e <em>bd</em>. Resumo dos passos:</p>
+<ul>
+<li>Criar <em>VPC</em></li>
+<li>Criar <em>ACLs</em></li>
+<li>Criar <em>tiers</em> alocando as respectivas <em>ACLs</em></li>
+<li>Criar instâncias em cada <em>tier</em></li>
+<li>Mapear IPs públicos às instâncias</li>
+</ul>
+<h2 id="criar-vpc">Criar VPC</h2>
+<p>Acesse <strong>Network</strong>, <strong>VPC</strong>, <strong>Add VPC +</strong> preenchendo:</p>
+<ul>
+<li><strong>Name</strong>: <em>minha-vpc</em></li>
+<li><strong>Description</strong>: <em>Minha VPC</em></li>
+<li><strong>CIDR</strong>: <em>10.0.0.0/8</em></li>
+</ul>
+<p><img alt="VPC" src="../vpc.png" /></p>
+<h2 id="criar-acls">Criar ACLs</h2>
+<p>Em <strong>Network</strong>, <strong>VPC</strong> clique sobre <em>minha-vpc</em>, <strong>Network ACL lists</strong> e <strong>Add network ACL list</strong>.</p>
+<p>Crie duas <em>ACL lists</em> com nomes <em>web</em> e <em>bd</em>. Descrições podem ser iguais aos nomes.</p>
+<h3 id="acl-para-web">ACL para Web</h3>
+<ol>
+<li>Clique sobre a <em>ACL</em> <em>web</em>:
+<img alt="ACL" src="../acl.png" /></li>
+<li>Selecione <strong>ACL list rules</strong>, <strong>+ Add ACL</strong> algumas vezes para criar as regras, nesta ordem:<ol>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Allow</em>, <strong>Start port</strong>: <em>80</em>, <strong>End port</strong>: <em>80</em>, <strong>Traffic type</strong>: <em>Ingress</em></li>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Allow</em>, <strong>Start port</strong>: <em>443</em>, <strong>End port</strong>: <em>443</em>, <strong>Traffic type</strong>: <em>Ingress</em></li>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Allow</em>, <strong>Start port</strong>: <em>22</em>, <strong>End port</strong>: <em>22</em>, <strong>Traffic type</strong>: <em>Ingress</em></li>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Allow</em>, <strong>Traffic type</strong>: <em>Egress</em></li>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Deny</em>, <strong>Traffic type</strong>: <em>Ingress</em></li>
+</ol>
+</li>
+</ol>
+<p>Ao final, a página mostrará:
+<img alt="ACL Web" src="../aclweb.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>As <em>ACLs</em> são avaliadas na ordem em que são criadas, até o primeiro <em>match</em>. Por isso, a regra de <em>Deny</em> é a última, proibindo tráfego não coberto pelas regras anteriores.</p>
+</div>
+<h3 id="acl-para-bd">ACL para BD</h3>
+<ol>
+<li>Clique sobre a <em>ACL</em> <em>bd</em></li>
+<li>Selecione <strong>ACL list rules</strong>, <strong>+ Add ACL</strong> algumas vezes para criar as regras, nesta ordem:<ol>
+<li><strong>CIDR list</strong>: <em>10.0.1.0/24</em>,  <strong>Action</strong>: <em>Allow</em>, <strong>Start port</strong>: <em>3306</em>, <strong>End port</strong>: <em>3306</em>, <strong>Traffic type</strong>: <em>Ingress</em></li>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Allow</em>, <strong>Start port</strong>: <em>22</em>, <strong>End port</strong>: <em>22</em>, <strong>Traffic type</strong>: <em>Ingress</em></li>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Allow</em>, <strong>Traffic type</strong>: <em>Egress</em></li>
+<li><strong>CIDR list</strong>: <em>0.0.0.0/0</em>,  <strong>Action</strong>: <em>Deny</em>, <strong>Traffic type</strong>: <em>Ingress</em></li>
+</ol>
+</li>
+</ol>
+<p>Ao final, a página mostrará:
+<img alt="ACL Web" src="../aclbd.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Na primeira regra, o bloco <em>10.0.1.0/24</em>, a partir do qual permitimos conexão para a porta 3306 (<em>MySQL</em>), será atribuído ao <em>tier</em> <em>web</em>. Ou seja, esta é a regra que permitirá aos servidores do <em>tier</em> <em>web</em> conectarem-se ao <em>tier</em> <em>bd</em>.</p>
+</div>
+<h2 id="criar-tiers">Criar Tiers</h2>
+<h3 id="tier-web">Tier Web</h3>
+<ol>
+<li>Em <strong>Network</strong>, <strong>VPC</strong> clique sobre <em>minha-vpc</em>, <strong>Networks</strong> e <strong>+ Add new tier</strong>.</li>
+<li>Preencha com:<ol>
+<li><strong>Name</strong>: <em>web</em></li>
+<li><strong>Gateway</strong>: <em>10.0.1.1</em></li>
+<li><strong>Netmask</strong>: <em>255.255.255.0</em></li>
+<li><strong>ACL</strong>: <em>web</em></li>
+</ol>
+</li>
+</ol>
+<p><img alt="Tier Web" src="../tierweb.png" /></p>
+<h3 id="tier-bd">Tier BD</h3>
+<ol>
+<li>Da mesma forma, <strong>Network</strong>, <strong>VPC</strong> clique sobre <em>minha-vpc</em>, <strong>Networks</strong> e <strong>+ Add new tier</strong>.</li>
+<li>Preencha com:<ol>
+<li><strong>Name</strong>: <em>bd</em></li>
+<li><strong>Gateway</strong>: <em>10.0.2.1</em></li>
+<li><strong>Netmask</strong>: <em>255.255.255.0</em></li>
+<li><strong>ACL</strong>: <em>bd</em></li>
+</ol>
+</li>
+</ol>
+<p>Ao final, os <em>tiers</em> criados aparecerão como:
+<img alt="Tiers" src="../tiers.png" /></p>
+<h2 id="criar-instancias">Criar instâncias</h2>
+<h3 id="instancia-web">Instância web</h3>
+<ol>
+<li>Clique <strong>Compute</strong>, <strong>Instances</strong>, <strong>Add Instance +</strong></li>
+<li>Selecione <strong>My templates</strong>, <em>To Do app</em></li>
+<li>Em <strong>Compute offering</strong> escolha <strong>micro</strong></li>
+<li>Em <strong>Networks</strong> selecione <em>web</em>, na VPC <em>Minha VPC</em></li>
+<li>Em <strong>SSH key pairs</strong> selecione <em>minha-chave</em></li>
+<li>No nome coloque <em>web-vpc</em></li>
+</ol>
+<h3 id="instancia-bd">Instância BD</h3>
+<ol>
+<li>Clique <strong>Compute</strong>, <strong>Instances</strong>, <strong>Add Instance +</strong></li>
+<li>Selecione <strong>Community</strong>, <em>Ubuntu Server 22.04</em></li>
+<li>Em <strong>Compute offering</strong> escolha <strong>micro</strong></li>
+<li>Em <strong>Networks</strong> selecione <em>bd</em>, na VPC <em>Minha VPC</em></li>
+<li>Em <strong>SSH key pairs</strong> selecione <em>minha-chave</em></li>
+<li>Em <strong>Advanced mode</strong>, habilite <strong>Show advanced settings</strong> e selecione <em>mysql</em> no <strong>Stored Userdata</strong></li>
+<li>No nome coloque <em>bd-vpc</em></li>
+</ol>
+<h2 id="mapear-ips">Mapear IPs</h2>
+<h3 id="instancia-web_1">Instância web</h3>
+<p>Mapearemos um IP público para possibilitar o acesso à instância <em>web-vpc</em>. De acrodo com a <em>ACL</em> criada, serão aceitas conexões nas portas 22 (<em>SSH</em>) e 80/443 (<em>HTTP/HTTPS</em>).</p>
+<ol>
+<li>Selecione <strong>Network</strong>, <strong>VPC</strong>, <em>minha-vpc</em>, <strong>Public IP addresses</strong> e <strong>+ Acquire new IP</strong>. Anote o IP a ser usado para a instância <em>web-vpc</em>: <code><span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB_VPC">191.252.224.117</span></code></li>
+<li>Clique sobre o IP <em><span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB_VPC">191.252.224.117</span></em> </li>
+<li>Clique sobre o botão <strong>Enable static NAT</strong></li>
+<li>Escolha o <em>tier</em> <em>web</em> e selecione a instância <em>web-vpc</em>
+<img alt="Static NAT web-vpc" src="../staticnatwebvpc.png" /></li>
+</ol>
+<h3 id="instancia-bd_1">Instância BD</h3>
+<p>Também mapearemos um IP público para possibilitar o acesso à instância <em>bd-vpc</em>. De acordo com a <em>ACL</em> criada, serão aceitas conexões apenas na porta 22 (<em>SSH</em>). Note que a <em>ACL</em> para acesso à porta 3306 (<em>MySQL</em>) só permite acesso a partir do <em>range</em> <em>10.0.2.0/24</em> pertentente ao <em>tier</em> <em>web</em>, de forma que o banco permanece fechado para a internet pública.</p>
+<ol>
+<li>Selecione <strong>Network</strong>, <strong>VPC</strong>, <em>minha-vpc</em>, <strong>Public IP addresses</strong> e <strong>+ Acquire new IP</strong>. Anote o IP a ser usado para a instância <em>bd-vpc</em>: <code><span class="placeholder-value inline-editor-requested" data-placeholder="IP_BD_VPC_PUBLIC">191.252.224.118</span></code></li>
+<li>Clique sobre o IP <em><span class="placeholder-value inline-editor-requested" data-placeholder="IP_BD_VPC_PUBLIC">191.252.224.118</span></em> </li>
+<li>Clique sobre o botão <strong>Enable static NAT</strong></li>
+<li>Escolha o <em>tier</em> <em>bd</em> e selecione a instância <em>bd-vpc</em>
+<img alt="Static NAT bd-vpc" src="../staticnatbdvpc.png" /></li>
+</ol>
+<h2 id="configuracoes">Configurações</h2>
+<h3 id="instancia-web_2">Instância web</h3>
+<p>Editaremos o <em>script</em> <code>todo.php</code> para acessar o banco de dados no novo endereço.</p>
+<ol>
+<li>Em <strong>Compute</strong>, <strong>Instances</strong>, selecione <em>bd-vpc</em> e anote o IP privado: <code><span class="placeholder-value inline-editor-requested" data-placeholder="IP_DB_VPC">10.0.2.101</span></code></li>
+<li>Acesse a instância <em>web-vpc</em> via <em>SSH</em>:
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>root@<span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB_VPC">191.252.224.117</span>
+</code></pre></div></li>
+<li>Uma vez logado edite o arquivo:
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>/var/www/html/todo.php
+</code></pre></div></li>
+<li>Altere o endereço do banco de dados par o IP privado do banco:
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$user</span> <span class="o">=</span> <span class="s2">&quot;example_user&quot;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s2">&quot;<span class="placeholder-value inline-editor-requested" data-placeholder="SENHA_BD">pass_bd</span>&quot;</span><span class="p">;</span>
+<span class="nv">$database</span> <span class="o">=</span> <span class="s2">&quot;example_database&quot;</span><span class="p">;</span>
+<span class="nv">$table</span> <span class="o">=</span> <span class="s2">&quot;todo_list&quot;</span><span class="p">;</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="s2">&quot;<span class="placeholder-value inline-editor-requested" data-placeholder="IP_DB_VPC">10.0.2.101</span>&quot;</span><span class="p">;</span> <span class="c1">// Coloque o IP privado do servidor bd no CloudStack</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s2">&quot;mysql:host=</span><span class="si">$host</span><span class="s2">;dbname=</span><span class="si">$database</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="nv">$password</span><span class="p">);</span>
+  <span class="k">echo</span> <span class="s2">&quot;&lt;h2&gt;TODO&lt;/h2&gt;&lt;ol&gt;&quot;</span><span class="p">;</span>
+  <span class="k">foreach</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SELECT content FROM </span><span class="si">$table</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">&quot;&lt;li&gt;&quot;</span> <span class="o">.</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">echo</span> <span class="s2">&quot;&lt;/ol&gt;&quot;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PDOException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s2">&quot;Error!: &quot;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="s2">&quot;&lt;br/&gt;&quot;</span><span class="p">;</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></li>
+</ol>
+<h3 id="instancia-bd_2">Instância BD</h3>
+<ol>
+<li>Acesse a instância <em>bd-vpc</em> via <em>SSH</em>:
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>root@<span class="placeholder-value inline-editor-requested" data-placeholder="IP_BD_VPC_PUBLIC">191.252.224.118</span>
+</code></pre></div></li>
+<li>Verifique o término da instalação:
+<div class="highlight"><pre><span></span><code>cloud-init<span class="w"> </span>status<span class="w"> </span><span class="c1"># aguarde até obter &#39;status: done&#39;</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>mysql<span class="w"> </span><span class="c1"># aguarde até obter status do serviço &#39;running&#39;</span>
+</code></pre></div></li>
+<li>Para configurar o banco:
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-h<span class="w"> </span>localhost
+</code></pre></div></li>
+<li>Execute o <em>script</em>:
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s1">&#39;example_database&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;example_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;<span class="placeholder-value inline-editor-requested" data-placeholder="SENHA_BD">pass_bd</span>&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;example_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">item_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">item_id</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="n">USE</span><span class="w"> </span><span class="n">example_database</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Minha primeira tarefa&quot;</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Minha segunda tarefa&quot;</span><span class="p">);</span>
+</code></pre></div></li>
+</ol>
+<h2 id="teste">Teste</h2>
+<p>Acesse as <em>URLs</em> para testar:</p>
+<div class="highlight"><pre><span></span><code>http://<span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB_VPC">191.252.224.117</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>http://<span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB_VPC">191.252.224.117</span>/info.php
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>http://<span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB_VPC">191.252.224.117</span>/todo.php
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../assets/javascripts/placeholder-combined.js"></script>
+      
+    
+  </body>
+</html>

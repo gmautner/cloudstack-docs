@@ -1,0 +1,840 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../userdata/">
+      
+      
+        <link rel="next" href="../templates/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>DR e Snapshots - CloudStack Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/javascripts/placeholder-plugin.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dr-e-snapshots" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CloudStack Docs" class="md-header__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CloudStack Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DR e Snapshots
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CloudStack Docs" class="md-nav__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CloudStack Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introdução
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compute/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute e Networking
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../userdata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    DR e Snapshots
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    DR e Snapshots
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Banco de dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Banco de dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criacao-da-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criação da instância
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port forwarding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acompanhamento-da-instalacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acompanhamento da instalação
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshot-de-volume-raiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapshot de volume raiz
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vm-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      VM Snapshot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshot-de-volume-anexado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapshot de volume anexado
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Observações
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loadbalancing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancing e Autoscaling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#banco-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Banco de dados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Banco de dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criacao-da-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criação da instância
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port forwarding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acompanhamento-da-instalacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acompanhamento da instalação
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshot-de-volume-raiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapshot de volume raiz
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vm-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      VM Snapshot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snapshot-de-volume-anexado" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapshot de volume anexado
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Observações
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="dr-e-snapshots">DR e Snapshots</h1>
+<p>Neste passo demonstraremos como usar <strong>Snapshots</strong> e <strong>VM Snapshots</strong> para diversos cenários de DR.</p>
+<p>Usaremos como exemplo um servidor de banco de dados MySQL.</p>
+<p>Utilizaremos alguns recursos criados nos passo anteriores, <a href="../compute/">Compute e Networking</a> e <a href="../userdata/">User-data</a>. Execute-os se ainda não o fez.</p>
+<h2 id="banco-de-dados">Banco de dados</h2>
+<p>Para suportar a aplicação que criaremos a seguir, precisamos de um banco de dados, que criaremos conforme segue:</p>
+<h3 id="criacao-da-instancia">Criação da instância</h3>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>Instances</strong></li>
+<li>Clique no botão <strong>Add instance +</strong></li>
+<li>Em <strong>Templates</strong>, escolha <strong>Community</strong>, digite <em>ubuntu</em> na busca e escolha <strong>Ubuntu Server 22.04</strong> 
+<img alt="Template" src="../template.png" /></li>
+<li>Em <strong>Compute offering</strong> escolha <strong>micro</strong></li>
+<li>Em <strong>Data disk</strong> mantenha <strong>No thanks</strong></li>
+<li>Em <strong>Networks</strong> escolha a rede que criou, <em>minha-rede</em></li>
+<li>Em <strong>SSH key pairs</strong> escolha a chave criada no passo anterior, por exemplo, <em>minha-chave</em>
+<img alt="SSH key pairs" src="../choose-keypair.png" /></li>
+<li>Habilite <strong>Show advanced settings</strong> e, em <strong>Stored Userdata</strong>, selecione o <em>user data</em> criado na seção anterior, <em>mysql</em>
+<img alt="Stored Userdata" src="../stored-userdata.png" /></li>
+<li>Coloque o nome <em>bd</em> e clique <strong>Launch instance</strong></li>
+</ol>
+<h3 id="port-forwarding">Port forwarding</h3>
+<p>Ao contrário do <em>Static NAT</em>, o método de <em>Port Forwarding</em> permite a reutilização de um mesmo Endereço IP público para diferentes instâncias, em função da porta acessada.</p>
+<p>Por exemplo, para acesso SSH podemos encaminhar a porta <em>22000</em> de um IP para a instância <em>web</em>, a porta <em>22001</em> do mesmo IP para <em>bd</em> e assim por diante.</p>
+<p>Isso proporciona mais um nível de segurança além do <em>firewall</em>, porque sem um encaminhamento explícito a instância fica inacessível pela internet pública. É um bom caso de uso para a instância <em>bd</em>, para a qual precisamos abrir apenas a porta de SSH para fora da <em>minha-rede</em>.</p>
+<p>Acesse a rede pré-criada (<em>minha-rede</em>) e clique sobre o primeiro IP da lista, que possui a nota <code>source-nat</code> ao lado dele. Anote o IP escolhido: <code><span class="placeholder-value inline-editor-requested" data-placeholder="IP_FWD">200.234.208.5</span></code></p>
+<p>Clique na aba <strong>Firewall</strong> e crie a regra:</p>
+<p><strong>Source CIDR</strong>: <em>0.0.0.0/0</em>; <strong>Start port</strong>: <em>22000</em>; <strong>End port</strong>: <em>22099</em> (para aceitar conexões SSH num range de portas).</p>
+<p>Acesse a aba <strong>Port forwarding</strong> e adicione as entradas:</p>
+<ol>
+<li><strong>Private port</strong>: <em>22-22</em>; <strong>Public port</strong>: <em>22000-22000</em>; <strong>Protocol</strong>: <em>TCP</em>; botão <strong>Add...</strong>: <em>web</em></li>
+<li><strong>Private port</strong>: <em>22-22</em>; <strong>Public port</strong>: <em>22001-22001</em>; <strong>Protocol</strong>: <em>TCP</em>; botão <strong>Add...</strong>: <em>bd</em>
+<img alt="Add VM" src="../forwarding-bd.png" /></li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Note como podemos usar portas externas distintas (<em>22000</em> e <em>22001</em>) como mesmo IP público para acessar serviços distintos (<em>web</em> e <em>bd</em>) que possuem a mesma porta (22) no <em>back-end</em>.</p>
+</div>
+<h3 id="acompanhamento-da-instalacao">Acompanhamento da instalação</h3>
+<p>Agora acesse o servidor de banco de dados, lembrando de usar a porta <em>22001</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Substitua o endereço IP abaixo pelo que foi configurado com port forwarding acima</span>
+ssh<span class="w"> </span>root@<span class="placeholder-value inline-editor-requested" data-placeholder="IP_FWD">200.234.208.5</span><span class="w"> </span>-p<span class="w"> </span><span class="m">22001</span>
+</code></pre></div>
+<p>O servidor deverá executar as instruções do <em>user data</em> associado a ele, para instalação do <em>MySQL</em> e demais configurações. Acompanhe com os comandos:</p>
+<div class="highlight"><pre><span></span><code>cloud-init<span class="w"> </span>status<span class="w"> </span><span class="c1"># aguarde até obter &#39;status: done&#39;</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>mysql<span class="w"> </span><span class="c1"># aguarde até obter status do serviço &#39;running&#39;</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>No nosso <em>user data</em> incluimos <em>apt ugrade</em>, que pode demorar um tempo. É possível acompanhar o andamento da instalação com o comando:
+<div class="highlight"><pre><span></span><code>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/cloud-init-output.log
+</code></pre></div></p>
+</div>
+<p>Finalmente, para criar o banco:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-h<span class="w"> </span>localhost
+</code></pre></div>
+<p>Edite a senha abaixo e copie o comando no prompt do MySQL:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s1">&#39;example_database&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;example_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;<span class="placeholder-value inline-editor-requested" data-placeholder="SENHA_BD">pass_bd</span>&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;example_user&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">item_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">item_id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Embora estejamos permitindo conexões de <code>example_user</code> a partir de qualquer host, lembre que a rede (<em>minha-rede</em>) é isolada. Não havendo portas criadas em <em>firewall</em> nem <em>forwarding</em> para o MySQL, o servidor de banco permanece fechado a conexões da internet pública. A configuração acima permite acesso por qualquer servidor, desde que dentro da mesma rede.</p>
+<p>Note, também, que o usuário <em>root</em>, por default, só permite conexões do próprio servidor (<em>localhost</em>)</p>
+</div>
+<p>Para preparar a VM para o snapshot, saia do prompt to MySQL com <code>exit;</code> e encerre o serviço para que escritas pendentes sejam gravadas em disco:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+</code></pre></div>
+<h2 id="snapshot-de-volume-raiz">Snapshot de volume raiz</h2>
+<p>A seguir ilustrarmos o uso de <em>snapshots</em> do volume <em>raiz</em> para recuperação da VM.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Estamos fazendo <em>snapshot</em> apenas do volume da VM e não do estado da memória. Por isso encerramos o serviço para que dados não sejam perdidos.</p>
+</div>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>Instances</strong> e selecione <em>bd</em></li>
+<li>Na seção à direita clique em <strong>Volumes</strong> e selecione o volume raiz (<em>ROOT-XXXX</em>)
+<img alt="Volumes bd" src="../volumes-bd.png" /></li>
+<li>Ao abrir os detalhes do volume <em>ROOT-XXXX</em> clique em <strong>Take snapshot</strong> e escolha o nome <em>snapshot-bd</em>
+<img alt="Snapshot" src="../snapshot.png" />
+<img alt="Snapshot name" src="../snapshot-name.png" /></li>
+<li>Confira que o <em>snapshot</em> com o nome escolhido, <em>snapshot-bd</em> foi criado clicando em <strong>Storage</strong>, <strong>Snapshots</strong> no menu de navegação à esquerda e aguarde até que esteja com <em>status</em> <strong>BackedUp</strong>.</li>
+<li>Agora simularemos um desastre, apagando a VM. Clique em <strong>Compute</strong>, <strong>Instances</strong>, selecione <em>bd</em>, clique em <strong>Destroy instance</strong> e habilite a opção <strong>Expunge</strong>
+<img alt="Destroy" src="../destroy.png" />
+<img alt="Expunge" src="../expunge.png" /></li>
+<li>A maneira de recuperar uma VM a partir de um disco raiz é, primeiro, criar um <em>template</em> a partir dele. Clique em <strong>Storage</strong>, <strong>Snapshots</strong> e selecione o <em>snapshot-bd</em>. Clique no botão <strong>Create template</strong>.
+<img alt="Template from snapshot" src="../template-from-snapshot.png" /></li>
+<li>Coloque nome e descrição <em>template-bd</em>, e <strong>OS type</strong> <em>Ubuntu 22.04 LTS</em> aceitando os demais parâmetros.</li>
+<li>Verifique que o <em>template</em> foi criado em <strong>Images</strong>, <strong>Templates</strong>
+<img alt="Template bd" src="../template-bd.png" /></li>
+<li>Finalmente crie a instância a partir do <em>template</em>. Clique em <strong>Compute</strong>, <strong>Instances</strong>, <strong>Add instance +</strong>.<ul>
+<li>Em <strong>Template/ISO</strong> escolha <strong>My templates</strong>, <em>template-bd</em>.</li>
+<li>Em <strong>Compute offering</strong> escolha <em>micro</em></li>
+<li>Em <strong>Networks</strong> escolha <em>minha-rede</em> para colocar a instância na mesma rede que a <em>web</em></li>
+<li>Em <strong>SSH key pairs</strong> escolha <em>minha-chave</em> cadastrada previamente.</li>
+<li>Em <strong>Name (Optional)</strong> coloque <em>bd</em>.</li>
+<li>Clique em <strong>Launch instance</strong>.</li>
+</ul>
+</li>
+<li>Em <strong>Network</strong>, <strong>Public IP addresses</strong>, repita os passos descritos acima em <a href="#port-forwarding">Port forwarding</a> para refazer o redirecionamento. </li>
+</ol>
+<p>Acesse o servidor novamente:</p>
+<p><div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>root@<span class="placeholder-value inline-editor-requested" data-placeholder="IP_FWD">200.234.208.5</span><span class="w"> </span>-p<span class="w"> </span><span class="m">22001</span>
+</code></pre></div>
+A conexão pode ser recusada pelo cliente SSH devido à mudança de chave no servidor, o que é esperado já que ele foi recriado. Para apagar a chave antiga do cliente:
+<div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-R<span class="w"> </span><span class="s2">&quot;[<span class="placeholder-value inline-editor-requested" data-placeholder="IP_FWD">200.234.208.5</span>]:22001&quot;</span>
+</code></pre></div>
+Após logar-se confira se o banco foi recuperado:
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-h<span class="w"> </span>localhost
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span><span class="w"> </span>
+<span class="n">USE</span><span class="w"> </span><span class="n">example_database</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">todo_list</span><span class="p">;</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Em resumo: Criamos um snapshot do volume raiz de uma instância, a partir do <em>snapshot</em> um <em>template</em> e, do <em>template</em>, uma nova instância:</p>
+<p>Instância <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> <em>snapshot</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> <em>template</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> nova instância</p>
+<p>Note, também, que não foi necessário configurar <em>user data</em> na nova instância pois as configurações já estavam no <em>template</em>.</p>
+</div>
+<h2 id="vm-snapshot">VM Snapshot</h2>
+<p>Outro possível cenário de DR ocorre quando é preciso voltar a VM a um estado anterior, por exemplo, para reverter uma <em>Change</em>. </p>
+<p>Continue logado no prompt do MySQL e execute:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">example_database</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Minha primeira tarefa&quot;</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">todo_list</span><span class="w"> </span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;Minha segunda tarefa&quot;</span><span class="p">);</span>
+</code></pre></div>
+Adicione mais linhas a gosto. Para testar a inclusão digite:
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">todo_list</span><span class="p">;</span>
+</code></pre></div></p>
+<p>O estado da instância, incluindo armazenamento e memória, pode ser salvo num <em>VM Snapshot</em>, que funciona como uma fotografia. Este difere do <em>snapshot</em> anterior, que grava somente o conteúdo do volume de armazenamento. </p>
+<ol>
+<li>Em <strong>Compute</strong>, <strong>Instances</strong>, selecione <em>bd</em> e clique em <strong>Take VM snapshot</strong> (atenção, não confundir com <em>Take VM volume snapshot</em> ao lado):
+<img alt="Take VM snapshot" src="../vm-snapshot.png" /></li>
+<li>Escolha o nome e habilite as opções <strong>Snapshot memory</strong> e <strong>Quiesce VM</strong>:
+<img alt="VM snapshot configs" src="../vm-snapshot-configs.png" /></li>
+<li>Após a criação do <em>VM snapshot</em> volte ao prompt do MySQL para simular uma operação destrutiva:
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">todo_list</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">todo_list</span><span class="p">;</span>
+</code></pre></div></li>
+<li>Em <strong>Storage</strong>, <strong>VM snapshots</strong>, selecione o <em>VM snapshot</em> criado e clique em <strong>Revert to VM snapshot</strong>:
+<img alt="Revert to VM snapshot" src="../revert-vm-snapshot.png" />
+Reconecte-se ao servidor e execute os queries:
+<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">example_database</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">todo_list</span><span class="p">;</span>
+</code></pre></div>
+Para verificar que não somente os dados mas, também, o estado da instância foi restaurado no exato ponto em que foi feito o <em>VM snapshot</em> execute, por exemplo, o comando <code>uptime</code> no shell, demonstrando que a instância parece ter uma tempo de vida mais longo do que o decorrido desde a recuperação.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Em resumo: O <em>VM snapshot</em> permite reverter a instância ao estado em que ele foi produzido</p>
+<p>Instância <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> <em>VM snapshot</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> instância é alterada <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> <em>Revert to VM snapshot</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> instância no estado inicial</p>
+</div>
+<h2 id="snapshot-de-volume-anexado">Snapshot de volume anexado</h2>
+<p>Agora demonstraremos um outro cenário de DR onde usamos um volume específico de dados, separado da raiz da instância. No exemplo a seguir, tal volume é usado para armazenar <em>dumps</em> do MySQL que podem ser recuperados anexando um <em>snapshot</em> previamente salvo.</p>
+<p>Obs. Antes de iniciar, apague o <em>VM Snapshot</em> criado em <strong>Storage</strong>, <strong>VM snapshots</strong> pois sua existência é incompatível com as operações a seguir.</p>
+<ol>
+<li>Acesse <strong>Storage</strong>, <strong>Volumes</strong> e <strong>Create volume +</strong>, preencha com nome <em>dados</em>, escolha <em>Disk offering: data.disk.general</em>  e tamanho <em>50</em>
+<img alt="Create volume" src="../create-volume.png" /></li>
+<li>Clique no volume criado e em <strong>Attach disk</strong>
+<img alt="Attach disk" src="../attach-disk.png" /></li>
+<li>Escolha a instância <em>bd</em> para anexar o volume
+<img alt="Attach disk to VM" src="../attach-disk-vm.png" /></li>
+<li>No shell da instância <em>bd</em> execute:
+<div class="highlight"><pre><span></span><code>lsblk
+</code></pre></div>
+E note que há uma nova partição <code>vdb</code>. Formate-a com o comando:
+<div class="highlight"><pre><span></span><code>mkfs.ext4<span class="w"> </span>/dev/vdb
+</code></pre></div>
+Para mapear uma pasta <em>dados</em> para a nova partição:
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/dados
+</code></pre></div>
+Edite o arquivo <code>/etc/fstab</code>:
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>/etc/fstab
+</code></pre></div>
+Adicionando, ao final, a linha:
+<div class="highlight"><pre><span></span><code>/dev/vdb    /dados    ext4    defaults    0    2
+</code></pre></div>
+Ao final, carregue a nova configuração com:
+<div class="highlight"><pre><span></span><code>mount<span class="w"> </span>-a
+</code></pre></div>
+Verifique que a pasta <em>dados</em> está configurada com o comando:
+<div class="highlight"><pre><span></span><code>df<span class="w"> </span>-h
+</code></pre></div>
+Cuja saída deverá conter a linha:
+<div class="highlight"><pre><span></span><code>/dev/vdb         49G   24K   47G   1% /dados
+</code></pre></div></li>
+<li>Verifique que a tabela <em>example_database.todo_list</em> continua populada:
+<div class="highlight"><pre><span></span><code>mysql -u root
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="n">todo_list</span><span class="p">;</span>
+</code></pre></div>
+<img alt="TODO list" src="../todo-list.png" /></li>
+<li>Volte ao shell (digitando <code>EXIT;</code> no prompt to MySQL) e execute um backup para a pasta <em>dados</em>:
+<div class="highlight"><pre><span></span><code>mysqldump<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>example_database<span class="w"> </span>todo_list<span class="w"> </span>&gt;<span class="w"> </span>/dados/dump-todo-list.sql
+</code></pre></div>
+Você pode verificar o conteúdo do <em>dump</em> com:
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/dados/dump-todo-list.sql
+</code></pre></div></li>
+<li>De volta ao painel do CloudStack, na página do volume <em>dados</em> clique em <strong>Take snapshot</strong>, e dê o nome <em>snapshot-dados</em>:
+<img alt="Take snapshot dados" src="../take-snapshot-dados.png" /></li>
+<li>Simularemos agora que houve uma reinstalação do zero, com a tabela vazia e sem a presença da partição contendo o <em>dump</em>.
+<div class="highlight"><pre><span></span><code>umount<span class="w"> </span>/dados
+mysql<span class="w"> </span>-u<span class="w"> </span>root
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="n">todo_list</span><span class="p">;</span>
+</code></pre></div></li>
+<li>Clique em <strong>Storage</strong>, <strong>Volumes</strong> e selecione o volume <em>dados</em>. Desconecte-o clicando em <strong>Detach disk</strong>.
+<img alt="Detach disk" src="../detach-disk.png" />
+Em seguida, delete o volume <em>dados</em> clicando em <strong>Destroy volume</strong> (habilite <strong>Expunge</strong>).</li>
+<li>Agora damos início à recuperação. Usaremos o <em>snapshot</em> do volume <em>dados</em> salvo. Clique em <strong>Storage</strong>, <strong>Snapshots</strong>, <em>snapshot-dados</em> e selecione <strong>Create volume</strong>, dando o nome <em>dados-restore</em>.
+<img alt="Volume from snapshot" src="../volume-from-snapshot.png" />
+<img alt="Create volume dados restore" src="../create-volume-dados-restore.png" /></li>
+<li>Finalmente, acesse <strong>Storage</strong>, <strong>Volumes</strong>, <em>dados-restore</em>, clique em <strong>Attach disk</strong> escolhendo a VM <em>bd</em>.</li>
+<li>Para remapear a partição à pasta <em>dados</em>:
+<div class="highlight"><pre><span></span><code>mount<span class="w"> </span>-a
+</code></pre></div>
+A esta altura você pode verificar que o <em>dump</em> já está acessível:
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>/dados
+</code></pre></div>
+Para recuperar o <em>dump</em>:
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>example_database<span class="w"> </span>&lt;<span class="w"> </span>/dados/dump-todo-list.sql
+mysql<span class="w"> </span>-u<span class="w"> </span>root
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">example_database</span><span class="p">.</span><span class="n">todo_list</span><span class="p">;</span>
+</code></pre></div>
+Com isso recuperamos o conteúdo da tabela.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Em resumo: O <em>snapshot</em> de uma partição de dados permite a recuperação destes reconstruindo a partição e reanexando-a à instância para carregamento.</p>
+<p>Instância <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> <em>dump</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> volume <em>dados</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> <em>snapshot</em> do volume <em>dados</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> gera volume <em>dados-restore</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> <em>attach disk</em> <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> instância sem dados <img alt="▶" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/25b6.svg" title=":arrow_forward:" /> recuperação via importação</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Note que, diferentemente do caso de <em>snapshot</em> de um volume raiz, não é necessário criar um <em>template</em> e depois uma nova instância. Basta criar o novo volume diretamente a partir do <em>snapshot</em> e anexá-lo a uma instância pre-existente.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A opção de <em>snapshot</em> de volumes pode ser automatizada via agendamentos, como você pode constatar no menu <strong>Storage</strong>, <strong>Volumes</strong>, <em>nome_do_volume</em>, ícone <strong>Recurring snapshots</strong>.</p>
+</div>
+<h2 id="observacoes">Observações</h2>
+<p>Vimos 3 formas diferentes de DR:</p>
+<ul>
+<li>Reconstrução de uma VM a partir de <em>snapshot</em> de volume raiz</li>
+<li>Reversão a um estado anterior através de <em>VM snapshot</em>. Pode ser útil, por exemplo, como plano de <em>rollback</em> de uma <em>change</em>.</li>
+<li>Importação de dados de backup via <em>snapshot</em> de volume anexado, rotina que pode ser automatizada via agendamento.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../assets/javascripts/placeholder-combined.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,717 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../userdata/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Compute e Networking - CloudStack Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a40c8224.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/javascripts/placeholder-plugin.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#compute-e-networking" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CloudStack Docs" class="md-header__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CloudStack Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Compute e Networking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CloudStack Docs" class="md-nav__button md-logo" aria-label="CloudStack Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CloudStack Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introdução
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Compute e Networking
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Compute e Networking
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chaves-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chaves SSH
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rede" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rede
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criando-a-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criando a instância
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectando-a-internet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conectando à internet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conectando à internet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Firewall
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static NAT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conexao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conexão
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conexão">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apache
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../userdata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DR e Snapshots
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loadbalancing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancing e Autoscaling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vpc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#login" class="md-nav__link">
+    <span class="md-ellipsis">
+      Login
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chaves-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chaves SSH
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rede" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rede
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criando-a-instancia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criando a instância
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectando-a-internet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conectando à internet
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conectando à internet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Firewall
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static NAT
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conexao" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conexão
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conexão">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apache
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="compute-e-networking">Compute e Networking</h1>
+<h2 id="login">Login</h2>
+<p>Para começar, acesse <a href="https:/lwsa.cloud">o painel do CloudStack</a> e forneça as credenciais que recebeu.</p>
+<h2 id="chaves-ssh">Chaves SSH</h2>
+<p>Para poder logar-se nas instâncias, crie um chave SSH e cadastre-a no painel.</p>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>SSH key pairs</strong></li>
+<li>Clique no botão <strong>Create a SSH Key Pair +</strong></li>
+<li>Verifique se possui a chave criada no seu computador:
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/.ssh/id_rsa.pub
+</code></pre></div>
+Caso ainda não possua, para criá-la:
+<div class="highlight"><pre><span></span><code>ssh-keygen
+cat<span class="w"> </span>~/.ssh/id_rsa.pub
+</code></pre></div></li>
+</ol>
+<p>Copie todas as linhas de saída do comando <em>cat</em> e cole no campo <strong>Public key</strong>. Escolha um nome como <em>minha-chave</em> e clique OK.</p>
+<p><img alt="Create SSH key pair" src="../keypair.png" /></p>
+<h2 id="rede">Rede</h2>
+<p>Usualmente como em clouds públicas, as instâncias são instaladas em redes com endereços IP privados (exemplo <code>10.x.x.x</code>) e acessadas via <em>port forwarding</em> ou <em>load balancing</em>.</p>
+<p>A rede que você criará ficará totalmente isolada de todas as demais redes de outros clientes, sendo possível a comunicação somente através da saída por IPs públicos e desde que permitida por regras de firewall.</p>
+<p>Para criar a rede:</p>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Network</strong>, <strong>Guest networks</strong></li>
+<li>Clique no botão <strong>Add network +</strong></li>
+<li>Em <strong>name</strong> coloque um nome como <em>minha-rede</em></li>
+<li>Em <strong>Network offering</strong> escolha <code>ISOLATED Network VXLAN with Single VR</code></li>
+<li>Os demais campos podem ficar em branco. Clique OK.</li>
+</ol>
+<h2 id="criando-a-instancia">Criando a instância</h2>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Compute</strong>, <strong>Instances</strong></li>
+<li>Clique no botão <strong>Add instance +</strong></li>
+<li>Em <strong>Templates</strong>, escolha <strong>Community</strong>, digite <em>ubuntu</em> na busca e escolha <strong>Ubuntu Server 22.04</strong> 
+<img alt="Template" src="../template.png" /></li>
+<li>Em <strong>Compute offering</strong> escolha <strong>micro</strong></li>
+<li>Em <strong>Data disk</strong> mantenha <strong>No thanks</strong></li>
+<li>Em <strong>Networks</strong> escolha a rede que criou, <em>minha-rede</em></li>
+<li>Em <strong>SSH key pairs</strong> escolha a chave criada no passo anterior, por exemplo, <em>minha-chave</em>
+<img alt="SSH key pairs" src="../choose-keypair.png" /></li>
+<li>Coloque o nome <em>web</em> e clique <strong>Launch instance</strong>
+<img alt="Instance details" src="../details.png" /></li>
+</ol>
+<h2 id="conectando-a-internet">Conectando à internet</h2>
+<p>Para que a instância criada possa se comunicar com o mundo externo, os próximos passos são:</p>
+<ul>
+<li>Criar regras de <em>firewall</em> restringindo a conexão a origens específicas</li>
+<li>Associar um endereço IP público e porta via <em>Static NAT</em></li>
+</ul>
+<h3 id="firewall">Firewall</h3>
+<ol>
+<li>No menu de navegação à esquerda clique em <strong>Network</strong>, <strong>Guest networks</strong> e clique na rede criada, ex. <em>minha-rede</em></li>
+<li>Ao clicar na aba <strong>Egress rules</strong> pode-se verificar se o tráfego de saída para a internet é, ou não, liberado por padrão. Caso a política (<em>default egress policy</em>) seja <em>Allow</em> já está liberado e siga para o próximo passo. Se estiver como <em>Deny</em> devemos liberar o tráfego de saída:
+<img alt="Egress rules" src="../egress_allow.png" /></li>
+<li>Na aba <strong>Public IP addresses</strong> vemos que já há um primeiro IP associado e marcado como <em>source-nat</em>. Isto indica que tráfego originado de dentro da rede para a internet terá este IP como origem.
+<img alt="Public IP addresses" src="../public-ip.png" /></li>
+<li>No menu à esquerda acesse <strong>Networks</strong>, <strong>Guest networks</strong>, <em>minha-rede</em>, <strong>Public IP addresses</strong> e clique <strong>+ Acquire new IP</strong>. Escolha qualquer IP livre.
+<img alt="Acquire new IP" src="../acquire-ip.png" /></li>
+<li>Clique sobre o novo IP escolhido (exemplo: <code><span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB">200.234.208.120</span></code>). Clique na aba <strong>Firewall</strong> e crie as seguintes regras:<ol>
+<li><strong>Source CIDR</strong>: <em>0.0.0.0/0</em>; <strong>Start port</strong>: <em>80</em>; <strong>End port</strong>: <em>80</em> (para aceitar conexões HTTP)</li>
+<li><strong>Source CIDR</strong>: <em>0.0.0.0/0</em>; <strong>Start port</strong>: <em>443</em>; <strong>End port</strong>: <em>443</em> (para aceitar conexões HTTPS)</li>
+<li><strong>Source CIDR</strong>: <em>0.0.0.0/0</em>; <strong>Start port</strong>: <em>22</em>; <strong>End port</strong>: <em>22</em> (para aceitar conexões SSH).</li>
+<li><strong>Source CIDR</strong>: <em>0.0.0.0/0</em>; <strong>Protocol</strong>: <em>ICMP</em> (para testarmos <em>ping</em>).</li>
+</ol>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Poderíamos restringir origens para cada uma dessas portas. Por exemplo, poderíamos permitir origens SSH somente para uma origem específica, como um <em>jump server</em>.</p>
+</div>
+<p><img alt="Firewall" src="../firewall.png" /></p>
+<h3 id="static-nat">Static NAT</h3>
+<p>Uma vez configurado qual tráfego permitir, falta direcioná-lo ao destino desejado. Existem 3 formas diferentes de configurar o tráfego para o endereço IP:</p>
+<ul>
+<li>Static NAT</li>
+<li>Port Forwarding</li>
+<li>Load Balancing</li>
+</ul>
+<p>A forma mais simples e direta de associar um endereço IP a uma instância é via <em>Static NAT</em>, onde todo o tráfego recebido no IP é direcionado sempre à mesma instância. É o paradigma que mais se assemelha a um VPS, que tem uma associação 1:1 com um IP público.</p>
+<p>Clique sobre o botão <code>(+)</code> no canto superior direito da página do IP, onde se lê <em>Enable static NAT</em>.
+<img alt="Enable Static NAT" src="../enable-static-nat.png" /></p>
+<p>Em seguida escolha como destino a instância <em>web</em> que criamos.
+<img alt="Static NAT" src="../static-nat.png" /></p>
+<h2 id="conexao">Conexão</h2>
+<p>Uma vez que habilitamos <em>ICMP</em> para o IP, podemos testar o <em>ping</em>:</p>
+<div class="highlight"><pre><span></span><code>ping<span class="w"> </span><span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB">200.234.208.120</span>
+</code></pre></div>
+<p>Na estação onde tiver a chave privada associada à chave pública que cadastramos:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>root@<span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB">200.234.208.120</span>
+</code></pre></div>
+<p>Alguns comandos interessantes:</p>
+<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>update
+apt<span class="w"> </span>install<span class="w"> </span>cpuinfo
+cpu-info
+df<span class="w"> </span>-h
+</code></pre></div>
+<h3 id="apache">Apache</h3>
+<p><div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>apache2
+</code></pre></div>
+Acesse no browser para testar:
+<div class="highlight"><pre><span></span><code>http://<span class="placeholder-value inline-editor-requested" data-placeholder="IP_WEB">200.234.208.120</span>
+</code></pre></div>
+<img alt="Apache" src="../apache.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../assets/javascripts/placeholder-combined.js"></script>
+      
+    
+  </body>
+</html>
