@@ -129,6 +129,7 @@ A seguir ilustrarmos o uso de _snapshots_ do volume _raiz_ para recuperação da
     - Em __Networks__ escolha _minha-rede_ para colocar a instância na mesma rede que a _web_
     - Em __SSH key pairs__ escolha _minha-chave_ cadastrada previamente.
     - Em __Name (Optional)__ coloque _bd_.
+    - Clique em __Launch instance__.
 10. Em __Network__, __Public IP addresses__, repita os passos descritos acima em [Port forwarding](#port-forwarding) para refazer o redirecionamento. 
 
 Acesse o servidor novamente:
