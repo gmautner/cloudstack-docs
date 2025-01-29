@@ -250,9 +250,9 @@ mysql -u root -h localhost
 ```
 4. Execute o _script_:
 ```SQL
-CREATE DATABASE `example_database`;
+CREATE DATABASE 'example_database';
 CREATE USER 'example_user'@'%' IDENTIFIED BY 'xSENHA_BDx';
-GRANT ALL PRIVILEGES ON `example_database`.* TO 'example_user'@'%';
+GRANT ALL PRIVILEGES ON example_database.* TO 'example_user'@'%';
 FLUSH PRIVILEGES;
 CREATE TABLE example_database.todo_list (
 	item_id INT AUTO_INCREMENT,
