@@ -62,7 +62,7 @@ Para que a instância criada possa se comunicar com o mundo externo, os próximo
 ### Firewall
 
 1. No menu de navegação à esquerda clique em __Network__, __Guest networks__ e clique na rede criada, ex. _minha-rede_
-1. Ao clicar na aba __Egress rules__ pode-se verificar se o tráfego de saída para a internet é, ou não, liberado por padrão. Caso a política (_default egress policy_) seja _Allow_ já está liberado. Se estiver como _Deny_ devemos liberar o tráfego de saída:
+1. Ao clicar na aba __Egress rules__ pode-se verificar se o tráfego de saída para a internet é, ou não, liberado por padrão. Caso a política (_default egress policy_) seja _Allow_ já está liberado e siga para o próximo passo. Se estiver como _Deny_ devemos liberar o tráfego de saída:
 ![Egress rules](egress_allow.png)
 1. Na aba __Public IP addresses__ vemos que já há um primeiro IP associado e marcado como _source-nat_. Isto indica que tráfego originado de dentro da rede para a internet terá este IP como origem.
 ![Public IP addresses](public-ip.png)
