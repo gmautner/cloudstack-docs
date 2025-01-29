@@ -274,7 +274,7 @@ DELETE FROM example_database.todo_list;
 9. Clique em __Storage__, __Volumes__ e selecione o volume _dados_. Desconecte-o clicando em __Detach disk__.
 ![Detach disk](detach-disk.png)
 Em seguida, delete o volume _dados_ clicando em __Destroy volume__ (habilite __Expunge__).
-1.  Agora damos início à recuperação. Usaremos o _snapshot_ do volume _dados_ salvo. Clique em __Storage__, __Snapshots__, _snapshot-dados_ e selecione __Create volume__.
+1.  Agora damos início à recuperação. Usaremos o _snapshot_ do volume _dados_ salvo. Clique em __Storage__, __Snapshots__, _snapshot-dados_ e selecione __Create volume__, dando o nome _dados-restore_.
 ![Volume from snapshot](volume-from-snapshot.png)
 ![Create volume dados restore](create-volume-dados-restore.png)
 1.  Finalmente, acesse __Storage__, __Volumes__, _dados-restore_, clique em __Attach disk__ escolhendo a VM _bd_.
