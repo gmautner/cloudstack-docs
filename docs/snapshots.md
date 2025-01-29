@@ -305,7 +305,7 @@ Com isso recuperamos o conteúdo da tabela.
     Note que, diferentemente do caso de _snapshot_ de um volume raiz, não é necessário criar um _template_ e depois uma nova instância. Basta criar o novo volume diretamente a partir do _snapshot_ e anexá-lo a uma instância pre-existente.
 
 !!! Tip
-    A opção de _snapshot_ de volumes pode ser automatizada via agendamentos, como você pode constatar explorando o menu.
+    A opção de _snapshot_ de volumes pode ser automatizada via agendamentos, como você pode constatar no menu __Storage__, __Volumes__, _nome_do_volume_, ícone __Recurring snapshots__.
 
 ## Observações
 
