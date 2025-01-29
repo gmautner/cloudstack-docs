@@ -7,7 +7,7 @@ e associá-los às instâncias desejadas.
 
 ## Criação de User Data
 
-Clique em __User Data__, __Register a userdata +__. Dê o nome de _mysql_ e conteúdo:
+Clique em  __Compute__, __User Data__, __Register a userdata +__. Dê o nome de _mysql_ e conteúdo:
 
 ```yaml
 #cloud-config
