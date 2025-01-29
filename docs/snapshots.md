@@ -64,6 +64,12 @@ cloud-init status # aguarde até obter 'status: done'
 systemctl status mysql # aguarde até obter status do serviço 'running'
 ```
 
+!!! Tip
+    No nosso _user data_ incluimos _apt ugrade_, que pode demorar um tempo. É possível acompanhar o andamento da instalação com o comando:
+    ```bash
+    tail -f /var/log/cloud-init-output.log
+    ```
+
 Finalmente, para criar o banco:
 
 ```bash
